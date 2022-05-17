@@ -1,21 +1,47 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import { IUser } from '../user/User.props';
-import { UserCheckBox } from '../components/UI/CheckBox/UserCheckBox'
+import {
+	View,
+	Text,
+	StyleSheet,
+	TouchableOpacity,
+	Alert,
+	ScrollView,
+	TextInput,
+} from 'react-native';
+import { IUserRegistr } from '../user/User.props';
+import { UserCheckBox } from '../components/UI/CheckBox/UserCheckBox';
 import { UserSwitch } from '../components/UI/Switch/UserSwitch';
-import {UserInput } from '../components/UI/TextInput/UserTextInput'
+import { UserInput } from '../components/UI/TextInput/UserTextInput';
 import { ModalWindow } from '../components/modalWindow/ModalWindow';
 import { useForm, Controller } from 'react-hook-form';
-import { emailValidate, passwordValidate, loginValidate } from '../user/validate'
+import { emailValidate, passwordValidate, loginValidate } from '../user/validate';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { registration } from '../service/service';
 
-export const SignUp = ({ navigation }:any) => {
+type RootStackParamList = {
+	SignIn: undefined;
+
+	PdpComments: { slug: string };
+	Sellers: { data: Array<string> };
+	Favorites: undefined;
+};
+
+interface IPdpPageProps {
+	navigation: NativeStackNavigationProp<RootStackParamList, 'SignIn'>;
+}
+
+export const SignUp: React.FC<IPdpPageProps> = ({ navigation }) => {
 	const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
 	const [showModalWin, setShowModalWin] = useState<boolean>(false);
 
-	const [checked, setChecked] = useState<boolean>(false);
+	const [checkedMale, setCheckedMale] = useState<boolean>(false);
 
-	const [data, setData] = useState<IUser | null>(null);
+	const [checkedFemale, setCheckedFemale] = useState<boolean>(false);
+
+	const [data, setData] = useState<IUserRegistr | null>(null);
+
+	const [loading, setLoading] = useState<boolean>(false);
 
 	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
@@ -28,6 +54,7 @@ export const SignUp = ({ navigation }:any) => {
 			email: '',
 			login: '',
 			password: '',
+			city: '',
 		},
 	});
 
@@ -35,10 +62,22 @@ export const SignUp = ({ navigation }:any) => {
 		setShowModalWin(!showModalWin);
 	};
 
-	const onSubmit = (info:IUser) => {
-		(info['isEnabled'] = isEnabled), (info['checked'] = checked);
-		setData(info);
-		toggeShowModal();
+	const onSubmit = async (info: IUserRegistr) => {
+		setLoading(true);
+		//(info['isEnabled'] = isEnabled), (info['checked'] = checked);
+		const { login, email, password } = info;
+
+		try {
+			const response = await registration(login, email, password);
+			setLoading(false);
+			setData(info);
+			Alert.alert(response.data);
+		} catch (error: any) {
+			setLoading(false);
+			Alert.alert(error.response.data);
+		}
+
+		//toggeShowModal();
 	};
 
 	return (
@@ -56,7 +95,6 @@ export const SignUp = ({ navigation }:any) => {
 							render={({ field: { onChange, value } }) => (
 								<UserInput
 									title={'LOGIN'}
-									//onBlur={onBlur}
 									setValue={onChange}
 									value={value}
 									err={errors.login && true}
@@ -73,7 +111,6 @@ export const SignUp = ({ navigation }:any) => {
 									title={'EMAIL'}
 									autoCompleteType='email'
 									keyboardType='email-address'
-									//onBlur={onBlur}
 									setValue={onChange}
 									value={value}
 									err={errors.email && true}
@@ -89,7 +126,6 @@ export const SignUp = ({ navigation }:any) => {
 								<UserInput
 									title={'PASSWORD'}
 									secureTextEntry={true}
-								//	onBlur={onBlur}
 									setValue={onChange}
 									value={value}
 									err={errors.password && true}
@@ -97,24 +133,49 @@ export const SignUp = ({ navigation }:any) => {
 							)}
 							name='password'
 						/>
+
+						<Controller
+							control={control}
+							rules={loginValidate}
+							render={({ field: { onChange, value } }) => (
+								<UserInput
+									title={'CITY'}
+									setValue={onChange}
+									value={value}
+									err={errors.city && true}
+								/>
+							)}
+							name='city'
+						/>
+
 						{errors.email && Alert.alert(errors.email.message as string)}
 						{errors.login && Alert.alert(errors.login.message as string)}
 						{errors.password && Alert.alert(errors.password.message as string)}
 
-						<View style={styles.switch_container}>
-							<Text>Confirm</Text>
-							<UserSwitch toggleSwitch={toggleSwitch} value={isEnabled} />
-						</View>
 						<View style={styles.checkBox_container}>
-							<Text>Receive notifications</Text>
-							<UserCheckBox checked={checked} handleCheckBox={setChecked} />
+							<Text>Male</Text>
+							<UserCheckBox
+								checked={checkedMale}
+								handleCheckBox={setCheckedMale}
+								off={checkedFemale ? true : false}
+								text={'Male'}
+							/>
+							<Text>Female</Text>
+							<UserCheckBox
+								checked={checkedFemale}
+								handleCheckBox={setCheckedFemale}
+								off={checkedMale ? true : false}
+								text={'Female'}
+							/>
 						</View>
 						<View style={styles.btn_container}>
 							<TouchableOpacity
 								onPress={handleSubmit(onSubmit)}
 								style={styles.btn_btnnn}
 							>
-								<Text style={{ color: 'white', fontSize: 20 }}>Sign Up</Text>
+								<Text style={{ color: 'white', fontSize: 20 }}>
+									{!loading ? 'Sing Up' : 'loading...'}
+								</Text>
 							</TouchableOpacity>
 						</View>
 						<View>
@@ -131,7 +192,7 @@ export const SignUp = ({ navigation }:any) => {
 					</View>
 				</ScrollView>
 			) : (
-				<ModalWindow toggeShowModal={toggeShowModal} data={data}/>
+				<ModalWindow toggeShowModal={toggeShowModal} data={data} />
 			)}
 		</>
 	);

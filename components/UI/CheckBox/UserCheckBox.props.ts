@@ -1,5 +1,6 @@
-
 export interface IUserCheckBox {
-    checked:boolean,
-    handleCheckBox:(checked:boolean)=>void;
+	checked: boolean;
+	handleCheckBox: (checked: boolean) => void;
+	off: boolean;
+	text: string;
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import { IUser } from '../user/User.props';
-import { UserInput } from '../components/UI/TextInput/UserTextInput'
+import { IUserLogin } from '../user/User.props';
+import { UserInput } from '../components/UI/TextInput/UserTextInput';
 import { UserCheckBox } from '../components/UI/CheckBox/UserCheckBox';
 import { UserSwitch } from '../components/UI/Switch/UserSwitch';
 import { ModalWindow } from '../components/modalWindow/ModalWindow';
@@ -9,14 +9,14 @@ import { useForm, Controller } from 'react-hook-form';
 
 import { emailValidate, passwordValidate, loginValidate } from '../user/validate';
 
-export const SignIn = ({ navigation }:any) => {
+export const SignIn = ({ navigation }: any) => {
 	const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
 	const [showModalWin, setShowModalWin] = useState<boolean>(false);
 
 	const [checked, setChecked] = useState<boolean>(false);
 
-	const [data, setData] = useState<IUser | null>(null);
+	const [data, setData] = useState<IUserLogin | null>(null);
 
 	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
@@ -35,8 +35,7 @@ export const SignIn = ({ navigation }:any) => {
 		setShowModalWin(!showModalWin);
 	};
 
-	const onSubmit = (info:IUser) => {
-		(info['isEnabled'] = isEnabled), (info['checked'] = checked);
+	const onSubmit = (info: IUserLogin) => {
 		setData(info);
 		toggeShowModal();
 	};
@@ -73,7 +72,7 @@ export const SignIn = ({ navigation }:any) => {
 								<UserInput
 									title={'PASSWORD'}
 									secureTextEntry={true}
-								//	onBlur={onBlur}
+									//	onBlur={onBlur}
 									setValue={onChange}
 									value={value}
 									err={errors.password && true}
@@ -90,7 +89,12 @@ export const SignIn = ({ navigation }:any) => {
 						</View>
 						<View style={styles.checkBox_container}>
 							<Text>Receive notifications</Text>
-							<UserCheckBox checked={checked} handleCheckBox={setChecked} />
+							<UserCheckBox
+								checked={checked}
+								handleCheckBox={setChecked}
+								off={false}
+								text={'Male'}
+							/>
 						</View>
 						<View style={styles.btn_container}>
 							<TouchableOpacity
@@ -114,7 +118,7 @@ export const SignIn = ({ navigation }:any) => {
 					</View>
 				</ScrollView>
 			) : (
-				<ModalWindow toggeShowModal={toggeShowModal} data={data}/>
+				<ModalWindow toggeShowModal={toggeShowModal} data={data} />
 			)}
 		</>
 	);
