@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	TouchableOpacity,
-	Alert,
-	ScrollView,
-	TextInput,
-} from 'react-native';
-import { IUserRegistr } from '../user/User.props';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { IUserRegistr, IUserValidate } from '../user/User.props';
 import { UserCheckBox } from '../components/UI/CheckBox/UserCheckBox';
-import { UserSwitch } from '../components/UI/Switch/UserSwitch';
 import { UserInput } from '../components/UI/TextInput/UserTextInput';
-import { ModalWindow } from '../components/modalWindow/ModalWindow';
+import { Account } from './Account';
 import { useForm, Controller } from 'react-hook-form';
-import { emailValidate, passwordValidate, loginValidate } from '../user/validate';
+import {
+	emailValidate,
+	passwordValidate,
+	loginValidate,
+	cityValidate,
+	ageValidate,
+} from '../user/validate';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { registration, getUsers } from '../service/service';
+import { registration } from '../service/service';
 
 type RootStackParamList = {
 	SignIn: undefined;
+	Account: undefined;
 
 	PdpComments: { slug: string };
 	Sellers: { data: Array<string> };
@@ -27,23 +25,23 @@ type RootStackParamList = {
 };
 
 interface IPdpPageProps {
-	navigation: NativeStackNavigationProp<RootStackParamList, 'SignIn'>;
+	navigation: NativeStackNavigationProp<RootStackParamList, 'SignIn', 'Account'>;
 }
 
 export const SignUp: React.FC<IPdpPageProps> = ({ navigation }) => {
-	const [isEnabled, setIsEnabled] = useState<boolean>(false);
-
 	const [showModalWin, setShowModalWin] = useState<boolean>(false);
 
 	const [checkedMale, setCheckedMale] = useState<boolean>(false);
 
 	const [checkedFemale, setCheckedFemale] = useState<boolean>(false);
 
+	const [gender, setGender] = useState<string>('');
+
 	const [data, setData] = useState<IUserRegistr | null>(null);
 
 	const [loading, setLoading] = useState<boolean>(false);
 
-	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+	//const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
 	const {
 		control,
@@ -55,6 +53,7 @@ export const SignUp: React.FC<IPdpPageProps> = ({ navigation }) => {
 			login: '',
 			password: '',
 			city: '',
+			age: '',
 		},
 	});
 
@@ -62,24 +61,41 @@ export const SignUp: React.FC<IPdpPageProps> = ({ navigation }) => {
 		setShowModalWin(!showModalWin);
 	};
 
-	const onSubmit = async (info: IUserRegistr) => {
+	const onSubmit = async (info: IUserValidate) => {
 		setLoading(true);
-		//(info['isEnabled'] = isEnabled), (info['checked'] = checked);
-		const { login, email, password } = info;
-         console.log('info>>>',info)
+		const { login, email, password, city, age } = info;
+		const newData = {
+			name: login,
+			email,
+			password,
+			city,
+			age: +age,
+			gender,
+		};
+		setData(newData);
+
 		try {
-			const response = await registration(login, email, password);
-           
-			console.log('response>>>',response.data)
+			const response = await registration(newData);
 			setLoading(false);
-			setData(info);
 			Alert.alert(response.data);
+			//navigation.navigate('Account');
+			toggeShowModal();
 		} catch (error: any) {
 			setLoading(false);
 			Alert.alert(error.response.data);
 		}
+	};
 
-		//toggeShowModal();
+	const handleCheckedMale = () => {
+		setCheckedMale(true);
+		setCheckedFemale(false);
+		setGender('male');
+	};
+
+	const nandleCheckedFemale = () => {
+		setCheckedMale(false);
+		setCheckedFemale(true);
+		setGender('female');
 	};
 
 	return (
@@ -138,7 +154,7 @@ export const SignUp: React.FC<IPdpPageProps> = ({ navigation }) => {
 
 						<Controller
 							control={control}
-							rules={loginValidate}
+							rules={cityValidate}
 							render={({ field: { onChange, value } }) => (
 								<UserInput
 									title={'CITY'}
@@ -149,25 +165,38 @@ export const SignUp: React.FC<IPdpPageProps> = ({ navigation }) => {
 							)}
 							name='city'
 						/>
-
+						<Controller
+							control={control}
+							rules={ageValidate}
+							render={({ field: { onChange, value } }) => (
+								<UserInput
+									title={'AGE'}
+									keyboardType='numeric'
+									setValue={onChange}
+									value={value}
+									err={errors.age && true}
+								/>
+							)}
+							name='age'
+						/>
 						{errors.email && Alert.alert(errors.email.message as string)}
 						{errors.login && Alert.alert(errors.login.message as string)}
 						{errors.password && Alert.alert(errors.password.message as string)}
+						{errors.city && Alert.alert(errors.city.message as string)}
+						{errors.age && Alert.alert(errors.age.message as string)}
 
 						<View style={styles.checkBox_container}>
 							<Text>Male</Text>
 							<UserCheckBox
 								checked={checkedMale}
-								handleCheckBox={setCheckedMale}
+								handleCheckBox={handleCheckedMale}
 								off={checkedFemale ? true : false}
-								text={'Male'}
 							/>
 							<Text>Female</Text>
 							<UserCheckBox
 								checked={checkedFemale}
-								handleCheckBox={setCheckedFemale}
+								handleCheckBox={nandleCheckedFemale}
 								off={checkedMale ? true : false}
-								text={'Female'}
 							/>
 						</View>
 						<View style={styles.btn_container}>
@@ -176,7 +205,7 @@ export const SignUp: React.FC<IPdpPageProps> = ({ navigation }) => {
 								style={styles.btn_btnnn}
 							>
 								<Text style={{ color: 'white', fontSize: 20 }}>
-									{!loading ? 'Sing Up' : 'loading...'}
+									{!loading ? 'Sing Up' : 'Please waite...'}
 								</Text>
 							</TouchableOpacity>
 						</View>
@@ -194,7 +223,7 @@ export const SignUp: React.FC<IPdpPageProps> = ({ navigation }) => {
 					</View>
 				</ScrollView>
 			) : (
-				<ModalWindow toggeShowModal={toggeShowModal} data={data} />
+				<Account toggeShowModal={toggeShowModal} data={data} />
 			)}
 		</>
 	);

@@ -2,16 +2,10 @@ import React from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { IUserCheckBox } from './UserCheckBox.props';
 
-export const UserCheckBox = ({
-	checked,
-	handleCheckBox,
-	off,
-	text,
-}: IUserCheckBox): JSX.Element => {
+export const UserCheckBox = ({ checked, handleCheckBox, off }: IUserCheckBox): JSX.Element => {
 	return (
 		<>
 			<BouncyCheckbox
-				text={text}
 				fillColor={'green'}
 				unfillColor={'#FFFFFF'}
 				isChecked={checked}

@@ -3,7 +3,7 @@ export const loginValidate = {
 	validate: (value: string) => {
 		if (!value.match(/^[a-zA-Z](.[a-zA-Z0-9_-]*)$/)) {
 			return 'Enter in Latin letters';
-		} else if (value.length > 5) {
+		} else if (value.length > 14) {
 			return 'The login is too long';
 		}
 		return true;
@@ -36,10 +36,9 @@ export const emailValidate = {
 
 export const ageValidate = {
 	required: 'Enter your age',
-
 	validate: (value: string) => {
-		if (!value) {
-			return 'Enter your age';
+		if (value.length > 2) {
+			return 'Enter correctly age';
 		}
 		return true;
 	},

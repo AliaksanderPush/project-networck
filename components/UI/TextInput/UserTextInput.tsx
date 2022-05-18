@@ -1,24 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View, Text, TextInput } from 'react-native';
-import { ITextInput }  from './UserTextInput.props'
+import { ITextInput } from './UserTextInput.props';
 
-
-export const UserInput = ({
+export const UserInput: FC<ITextInput> = ({
 	title,
 	value,
 	setValue,
 	secureTextEntry = false,
 	keyboardType = 'default',
-	//onBlur,
 	err = false,
-}:ITextInput):JSX.Element => {
+}: ITextInput) => {
 	return (
 		<View style={{ marginHorizontal: 20 }}>
-		<Text style={{ color: err ? 'red' : 'black' }}>{title}</Text>
+			<Text style={{ color: err ? 'red' : 'black' }}>{title}</Text>
 			<TextInput
 				secureTextEntry={secureTextEntry}
 				keyboardType={keyboardType}
-				//onBlur={onBlur}
 				style={{
 					borderColor: err ? 'red' : '#8e93a1',
 					borderBottomWidth: 1,
