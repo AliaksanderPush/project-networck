@@ -16,7 +16,7 @@ import { ModalWindow } from '../components/modalWindow/ModalWindow';
 import { useForm, Controller } from 'react-hook-form';
 import { emailValidate, passwordValidate, loginValidate } from '../user/validate';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { registration } from '../service/service';
+import { registration, getUsers } from '../service/service';
 
 type RootStackParamList = {
 	SignIn: undefined;
@@ -66,9 +66,11 @@ export const SignUp: React.FC<IPdpPageProps> = ({ navigation }) => {
 		setLoading(true);
 		//(info['isEnabled'] = isEnabled), (info['checked'] = checked);
 		const { login, email, password } = info;
-
+         console.log('info>>>',info)
 		try {
 			const response = await registration(login, email, password);
+           
+			console.log('response>>>',response.data)
 			setLoading(false);
 			setData(info);
 			Alert.alert(response.data);

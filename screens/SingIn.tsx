@@ -108,7 +108,7 @@ export const SignIn = ({ navigation }: any) => {
 							<Text style={{ textAlign: 'center' }}>
 								Already Joined?{' '}
 								<Text
-									onPress={() => navigation.navigate('SignUp')}
+									onPress={() => navigation.navigate('Splash')}
 									style={{ color: 'red' }}
 								>
 									Sing Up

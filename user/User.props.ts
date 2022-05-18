@@ -4,8 +4,7 @@ export interface IUserRegistr {
 	password: string;
 	checked?: boolean;
 	isEnabled?: boolean;
-
-	city: string;
+	city?: string;
 }
 
 export interface IUserLogin {
