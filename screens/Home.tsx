@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 
-export const HomeScreen = ({ navigation }:any) => {
+export const Home = ({ navigation }: any) => {
 	return (
 		<View>
 			<Text>This Home Page</Text>

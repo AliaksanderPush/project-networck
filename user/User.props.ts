@@ -19,3 +19,19 @@ export interface IUserValidate {
 	city: string;
 	age: string;
 }
+
+export interface IUser {
+	_id: string;
+	age: number;
+	city: string;
+	email: string;
+	gender: string;
+	name: string;
+	password: string;
+	roles: string[];
+}
+
+export interface IUserDTO {
+	jwt: string;
+	searchUser: IUser;
+}

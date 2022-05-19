@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
-import { IModalWindow } from '../components/modalWindow/ModalWindow.props';
-import { PrimaryButton } from '../components/UI/Button/PrimaryButton';
-import { colors } from '../config/Colors';
+import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
+import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
+import { PropsAccount } from './Account.props';
+import { colors } from '../../config/Colors';
+import { IUser, IUserDTO } from '../../user/User.props';
+import { IUserState } from '../../redux/types/user.types';
 
-export const Account = ({ route, navigation }: any): JSX.Element => {
+export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 	const [isEdit, setIsEdit] = useState<boolean>(false);
-    const data = route.params.data;
-	console.log('data>>>', data)
-	const [name, setName] = useState<string | undefined>(data?.name);
-	const [email, setEmail] = useState<string | undefined>(data?.email);
-	const [password, setPassword] = useState<string | undefined>(data?.password);
-	const [age, setAge] = useState<string | undefined>(data?.age + '');
-	const [city, setCity] = useState<string | undefined>(data?.city);
-	const [gender, setGender] = useState<string | undefined>(data?.gender);
+	const [user, setUser] = useState<IUserState>(Object);
+	useTypedSelector((state) => setUser(state.user));
 
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [age, setAge] = useState('');
+	const [gender, setGender] = useState('');
+	const [city, setCity] = useState('');
+
+	console.log('user>>>>', name);
 	return (
 		<View style={styles.container}>
 			<View style={styles.wrap}>
@@ -28,7 +32,7 @@ export const Account = ({ route, navigation }: any): JSX.Element => {
 				<Text style={styles.text_item}>
 					Name:{' '}
 					{!isEdit ? (
-						<Text style={styles.data_item}>{name}</Text>
+						<Text style={styles.data_item}>{user.user?.searchUser.name}</Text>
 					) : (
 						<View style={styles.input}>
 							<TextInput
@@ -44,12 +48,12 @@ export const Account = ({ route, navigation }: any): JSX.Element => {
 				<Text style={styles.text_item}>
 					Email:{' '}
 					{!isEdit ? (
-						<Text style={styles.data_item}>{name}</Text>
+						<Text style={styles.data_item}>{user.user?.searchUser?.email}</Text>
 					) : (
 						<View style={styles.input}>
 							<TextInput
 								style={{ fontSize: 24 }}
-								value={email}
+								value={user.user?.searchUser?.email}
 								onChangeText={setEmail}
 								onBlur={() => setIsEdit(false)}
 							/>
@@ -57,30 +61,14 @@ export const Account = ({ route, navigation }: any): JSX.Element => {
 					)}{' '}
 				</Text>
 				<Text style={styles.text_item}>
-					Password:{' '}
-					{!isEdit ? (
-						<Text style={styles.data_item}>{password}</Text>
-					) : (
-						<View style={styles.input}>
-							<TextInput
-								style={{ fontSize: 24 }}
-								value={password}
-								onChangeText={setPassword}
-								onBlur={() => setIsEdit(false)}
-							/>
-						</View>
-					)}{' '}
-				</Text>
-
-				<Text style={styles.text_item}>
 					Age:{' '}
 					{!isEdit ? (
-						<Text style={styles.data_item}>{age}</Text>
+						<Text style={styles.data_item}>{user.user?.searchUser?.age}</Text>
 					) : (
 						<View style={styles.input}>
 							<TextInput
 								style={{ fontSize: 24 }}
-								value={age}
+								value={user.user?.searchUser?.age + ''}
 								onChangeText={setAge}
 								onBlur={() => setIsEdit(false)}
 							/>
@@ -91,7 +79,7 @@ export const Account = ({ route, navigation }: any): JSX.Element => {
 				<Text style={styles.text_item}>
 					City:{' '}
 					{!isEdit ? (
-						<Text style={styles.data_item}>{city}</Text>
+						<Text style={styles.data_item}>{user.user?.searchUser?.city}</Text>
 					) : (
 						<View style={styles.input}>
 							<TextInput
@@ -107,12 +95,12 @@ export const Account = ({ route, navigation }: any): JSX.Element => {
 				<Text style={styles.text_item}>
 					gender:{' '}
 					{!isEdit ? (
-						<Text style={styles.data_item}>{gender}</Text>
+						<Text style={styles.data_item}>{user.user?.searchUser?.gender}</Text>
 					) : (
 						<View style={styles.input}>
 							<TextInput
 								style={{ fontSize: 24 }}
-								value={gender}
+								value={user.user?.searchUser?.gender}
 								onChangeText={setGender}
 								onBlur={() => setIsEdit(false)}
 							/>
