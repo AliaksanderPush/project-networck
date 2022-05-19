@@ -2,9 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { IModalWindow } from './ModalWindow.props';
 
-export const ModalWindow = ({ data, toggeShowModal }: IModalWindow): JSX.Element => {
+export const ModalWindow = ({ route }: any): JSX.Element => {
 	//const { login, email, password, isEnabled, checked } = data;
-
+	console.log('pri>>>', route);
+	const data = route.params.data;
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text_title}>Signup successful 👍</Text>
@@ -12,7 +13,7 @@ export const ModalWindow = ({ data, toggeShowModal }: IModalWindow): JSX.Element
 			<Text style={styles.text_item}>Email: {data?.email}</Text>
 			<Text style={styles.text_item}>Password: {data?.password}</Text>
 
-			<Button color='blue' onPress={toggeShowModal} title='OK' />
+			
 		</View>
 	);
 };

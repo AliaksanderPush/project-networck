@@ -4,9 +4,10 @@ import { IModalWindow } from '../components/modalWindow/ModalWindow.props';
 import { PrimaryButton } from '../components/UI/Button/PrimaryButton';
 import { colors } from '../config/Colors';
 
-export const Account = ({ data, toggeShowModal }: IModalWindow): JSX.Element => {
+export const Account = ({ route, navigation }: any): JSX.Element => {
 	const [isEdit, setIsEdit] = useState<boolean>(false);
-
+    const data = route.params.data;
+	console.log('data>>>', data)
 	const [name, setName] = useState<string | undefined>(data?.name);
 	const [email, setEmail] = useState<string | undefined>(data?.email);
 	const [password, setPassword] = useState<string | undefined>(data?.password);
@@ -119,7 +120,7 @@ export const Account = ({ data, toggeShowModal }: IModalWindow): JSX.Element => 
 					)}{' '}
 				</Text>
 				<View style={styles.btn}>
-					<Button color='blue' onPress={toggeShowModal} title='OK' />
+					<Button color='blue' onPress={() => navigation.navigate('SignUp')} title='OK' />
 				</View>
 			</View>
 		</View>

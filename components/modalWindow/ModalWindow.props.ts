@@ -1,6 +1,6 @@
-import { IUserRegistr } from '../../user/User.props';
+import {  IUserRegistr } from '../../user/User.props';
 
 export interface IModalWindow {
-	data: IUserRegistr | null;
+	route: any;
 	toggeShowModal: () => void;
 }

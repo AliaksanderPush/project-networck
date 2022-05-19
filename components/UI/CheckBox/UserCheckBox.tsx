@@ -6,7 +6,7 @@ export const UserCheckBox = ({ checked, handleCheckBox, off }: IUserCheckBox): J
 	return (
 		<>
 			<BouncyCheckbox
-				fillColor={'green'}
+			  	fillColor={'green'}
 				unfillColor={'#FFFFFF'}
 				isChecked={checked}
 				onPress={(checked) => handleCheckBox(!checked)}
