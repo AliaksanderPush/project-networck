@@ -5,7 +5,7 @@ import { TopDrawerMenu } from '../../components/TopDrawerMenu/TopDrawerMenu';
 export const Chat = () => {
 	return (
 		<>
-			<View>
+			<View style={{ padding: 20 }}>
 				<TopDrawerMenu />
 			</View>
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

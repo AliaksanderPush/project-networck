@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { MaterialIcons } from '@expo/vector-icons';
-import { useNavigation, ParamListBase } from '@react-navigation/native';
+import { IconMenu } from '../UI/icons/IconMenu';
+import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { DrawerStackParams } from '../../App';
+import { AntDesign } from '@expo/vector-icons';
 
 export const TopDrawerMenu = () => {
-	const navigation = useNavigation<DrawerNavigationProp<ParamListBase>>();
+	const navigation = useNavigation<DrawerNavigationProp<DrawerStackParams>>();
 	return (
 		<View style={styles.container}>
 			<TouchableHighlight
@@ -16,7 +18,7 @@ export const TopDrawerMenu = () => {
 					navigation.openDrawer();
 				}}
 			>
-				<MaterialIcons name='menu' color='#333' size={20} />
+				<IconMenu color='#333' size={32} />
 			</TouchableHighlight>
 		</View>
 	);

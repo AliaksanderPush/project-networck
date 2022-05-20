@@ -35,7 +35,7 @@ export type DrawerStackParams = {
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 const ButtomStack = createBottomTabNavigator<ButtomStackParams>();
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<DrawerStackParams>();
 
 export const AuthScreenStack = () => {
 	return (
@@ -90,6 +90,20 @@ const TabScreenStack = () => {
 				}}
 			/>
 		</ButtomStack.Navigator>
+	);
+};
+
+export const DrawerScreenStack = () => {
+	return (
+		<Drawer.Navigator
+			initialRouteName='Likes'
+			screenOptions={{
+				headerShown: false,
+			}}
+		>
+			<Drawer.Screen name='Likes' component={Likes} />
+			<Drawer.Screen name='Friends' component={Friends} />
+		</Drawer.Navigator>
 	);
 };
 

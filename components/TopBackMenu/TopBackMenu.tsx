@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { AntDesign } from '@expo/vector-icons';
+import { IconBack } from '../UI/icons/IconBack';
 import { useNavigation } from '@react-navigation/core';
 
 export const TopBackMenu = () => {
@@ -16,7 +16,7 @@ export const TopBackMenu = () => {
 					navigation.goBack();
 				}}
 			>
-				<AntDesign name='back' size={24} color='black' />
+				<IconBack color='#333' size={20} />
 			</TouchableHighlight>
 		</View>
 	);
