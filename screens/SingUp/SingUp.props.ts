@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../../App';
 
-export type PropsSingUp = NativeStackScreenProps<RootStackParams, 'SignIn', 'Account'>;
+export type PropsSingUp = NativeStackScreenProps<RootStackParams, 'SignIn', 'TabScreenStack'>;
 
 /*
 type RootStackParamList = {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import {  IUserValidate } from '../../user/User.props';
+import { IUserValidate } from '../../user/User.props';
 import { UserCheckBox } from '../../components/UI/CheckBox/UserCheckBox';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { useForm, Controller } from 'react-hook-form';
@@ -53,7 +53,7 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 			const response = await registration(newData);
 			setLoading(false);
 			Alert.alert(response.data);
-			navigation.navigate('Account');
+			navigation.navigate('TabScreenStack');
 		} catch (error: any) {
 			setLoading(false);
 			Alert.alert(error.response.data);

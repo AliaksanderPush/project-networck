@@ -1,4 +1,4 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from '../../App';
+import { ButtomStackParams } from '../../App';
 
-export type PropsAccount = NativeStackScreenProps<RootStackParams, 'Account'>;
+export type PropsAccount = NativeStackScreenProps<ButtomStackParams, 'Account'>;

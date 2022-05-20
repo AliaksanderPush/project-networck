@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text,  TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { IUserLogin } from '../../user/User.props';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { useForm, Controller } from 'react-hook-form';
 import { emailValidate, passwordValidate } from '../../user/validate';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
+import { useNavigation } from '@react-navigation/core';
 import { Props } from './SingIn.props';
 import { styles } from './SingIn.styles';
 
@@ -12,6 +13,7 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const { fetchUser } = useActions();
+	//const navigation = useNavigation();
 
 	const {
 		control,
@@ -28,7 +30,7 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 		setLoading(true);
 		const response = fetchUser(info);
 		setLoading(false);
-		navigation.navigate('Account');
+		navigation.navigate('TabScreenStack');
 	};
 
 	return (

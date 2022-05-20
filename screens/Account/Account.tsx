@@ -6,6 +6,7 @@ import { PropsAccount } from './Account.props';
 import { colors } from '../../config/Colors';
 import { IUser, IUserDTO } from '../../user/User.props';
 import { IUserState } from '../../redux/types/user.types';
+import { TopDrawerMenu } from '../../components/TopDrawerMenu/TopDrawerMenu';
 
 export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 	const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -18,9 +19,10 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 	const [gender, setGender] = useState('');
 	const [city, setCity] = useState('');
 
-	console.log('user>>>>', name);
+	//console.log('user>>>>', name);
 	return (
 		<View style={styles.container}>
+			<TopDrawerMenu />
 			<View style={styles.wrap}>
 				<Text style={styles.text_title}>Personal account 👍</Text>
 				<PrimaryButton
@@ -108,7 +110,7 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 					)}{' '}
 				</Text>
 				<View style={styles.btn}>
-					<Button color='blue' onPress={() => navigation.navigate('SignUp')} title='OK' />
+					<Button color='blue' onPress={() => navigation.popToTop()} title='OK' />
 				</View>
 			</View>
 		</View>
