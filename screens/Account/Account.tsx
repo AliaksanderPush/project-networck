@@ -10,7 +10,7 @@ import { IUserState } from '../../redux/types/user.types';
 export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 	const [isEdit, setIsEdit] = useState<boolean>(false);
 	const [user, setUser] = useState<IUserState>(Object);
-	useTypedSelector((state) => setUser(state.user));
+	useTypedSelector((state) => state.user);
 
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');

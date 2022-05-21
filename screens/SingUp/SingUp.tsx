@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import { IUserRegistr, IUserValidate } from '../../user/User.props';
+import {  IUserValidate } from '../../user/User.props';
 import { UserCheckBox } from '../../components/UI/CheckBox/UserCheckBox';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { useForm, Controller } from 'react-hook-form';

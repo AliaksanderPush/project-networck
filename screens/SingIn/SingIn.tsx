@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import { IUserLogin, IUserRegistr } from '../../user/User.props';
+import { View, Text,  TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { IUserLogin } from '../../user/User.props';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { useForm, Controller } from 'react-hook-form';
-import { autorization } from '../../service/service';
 import { emailValidate, passwordValidate } from '../../user/validate';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { Props } from './SingIn.props';
@@ -28,7 +27,6 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 	const onSubmit = (info: IUserLogin) => {
 		setLoading(true);
 		const response = fetchUser(info);
-		console.log('responce>>', response);
 		setLoading(false);
 		navigation.navigate('Account');
 	};
