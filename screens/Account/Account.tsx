@@ -4,25 +4,44 @@ import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { PropsAccount } from './Account.props';
 import { colors } from '../../config/Colors';
-import { IUser, IUserDTO } from '../../user/User.props';
-import { IUserState } from '../../redux/types/user.types';
+import { putUser } from '../../service/service';
 import { TopDrawerMenu } from '../../components/TopDrawerMenu/TopDrawerMenu';
+import { styles } from './Account.styles';
 
 export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 	const [isEdit, setIsEdit] = useState<boolean>(false);
-	const [user, setUser] = useState<IUserState>(Object);
-	useTypedSelector((state) => state.user);
+	const { user, error, loading } = useTypedSelector((state) => state.user);
+	const [name, setName] = useState<string>('');
+	const [email, setEmail] = useState<string>('');
+	const [age, setAge] = useState<string>('');
+	const [gender, setGender] = useState<string>('');
+	const [city, setCity] = useState<string>('');
 
-	const [name, setName] = useState('');
-	const [email, setEmail] = useState('');
-	const [age, setAge] = useState('');
-	const [gender, setGender] = useState('');
-	const [city, setCity] = useState('');
+	const handlerUser = async () => {
+		const newUser = {
+			name,
+			email,
+			age: +age,
+			city,
+			gender,
+			password: user?.searchUser.password,
+		};
+		const res = await putUser(user?.searchUser._id, newUser);
+		console.log('put>>>', res);
+	};
 
-	//console.log('user>>>>', name);
+	useEffect(() => {
+		if (user) {
+			setName(user.searchUser.name);
+			setEmail(user.searchUser.email);
+			setAge(user.searchUser.age + '');
+			setCity(user.searchUser.city);
+			setGender(user.searchUser.gender);
+		}
+	}, [user]);
+
 	return (
 		<View style={styles.container}>
-			<TopDrawerMenu />
 			<View style={styles.wrap}>
 				<Text style={styles.text_title}>Personal account 👍</Text>
 				<PrimaryButton
@@ -34,7 +53,7 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 				<Text style={styles.text_item}>
 					Name:{' '}
 					{!isEdit ? (
-						<Text style={styles.data_item}>{user.user?.searchUser.name}</Text>
+						<Text style={styles.data_item}>{name}</Text>
 					) : (
 						<View style={styles.input}>
 							<TextInput
@@ -50,12 +69,12 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 				<Text style={styles.text_item}>
 					Email:{' '}
 					{!isEdit ? (
-						<Text style={styles.data_item}>{user.user?.searchUser?.email}</Text>
+						<Text style={styles.data_item}>{email}</Text>
 					) : (
 						<View style={styles.input}>
 							<TextInput
 								style={{ fontSize: 24 }}
-								value={user.user?.searchUser?.email}
+								value={email}
 								onChangeText={setEmail}
 								onBlur={() => setIsEdit(false)}
 							/>
@@ -65,12 +84,12 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 				<Text style={styles.text_item}>
 					Age:{' '}
 					{!isEdit ? (
-						<Text style={styles.data_item}>{user.user?.searchUser?.age}</Text>
+						<Text style={styles.data_item}>{age}</Text>
 					) : (
 						<View style={styles.input}>
 							<TextInput
 								style={{ fontSize: 24 }}
-								value={user.user?.searchUser?.age + ''}
+								value={age}
 								onChangeText={setAge}
 								onBlur={() => setIsEdit(false)}
 							/>
@@ -81,7 +100,7 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 				<Text style={styles.text_item}>
 					City:{' '}
 					{!isEdit ? (
-						<Text style={styles.data_item}>{user.user?.searchUser?.city}</Text>
+						<Text style={styles.data_item}>{city}</Text>
 					) : (
 						<View style={styles.input}>
 							<TextInput
@@ -97,12 +116,12 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 				<Text style={styles.text_item}>
 					gender:{' '}
 					{!isEdit ? (
-						<Text style={styles.data_item}>{user.user?.searchUser?.gender}</Text>
+						<Text style={styles.data_item}>{gender}</Text>
 					) : (
 						<View style={styles.input}>
 							<TextInput
 								style={{ fontSize: 24 }}
-								value={user.user?.searchUser?.gender}
+								value={gender}
 								onChangeText={setGender}
 								onBlur={() => setIsEdit(false)}
 							/>
@@ -110,59 +129,17 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 					)}{' '}
 				</Text>
 				<View style={styles.btn}>
-					<Button color='blue' onPress={() => navigation.popToTop()} title='OK' />
+					<PrimaryButton label='SAVE' setValue={handlerUser} />
 				</View>
+			</View>
+			<View>
+				<Text
+					onPress={() => navigation.popToTop()}
+					style={{ textAlign: 'center', color: 'blue' }}
+				>
+					Go to login
+				</Text>
 			</View>
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		backgroundColor: 'thistle',
-	},
-	wrap: {
-		width: '90%',
-		height: '90%',
-		backgroundColor: '#fff',
-		borderRadius: 10,
-		justifyContent: 'center',
-		marginLeft: '5%',
-		padding: 20,
-	},
-	text_item: {
-		fontSize: 24,
-		textAlign: 'left',
-		marginHorizontal: 10,
-		marginVertical: 20,
-	},
-	btn: {
-		width: '20%',
-		justifyContent: 'center',
-		borderWidth: 2,
-		borderColor: 'blue',
-		borderRadius: 5,
-		marginVertical: 20,
-		marginHorizontal: '40%',
-	},
-	text_title: {
-		fontSize: 28,
-		textAlign: 'center',
-		marginHorizontal: 10,
-		marginVertical: 30,
-		color: 'green',
-		fontWeight: '700',
-	},
-	data_item: {},
-	input: {
-		fontSize: 24,
-		borderWidth: 1,
-		borderColor: 'blue',
-		borderRadius: 4,
-		padding: 0,
-		margin: 0,
-		width: 200,
-	},
-});

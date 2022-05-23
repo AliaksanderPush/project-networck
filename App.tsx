@@ -14,6 +14,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { AntDesign } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
+import { HeaderMenu } from './components/HeaderTabs/HeaderTabs';
+import { TopDrawerMenu } from './components/TopDrawerMenu/TopDrawerMenu';
 import React from 'react';
 
 export type RootStackParams = {
@@ -58,7 +60,6 @@ const TabScreenStack = () => {
 			screenOptions={{
 				tabBarActiveTintColor: '#2BB24C',
 				tabBarInactiveTintColor: '#9B9B9B',
-				headerShown: false,
 			}}
 		>
 			<ButtomStack.Screen
@@ -69,6 +70,8 @@ const TabScreenStack = () => {
 					tabBarIcon: ({ focused, size, color }) => (
 						<Octicons name='feed-person' size={32} color={color} />
 					),
+					headerRight: () => <HeaderMenu />,
+					headerLeft: () => <TopDrawerMenu />,
 				}}
 			/>
 			<ButtomStack.Screen

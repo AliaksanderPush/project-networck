@@ -29,3 +29,7 @@ export const addUserState = (user: IUserRegistr) => {
 		return response;
 	};
 };
+
+export const logOut = () => {
+	//
+};

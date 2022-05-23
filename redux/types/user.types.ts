@@ -10,6 +10,7 @@ export enum UserActionTypes {
 	LOAD_USER = 'LOAD_USER',
 	LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS',
 	LOAD_USER_ERROR = 'LOAD_USER_ERROR',
+	SINGOUT_USER = 'SINGOUT_USER',
 }
 
 interface ILoadUserAction {
@@ -26,4 +27,12 @@ interface ILoadErrorUserAction {
 	payload: string;
 }
 
-export type UserAction = ILoadUserAction | ILoadSuccessUserAction | ILoadErrorUserAction;
+interface IUserSingOut {
+	type: UserActionTypes.SINGOUT_USER;
+}
+
+export type UserAction =
+	| ILoadUserAction
+	| ILoadSuccessUserAction
+	| ILoadErrorUserAction
+	| IUserSingOut;

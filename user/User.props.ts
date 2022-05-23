@@ -21,14 +21,14 @@ export interface IUserValidate {
 }
 
 export interface IUser {
-	_id: string;
+	_id?: string;
 	age: number;
 	city: string;
 	email: string;
 	gender: string;
 	name: string;
-	password: string;
-	roles: string[];
+	password: string | undefined;
+	roles?: string[];
 }
 
 export interface IUserDTO {
