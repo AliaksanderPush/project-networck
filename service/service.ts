@@ -5,8 +5,8 @@ const API_URL = 'http://192.168.1.150:4000';
 const API_HOME_URL = 'http://192.168.0.100:4000';
 
 export async function registration(user: IUserRegistr): Promise<AxiosResponse> {
-	const response = await axios.post(`${API_URL}/register`, user);
-	return response;
+	const { data } = await axios.post(`${API_URL}/register`, user);
+	return data;
 }
 
 export async function autorization(user: IUserLogin): Promise<IUserDTO> {

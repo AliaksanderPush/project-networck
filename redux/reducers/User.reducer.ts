@@ -28,6 +28,13 @@ export const UserReducer = (state = initialState, action: UserAction): IUserStat
 				user: null,
 			};
 
+		case UserActionTypes.SINGOUT_USER:
+			return {
+				loading: false,
+				error: null,
+				user: null,
+			};
+
 		default:
 			return state;
 	}

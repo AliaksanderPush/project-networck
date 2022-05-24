@@ -8,6 +8,7 @@ export const UserInput: FC<ITextInput> = ({
 	setValue,
 	secureTextEntry = false,
 	keyboardType = 'default',
+	onBlur,
 	err = false,
 }: ITextInput) => {
 	return (
@@ -24,6 +25,7 @@ export const UserInput: FC<ITextInput> = ({
 					marginBottom: 30,
 				}}
 				onChangeText={(text) => setValue(text)}
+				onBlur={onBlur}
 				value={value}
 			/>
 		</View>

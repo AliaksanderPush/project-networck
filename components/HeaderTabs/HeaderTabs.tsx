@@ -1,21 +1,16 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
-import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
-import { IconMenu } from '../UI/icons/IconMenu';
-import { useNavigation } from '@react-navigation/native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { DrawerStackParams } from '../../App';
+import { SafeAreaView } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useActions } from '../../redux/customReduxHooks/useAcshion';
 
-export const HeaderMenu = () => {
-	const singOut = async () => {
-		//
-	};
+export const HeaderMenu = (): JSX.Element => {
+	const { logOut } = useActions();
 
 	return (
 		<SafeAreaView style={{ marginHorizontal: 10 }}>
 			<TouchableOpacity>
-				<MaterialCommunityIcons name='logout' size={32} color='black' />
+				<MaterialCommunityIcons onPress={logOut} name='logout' size={32} color='black' />
 			</TouchableOpacity>
 		</SafeAreaView>
 	);

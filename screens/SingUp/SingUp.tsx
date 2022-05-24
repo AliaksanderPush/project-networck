@@ -52,8 +52,7 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 		try {
 			const response = await registration(newData);
 			setLoading(false);
-			Alert.alert(response.data);
-			navigation.navigate('TabScreenStack');
+			navigation.navigate('SignIn');
 		} catch (error: any) {
 			setLoading(false);
 			Alert.alert(error.response.data);
@@ -83,10 +82,11 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 					<Controller
 						control={control}
 						rules={loginValidate}
-						render={({ field: { onChange, value } }) => (
+						render={({ field: { onBlur, onChange, value } }) => (
 							<UserInput
 								title={'LOGIN'}
 								setValue={onChange}
+								onBlur={onBlur}
 								value={value}
 								err={errors.login && true}
 							/>
@@ -97,12 +97,13 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 					<Controller
 						control={control}
 						rules={emailValidate}
-						render={({ field: { onChange, value } }) => (
+						render={({ field: { onBlur, onChange, value } }) => (
 							<UserInput
 								title={'EMAIL'}
 								autoCompleteType='email'
 								keyboardType='email-address'
 								setValue={onChange}
+								onBlur={onBlur}
 								value={value}
 								err={errors.email && true}
 							/>
@@ -113,11 +114,12 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 					<Controller
 						control={control}
 						rules={passwordValidate}
-						render={({ field: { onChange, value } }) => (
+						render={({ field: { onBlur, onChange, value } }) => (
 							<UserInput
 								title={'PASSWORD'}
 								secureTextEntry={true}
 								setValue={onChange}
+								onBlur={onBlur}
 								value={value}
 								err={errors.password && true}
 							/>
@@ -128,10 +130,11 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 					<Controller
 						control={control}
 						rules={cityValidate}
-						render={({ field: { onChange, value } }) => (
+						render={({ field: { onBlur, onChange, value } }) => (
 							<UserInput
 								title={'CITY'}
 								setValue={onChange}
+								onBlur={onBlur}
 								value={value}
 								err={errors.city && true}
 							/>
@@ -141,11 +144,12 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 					<Controller
 						control={control}
 						rules={ageValidate}
-						render={({ field: { onChange, value } }) => (
+						render={({ field: { onBlur, onChange, value } }) => (
 							<UserInput
 								title={'AGE'}
 								keyboardType='numeric'
 								setValue={onChange}
+								onBlur={onBlur}
 								value={value}
 								err={errors.age && true}
 							/>

@@ -1,40 +1,15 @@
-import { SignUp } from './screens/SingUp/SingUp';
-import { SignIn } from './screens/SingIn/SingIn';
-import { Chat } from './screens/Chat/Chat';
-import { Feed } from './screens/Feed/Feed';
-import { Likes } from './screens/Likes/Likes';
-import { Friends } from './screens/Friends/Friends';
+/*
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Account } from './screens/Account/Account';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { RootStackParams, ButtomStackParams, DrawerStackParams } from './ScreensNav.props';
 import { AntDesign } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
-import { HeaderMenu } from './components/HeaderTabs/HeaderTabs';
-import { TopDrawerMenu } from './components/TopDrawerMenu/TopDrawerMenu';
-import React from 'react';
-//import { AuthScreenStack } from './components/nav/ScrensNav';
-
-export type RootStackParams = {
-	SignUp: undefined;
-	SignIn: undefined;
-	TabScreenStack: undefined;
-};
-
-export type ButtomStackParams = {
-	Chat: undefined;
-	Feed: undefined;
-	Account: undefined;
-};
-
-export type DrawerStackParams = {
-	Friends: undefined;
-	Likes: undefined;
-};
+import { SignIn } from '../../screens/SingIn/SingIn';
+import { SignUp } from '../../screens/SingUp/SingUp';
+import { Friends } from '../../screens/Friends/Friends';
+import { Likes } from '../../screens/Likes/Likes';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 const ButtomStack = createBottomTabNavigator<ButtomStackParams>();
@@ -55,7 +30,7 @@ export const AuthScreenStack = () => {
 	);
 };
 
-const TabScreenStack = () => {
+export const TabScreenStack = () => {
 	return (
 		<ButtomStack.Navigator
 			screenOptions={{
@@ -82,8 +57,6 @@ const TabScreenStack = () => {
 					tabBarIcon: ({ focused, size, color }) => (
 						<AntDesign name='wechat' size={32} color={color} />
 					),
-					headerRight: () => <HeaderMenu />,
-					headerLeft: () => <TopDrawerMenu />,
 				}}
 			/>
 			<ButtomStack.Screen
@@ -93,8 +66,6 @@ const TabScreenStack = () => {
 					tabBarIcon: ({ focused, size, color }) => (
 						<Octicons name='feed-heart' size={32} color={color} />
 					),
-					headerRight: () => <HeaderMenu />,
-					headerLeft: () => <TopDrawerMenu />,
 				}}
 			/>
 		</ButtomStack.Navigator>
@@ -114,17 +85,4 @@ export const DrawerScreenStack = () => {
 		</Drawer.Navigator>
 	);
 };
-
-const App = () => {
-	return (
-		<Provider store={store}>
-			<SafeAreaProvider>
-				<NavigationContainer>
-					<AuthScreenStack />
-				</NavigationContainer>
-			</SafeAreaProvider>
-		</Provider>
-	);
-};
-
-export default App;
+*/
