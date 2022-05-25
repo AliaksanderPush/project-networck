@@ -26,12 +26,12 @@ export const styles = StyleSheet.create({
 	},
 	button: {
 		backgroundColor: colors.primary,
-		padding: 15,
 		borderRadius: 5,
+		padding: 5,
 	},
 	text: {
 		color: colors.secondary,
 		textAlign: 'center',
-		fontSize: 24,
+		fontSize: 18,
 	},
 });

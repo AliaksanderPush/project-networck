@@ -1,7 +1,7 @@
 import { UserAction, UserActionTypes } from '../types/user.types';
 import { Dispatch } from 'redux';
-import { IUserLogin, IUserRegistr } from '../../user/User.props';
-import { autorization, registration } from '../../service/service';
+import { IUserLogin, IUserRegistr, IUser } from '../../user/User.props';
+import { autorization, registration, putUser } from '../../service/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const fetchUser = (user: IUserLogin) => {
@@ -32,8 +32,26 @@ export const addUserState = (user: IUserRegistr) => {
 	};
 };
 
-export const logOut = async () => {
-	await AsyncStorage.removeItem('@auth');
+export const updateUser = (id: string | undefined, newUser: IUser) => {
+	return async (dispatch: Dispatch<UserAction>) => {
+		try {
+			dispatch({ type: UserActionTypes.LOAD_USER });
+			const response = await putUser(id, newUser);
+			//await AsyncStorage.setItem('@auth', JSON.stringify(response.jwt));
+			dispatch({
+				type: UserActionTypes.UPDATE_USER,
+				newUser: response,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: UserActionTypes.LOAD_USER_ERROR,
+				payload: err.response.data,
+			});
+		}
+	};
+};
+
+export const logOut = () => {
 	return {
 		type: UserActionTypes.SINGOUT_USER,
 	};

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { IUserLogin } from '../../user/User.props';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { useForm, Controller } from 'react-hook-form';
@@ -12,8 +12,9 @@ import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector'
 
 export const SignIn = ({ navigation }: Props): JSX.Element => {
 	const { user, error, loading } = useTypedSelector((state) => state.user);
-
-	const { fetchUser } = useActions();
+	console.log('server>>>', user);
+	console.log('err>>', error);
+	const { fetchUser, logOut } = useActions();
 
 	const {
 		control,
@@ -26,21 +27,14 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 		},
 	});
 
-	const onSubmit = async (info: IUserLogin) => {
-		try {
-			fetchUser(info);
-			const value = await AsyncStorage.getItem('@auth');
-			if (user && value) {
-				alert(`Hello dear ${user.searchUser.name}!`);
-				navigation.navigate('TabScreenStack');
-			} else if (error) {
-				alert(error);
-			}
-		} catch (err) {
-			console.log(err);
-			alert('Sing in failed. Try again');
-		}
+	const onSubmit = (info: IUserLogin) => {
+		logOut();
+		fetchUser(info);
 	};
+
+	if (error) {
+		alert(error);
+	}
 
 	return (
 		<>
@@ -49,6 +43,12 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 					<Text style={{ textAlign: 'center', fontSize: 25, color: '#333' }}>
 						Sign In
 					</Text>
+					<View style={styles.iconContainer}>
+						<Image
+							style={styles.icon}
+							source={require('../../assets/adaptive-icon1.png')}
+						/>
+					</View>
 					<Controller
 						control={control}
 						rules={emailValidate}

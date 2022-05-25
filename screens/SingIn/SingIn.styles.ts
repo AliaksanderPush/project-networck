@@ -30,4 +30,14 @@ export const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		marginVertical: 20,
 	},
+	iconContainer: {
+		display: 'flex',
+		flex: 1,
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+	},
+	icon: {
+		width: 200,
+		height: 200,
+	},
 });
