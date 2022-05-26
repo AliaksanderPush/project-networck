@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { SignUp } from './screens/SingUp/SingUp';
 import { SignIn } from './screens/SingIn/SingIn';
 import { Chat } from './screens/Chat/Chat';
@@ -29,18 +30,20 @@ export type ButtomStackParams = {
 	Chat: undefined;
 	Feed: undefined;
 	Account: undefined;
+	Profile:undefined;
 };
 
 export type DrawerStackParams = {
 	Friends: undefined;
 	Likes: undefined;
+	TabScreenStack:any;
 };
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 const ButtomStack = createBottomTabNavigator<ButtomStackParams>();
 const Drawer = createDrawerNavigator<DrawerStackParams>();
 
-export const AuthScreenStack = () => {
+export const ProfileScreenStack = () => {
 	return (
 		<Stack.Navigator
 			initialRouteName='SignIn'
@@ -50,7 +53,7 @@ export const AuthScreenStack = () => {
 		>
 			<Stack.Screen name='SignIn' component={SignIn} />
 			<Stack.Screen name='SignUp' component={SignUp} />
-			<Stack.Screen name='TabScreenStack' component={TabScreenStack} />
+			
 		</Stack.Navigator>
 	);
 };
@@ -72,7 +75,7 @@ const TabScreenStack = () => {
 						<Octicons name='feed-person' size={32} color={color} />
 					),
 					headerRight: () => <HeaderMenu />,
-					headerLeft: () => <TopDrawerMenu />,
+					
 				}}
 			/>
 			<ButtomStack.Screen
@@ -83,8 +86,9 @@ const TabScreenStack = () => {
 						<AntDesign name='wechat' size={32} color={color} />
 					),
 					headerRight: () => <HeaderMenu />,
-					headerLeft: () => <TopDrawerMenu />,
+					
 				}}
+
 			/>
 			<ButtomStack.Screen
 				name='Feed'
@@ -94,33 +98,45 @@ const TabScreenStack = () => {
 						<Octicons name='feed-heart' size={32} color={color} />
 					),
 					headerRight: () => <HeaderMenu />,
-					headerLeft: () => <TopDrawerMenu />,
+					
 				}}
 			/>
+			<ButtomStack.Screen
+				name='Profile'
+				component={ProfileScreenStack}
+				options={{
+					title: 'Profile',
+					tabBarIcon: ({ focused, size, color }) => (
+						<Octicons name='feed-person' size={32} color={color} />
+					),
+					headerRight: () => <HeaderMenu />,
+					
+				}}
+				/>
 		</ButtomStack.Navigator>
 	);
 };
 
-export const DrawerScreenStack = () => {
-	return (
-		<Drawer.Navigator
-			initialRouteName='Likes'
-			screenOptions={{
-				headerShown: false,
-			}}
-		>
-			<Drawer.Screen name='Likes' component={Likes} />
-			<Drawer.Screen name='Friends' component={Friends} />
-		</Drawer.Navigator>
-	);
-};
+
+
+
+
+
+
 
 const App = () => {
 	return (
 		<Provider store={store}>
 			<SafeAreaProvider>
 				<NavigationContainer>
-					<AuthScreenStack />
+				<Drawer.Navigator
+			initialRouteName='Likes'
+			
+		>
+			<Drawer.Screen name='Likes' component={Likes} />
+			<Drawer.Screen name='Friends' component={Friends} />
+			<Drawer.Screen name='TabScreenStack' component={TabScreenStack} />
+		</Drawer.Navigator>
 				</NavigationContainer>
 			</SafeAreaProvider>
 		</Provider>

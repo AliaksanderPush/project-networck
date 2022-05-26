@@ -6,7 +6,7 @@ export const Friends = () => {
 		<>
 			<View></View>
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				<Text style={{ color: 'green', fontSize: 30 }}>Chat</Text>
+				<Text style={{ color: 'green', fontSize: 30 }}>Friends</Text>
 			</View>
 		</>
 	);
