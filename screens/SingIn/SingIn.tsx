@@ -6,14 +6,11 @@ import { useForm, Controller } from 'react-hook-form';
 import { emailValidate, passwordValidate } from '../../user/validate';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { Props } from './SingIn.props';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from './SingIn.styles';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 
 export const SignIn = ({ navigation }: Props): JSX.Element => {
 	const { user, error, loading } = useTypedSelector((state) => state.user);
-	console.log('server>>>', user);
-	console.log('err>>', error);
 	const { fetchUser, logOut } = useActions();
 
 	const {

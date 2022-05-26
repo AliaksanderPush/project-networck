@@ -140,7 +140,7 @@ export const RootScreensNav = () => {
 
 	return (
 		<NavigationContainer>
-			{user?.jwt ? <DrawerScreenStack /> : <ProfileScreenStack />}
+			{user?.token ? <DrawerScreenStack /> : <ProfileScreenStack />}
 		</NavigationContainer>
 	);
 };

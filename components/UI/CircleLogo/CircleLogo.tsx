@@ -12,7 +12,9 @@ export const CircleLogo = ({ children }: Props): JSX.Element => {
 				) : (
 					<Image
 						style={styles.logo_circle}
-						source={require('../../../assets/images/profile.png')}
+						source={{
+							uri: 'C:\\Users\\User\\Desktop\\Express-Mong\\express-mongo\\build\\assets\\efe6faf7-a0a8-49a9-82ea-d8fe4d83d4ec.jpg',
+						}}
 					/>
 				)}
 			</View>

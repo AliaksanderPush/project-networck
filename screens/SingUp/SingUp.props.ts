@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from '../../App';
+import { RootStackParams } from '../../components/nav/RootScreensNav.props';
 
 export type PropsSingUp = NativeStackScreenProps<RootStackParams, 'SignIn', 'TabScreenStack'>;
 
@@ -13,7 +13,4 @@ type RootStackParamList = {
 	Favorites: undefined;
 };
 
-interface IPdpPageProps {
-	navigation: NativeStackNavigationProp<RootStackParamList, 'SignIn', 'Account'>;
-}
 */

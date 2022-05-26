@@ -9,7 +9,7 @@ export const fetchUser = (user: IUserLogin) => {
 		try {
 			dispatch({ type: UserActionTypes.LOAD_USER });
 			const response = await autorization(user);
-			await AsyncStorage.setItem('@auth', JSON.stringify(response.jwt));
+			await AsyncStorage.setItem('@auth', JSON.stringify(response.token));
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
 				payload: response,
@@ -37,10 +37,10 @@ export const updateUser = (id: string | undefined, newUser: IUser) => {
 		try {
 			dispatch({ type: UserActionTypes.LOAD_USER });
 			const response = await putUser(id, newUser);
-			//await AsyncStorage.setItem('@auth', JSON.stringify(response.jwt));
+			await AsyncStorage.setItem('@auth', JSON.stringify(response.token));
 			dispatch({
 				type: UserActionTypes.UPDATE_USER,
-				newUser: response,
+				updateUser: response,
 			});
 		} catch (err: any) {
 			dispatch({

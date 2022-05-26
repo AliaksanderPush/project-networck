@@ -28,10 +28,11 @@ export interface IUser {
 	gender: string;
 	name: string;
 	password: string | undefined;
+	avatar?: string | undefined;
 	roles?: string[];
 }
 
 export interface IUserDTO {
-	jwt: string;
+	token: string;
 	searchUser: IUser;
 }

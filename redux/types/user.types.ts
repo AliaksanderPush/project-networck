@@ -34,6 +34,7 @@ interface IUserSingOut {
 
 interface IUserUpdate {
 	type: UserActionTypes.UPDATE_USER;
+	updateUser: IUserDTO;
 }
 
 export type UserAction =

@@ -35,6 +35,13 @@ export const UserReducer = (state = initialState, action: UserAction): IUserStat
 				user: null,
 			};
 
+		case UserActionTypes.UPDATE_USER:
+			return {
+				loading: false,
+				error: null,
+				user: action.updateUser,
+			};
+
 		default:
 			return state;
 	}
