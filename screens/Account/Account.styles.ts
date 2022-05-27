@@ -4,12 +4,9 @@ export const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: 'center',
-	},
-	wrap: {
-		flex: 1,
-		justifyContent: 'center',
-		padding: 10,
 		backgroundColor: '#EEEEEE',
+		borderWidth: 1,
+		borderColor: 'blue',
 	},
 	text_item: {
 		fontSize: 16,
@@ -46,6 +43,8 @@ export const styles = StyleSheet.create({
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
+		borderWidth: 1,
+		borderColor: 'blue',
 	},
 
 	icon: {

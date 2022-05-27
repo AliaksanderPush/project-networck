@@ -1,5 +1,5 @@
-import { IconProps } from 'react-native-elements';
+import { ReactChild, ReactChildren } from 'react';
 
-export type Props = {
-	children?: IconProps;
-};
+export interface CircleLogoProps {
+	children: ReactChild | ReactChildren;
+}
