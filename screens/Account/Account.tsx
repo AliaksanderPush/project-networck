@@ -3,7 +3,7 @@ import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { PropsAccount } from './Account.props';
-import { putUser } from '../../service/service';
+import { putUser, upLoadImage } from '../../service/service';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { CircleLogo } from '../../components/UI/CircleLogo/CircleLogo';
 import { Entypo } from '@expo/vector-icons';
@@ -54,7 +54,12 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 		}
 		const base64Image = `data:image;base64,${pickerResult.base64}`;
 		setImage(base64Image);
-		console.log('picker>>', pickerResult);
+		try {
+			const data = await upLoadImage(base64Image, user?.token);
+			console.log('data>>', data);
+		} catch (error: any) {
+			console.log('er>>>', error.response);
+		}
 	};
 
 	useEffect(() => {
@@ -102,7 +107,7 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 						</TouchableOpacity>
 					)}
 				</CircleLogo>
-				{!user?.searchUser?.avatar ? (
+				{user?.searchUser?.avatar ? (
 					<TouchableOpacity style={{ alignItems: 'center' }} onPress={handleCreateFoto}>
 						<Entypo name='camera' size={32} color='black' />
 					</TouchableOpacity>

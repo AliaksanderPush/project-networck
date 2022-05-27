@@ -1,17 +1,16 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { RootScreensNav } from './components/nav/RootScreensNav';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AuthProvider } from './components/AuthProvider/AuthProvider';
 
 const App = () => {
 	return (
-		<Provider store={store}>
+		<AuthProvider>
 			<SafeAreaProvider>
 				<RootScreensNav />
 			</SafeAreaProvider>
-		</Provider>
+		</AuthProvider>
 	);
 };
 
