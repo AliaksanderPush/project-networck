@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
 
 export const Feed = () => {
 	return (
-		<>
-			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				<Text style={{ color: 'blue', fontSize: 30 }}>Feed</Text>
+		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+			<View>
+				<TouchableOpacity style={{ alignItems: 'center' }}>
+					<Entypo name='camera' size={25} color='black' />
+				</TouchableOpacity>
 			</View>
-		</>
+		</View>
 	);
 };

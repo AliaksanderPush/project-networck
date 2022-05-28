@@ -9,6 +9,7 @@ import { CircleLogo } from '../../components/UI/CircleLogo/CircleLogo';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../config/Colors';
 import { styles } from './Account.styles';
+import * as ImagePicker from 'expo-image-picker';
 
 export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 	const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -18,6 +19,7 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 	const [age, setAge] = useState<string>('');
 	const [gender, setGender] = useState<string>('');
 	const [city, setCity] = useState<string>('');
+	const [image, setImage] = useState<string>('');
 
 	const handlerUser = async () => {
 		console.log('gender>>', gender);
@@ -37,8 +39,22 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 		console.log('put>>>', res);
 	};
 
-	const handleCreateFoto = () => {
-		console.log('isWork!!');
+	const handleCreateFoto = async () => {
+		const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+		if (permissionResult.granted === false) {
+			return alert('camera access is required');
+		}
+		const pickerResult = await ImagePicker.launchImageLibraryAsync({
+			allowsEditing: true,
+			aspect: [4, 3],
+			base64: true,
+		});
+		if (pickerResult.cancelled === true) {
+			return;
+		}
+		const base64Image = `data:image;base64,${pickerResult.base64}`;
+		setImage(base64Image);
+		console.log('picker>>', pickerResult);
 	};
 
 	useEffect(() => {
@@ -58,8 +74,27 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 				<CircleLogo>
 					{user?.searchUser?.avatar ? (
 						<Image
-							style={{ width: 200, height: 200, marginVertical: 20 }}
-							source={{ uri: user.searchUser.avatar }}
+							style={{
+								width: 190,
+								height: 190,
+								marginVertical: 20,
+								borderRadius: 100,
+							}}
+							source={{
+								uri: 'https://cdn.pixabay.com/photo/2022/05/22/12/08/baby-7213274_960_720.jpg',
+							}}
+						/>
+					) : image ? (
+						<Image
+							style={{
+								width: 190,
+								height: 190,
+								marginVertical: 20,
+								borderRadius: 100,
+							}}
+							source={{
+								uri: image,
+							}}
 						/>
 					) : (
 						<TouchableOpacity onPress={handleCreateFoto}>
@@ -67,6 +102,12 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 						</TouchableOpacity>
 					)}
 				</CircleLogo>
+				{!user?.searchUser?.avatar ? (
+					<TouchableOpacity style={{ alignItems: 'center' }} onPress={handleCreateFoto}>
+						<Entypo name='camera' size={32} color='black' />
+					</TouchableOpacity>
+				) : null}
+
 				<Text style={styles.text_item}>
 					Name:{' '}
 					{!isEdit ? (
