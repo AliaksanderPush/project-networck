@@ -22,7 +22,6 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 	const [image, setImage] = useState<string>('');
 
 	const handlerUser = async () => {
-		console.log('gender>>', gender);
 		if (age.length > 3 || gender !== 'male') {
 			return alert('Enter the data correctly');
 		}
