@@ -50,7 +50,8 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 			gender,
 		};
 		try {
-			await registration(newData);
+			const reult = await registration(newData);
+			console.log('result>>>', reult);
 			setLoading(false);
 			navigation.navigate('SignIn');
 		} catch (error: any) {

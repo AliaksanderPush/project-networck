@@ -36,3 +36,4 @@ export interface IUserDTO {
 	token: string;
 	searchUser: IUser;
 }
+

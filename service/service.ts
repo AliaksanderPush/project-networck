@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { useTypedSelector } from '../redux/customReduxHooks/useTypedSelector';
 import { IUserLogin, IUserRegistr, IUserDTO, IUser } from '../user/User.props';
 
 export const API_URL = 'http://192.168.1.150:4000';

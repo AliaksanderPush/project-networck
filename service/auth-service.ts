@@ -1,34 +1,23 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from './service';
+import { useTypedSelector } from '../redux/customReduxHooks/useTypedSelector';
+import { useActions } from '../redux/customReduxHooks/useAcshion';
 
-export const $api = axios.create({
-	baseURL: API_URL,
-});
+const { logOut } = useActions();
 
-$api.interceptors.request.use(async (config: AxiosRequestConfig) => {
-	config.headers!.Authorization = `Bearer ${await AsyncStorage.getItem('@auth')}`;
+axios.defaults.baseURL = API_URL;
+axios.defaults.headers.common['Authorization'] = `Bearer ${AsyncStorage.getItem('@auth')}`;
 
-	return config;
-});
-
-$api.interceptors.request.use(
-	(config) => {
-		return config;
+axios.interceptors.response.use(
+	async function (responce) {
+		return responce;
 	},
-	async (error) => {
-		const originalRequest = error.config;
-		if (error.responce.status === 401 && error.config && !error.config._isRetry) {
-			originalRequest._isRetry = true;
-			try {
-				const response = await axios.get(`${API_URL}/refresh`, {
-					withCredentials: true,
-				});
-				localStorage.setItem('token', response.data.accessToken);
-				return $api.request(originalRequest);
-			} catch (err) {
-				console.log('no registration!');
-			}
+	async function (error) {
+		let res = error.responce;
+		if (res.startus === 401 && res.config && !res.config._isRetryRequest) {
+			await AsyncStorage.removeItem('@auth');
+			logOut();
 		}
 	},
 );
