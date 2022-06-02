@@ -1,23 +1,30 @@
 import { UserAction, UserActionTypes } from '../types/user.types';
 import { Dispatch } from 'redux';
 import { IUserLogin, IUserRegistr, IUser } from '../../user/User.props';
-import { autorization, registration, putUser, getRefreshToken } from '../../service/service';
+import {
+	autorization,
+	registration,
+	putUser,
+	getRefreshToken,
+	logoutSite,
+} from '../../service/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const fetchUser = (user: IUserLogin) => {
 	return async (dispatch: Dispatch<UserAction>) => {
 		try {
 			dispatch({ type: UserActionTypes.LOAD_USER });
-			const response = await autorization(user);
-			await AsyncStorage.setItem('@auth', JSON.stringify(response.token));
+			const { data } = await autorization(user);
+			console.log('data>>>', data);
+			await AsyncStorage.setItem('@auth', JSON.stringify(data.accesToken));
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
-				payload: response,
+				payload: data,
 			});
 		} catch (err: any) {
 			dispatch({
 				type: UserActionTypes.LOAD_USER_ERROR,
-				payload: err.response.data,
+				payload: err.data,
 			});
 		}
 	};
@@ -25,10 +32,20 @@ export const fetchUser = (user: IUserLogin) => {
 
 export const addUserState = (user: IUserRegistr) => {
 	return async (dispatch: Dispatch<UserAction>) => {
-		dispatch({ type: UserActionTypes.LOAD_USER });
-		const response = await registration(user);
-
-		return response;
+		try {
+			dispatch({ type: UserActionTypes.LOAD_USER });
+			const { data } = await registration(user);
+			await AsyncStorage.setItem('@auth', JSON.stringify(data.accesToken));
+			dispatch({
+				type: UserActionTypes.LOAD_USER_SUCCESS,
+				payload: data,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: UserActionTypes.LOAD_USER_ERROR,
+				payload: err.data,
+			});
+		}
 	};
 };
 
@@ -36,11 +53,11 @@ export const updateUser = (id: string | undefined, newUser: IUser) => {
 	return async (dispatch: Dispatch<UserAction>) => {
 		try {
 			dispatch({ type: UserActionTypes.LOAD_USER });
-			const response = await putUser(id, newUser);
-			await AsyncStorage.setItem('@auth', JSON.stringify(response.token));
+			const { data } = await putUser(id, newUser);
+			await AsyncStorage.setItem('@auth', JSON.stringify(data.accesToken));
 			dispatch({
 				type: UserActionTypes.UPDATE_USER,
-				updateUser: response,
+				updateUser: data,
 			});
 		} catch (err: any) {
 			dispatch({
@@ -52,41 +69,32 @@ export const updateUser = (id: string | undefined, newUser: IUser) => {
 };
 
 export const logOut = () => {
-	return {
-		type: UserActionTypes.SINGOUT_USER,
+	return async (dispatch: Dispatch<UserAction>) => {
+		try {
+			dispatch({ type: UserActionTypes.LOAD_USER });
+			const response = await logoutSite();
+			await AsyncStorage.removeItem('@auth');
+			dispatch({
+				type: UserActionTypes.SINGOUT_USER,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: UserActionTypes.LOAD_USER_ERROR,
+				payload: err.response.data,
+			});
+		}
 	};
 };
-
-/*
-export function logout() {
-	return async (dispatch) => {
-	  try {
-		await logoutSite();
-		localStorage.removeItem("token");
-		dispatch({
-		  type: USER_LOGOUT,
-		  auth: {},
-		  ented: false,
-		});
-	  } catch (error) {
-		dispatch(errorOn());
-		console.error(error);
-	  }
-	};
-  }
-  
-*/
 
 export const checkUser = async () => {
 	return async (dispatch: Dispatch<UserAction>) => {
 		try {
-			const data = await getRefreshToken();
-			AsyncStorage.setItem('@auth', JSON.stringify(data));
-			//dispatch({
-			//  type: GET_USER_LOAD,
-			// auth: data.user,
-
-			//	});
+			const { data } = await getRefreshToken();
+			AsyncStorage.setItem('@auth', JSON.stringify(data.accesToken));
+			dispatch({
+				type: UserActionTypes.LOAD_USER_SUCCESS,
+				payload: data,
+			});
 		} catch (err: any) {
 			dispatch({
 				type: UserActionTypes.LOAD_USER_ERROR,

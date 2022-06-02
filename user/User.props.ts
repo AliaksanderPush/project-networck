@@ -33,7 +33,7 @@ export interface IUser {
 }
 
 export interface IUserDTO {
-	token: string;
+	accesToken: string;
+	refreshToken: string;
 	searchUser: IUser;
 }
-

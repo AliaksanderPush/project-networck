@@ -11,7 +11,7 @@ import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector'
 
 export const SignIn = ({ navigation }: Props): JSX.Element => {
 	const { user, error, loading } = useTypedSelector((state) => state.user);
-	const { fetchUser, logOut } = useActions();
+	const { fetchUser } = useActions();
 
 	const {
 		control,
@@ -25,7 +25,6 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 	});
 
 	const onSubmit = (info: IUserLogin) => {
-		logOut();
 		fetchUser(info);
 	};
 

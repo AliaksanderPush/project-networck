@@ -8,16 +8,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { checkUser } from './redux/acshions/acshions.user';
 
 const App = () => {
+	/*
 	useEffect(() => {
 		const authControl = async () => {
 			let data = await AsyncStorage.getItem('@auth');
-			if (data) {
-				console.log('data>>', data);
+			if (!data) {
+				console.log('Пустой локал');
 			}
 		};
-		authControl();
 	}, []);
-
+*/
 	return (
 		<Provider store={store}>
 			<SafeAreaProvider>

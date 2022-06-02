@@ -54,7 +54,7 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 		const base64Image = `data:image;base64,${pickerResult.base64}`;
 		setImage(base64Image);
 		try {
-			const data = await upLoadImage(base64Image, user?.token);
+			const data = await upLoadImage(base64Image, user?.refreshToken);
 			console.log('data>>', data);
 		} catch (error: any) {
 			console.log('er>>>', error.response);
