@@ -1,28 +1,17 @@
 import 'react-native-gesture-handler';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { RootScreensNav } from './components/nav/RootScreensNav';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { checkUser } from './redux/acshions/acshions.user';
+import { AuthProvider } from './components/AuthProvider/AuthProvider';
+import { View } from 'react-native';
 
 const App = () => {
-	/*
-	useEffect(() => {
-		const authControl = async () => {
-			let data = await AsyncStorage.getItem('@auth');
-			if (!data) {
-				console.log('Пустой локал');
-			}
-		};
-	}, []);
-*/
 	return (
 		<Provider store={store}>
-			<SafeAreaProvider>
+			<AuthProvider>
 				<RootScreensNav />
-			</SafeAreaProvider>
+			</AuthProvider>
 		</Provider>
 	);
 };

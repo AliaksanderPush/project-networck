@@ -18,6 +18,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ButtomStackParams, DrawerStackParams, RootStackParams } from './RootScreensNav.props';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -138,9 +139,13 @@ const DrawerScreenStack = () => {
 export const RootScreensNav = () => {
 	const { user } = useTypedSelector((state) => state.user);
 
+	const isAuth = async (): Promise<string | null> => {
+		return await AsyncStorage.getItem('@auth');
+	};
+
 	return (
 		<NavigationContainer>
-			{user?.token ? <DrawerScreenStack /> : <ProfileScreenStack />}
+			{user ? <DrawerScreenStack /> : <ProfileScreenStack />}
 		</NavigationContainer>
 	);
 };
