@@ -35,7 +35,6 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 			password: user?.searchUser.password,
 		};
 		const res = await putUser(user?.searchUser._id, newUser);
-		console.log('put>>>', res);
 	};
 
 	const handleCreateFoto = async () => {
