@@ -18,6 +18,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ButtomStackParams, DrawerStackParams, RootStackParams } from './RootScreensNav.props';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
+import { UpdatePassword } from '../UpdatePassword/UpdatePassword';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
@@ -32,6 +33,7 @@ const ProfileScreenStack = () => {
 		>
 			<Stack.Screen name='SignIn' component={SignIn} />
 			<Stack.Screen name='SignUp' component={SignUp} />
+			<Stack.Screen name='UpdatePassword' component={UpdatePassword} />
 		</Stack.Navigator>
 	);
 };

@@ -53,4 +53,10 @@ export const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 	},
+	update_password: {
+		textAlign: 'center',
+		marginVertical: 20,
+		color: 'red',
+		fontSize: 18,
+	},
 });

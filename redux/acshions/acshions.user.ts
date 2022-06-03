@@ -7,6 +7,7 @@ import {
 	putUser,
 	getRefreshToken,
 	logoutSite,
+	upDatepass,
 } from '../../service/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -37,6 +38,7 @@ export const addUserState = (user: IUserRegistr) => {
 			const response = await registration(user);
 			const { data } = response;
 			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
+			console.log('data>>', data);
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
 				payload: data,
@@ -97,6 +99,25 @@ export const checkUser = () => {
 				type: UserActionTypes.LOAD_USER_SUCCESS,
 				payload: data,
 			});
+		} catch (err: any) {
+			dispatch({
+				type: UserActionTypes.LOAD_USER_ERROR,
+				payload: err.response.data,
+			});
+		}
+	};
+};
+
+export const upDatePassword = (password: string) => {
+	return async (dispatch: Dispatch<UserAction>) => {
+		try {
+			const response = await upDatepass(password);
+			//const { data } = response;
+			//await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
+			//	dispatch({
+			//type: UserActionTypes.UPDATE_PASSWORD,
+			//payload: data,
+			//	});
 		} catch (err: any) {
 			dispatch({
 				type: UserActionTypes.LOAD_USER_ERROR,

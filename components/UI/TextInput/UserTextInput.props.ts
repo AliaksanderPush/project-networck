@@ -8,6 +8,6 @@ export interface ITextInput {
 	setValue: (text: SetStateAction<string>) => void;
 	secureTextEntry?: boolean;
 	keyboardType?: KeyboardTypeOptions;
-	onBlur: () => void;
+	onBlur?: () => void;
 	err?: boolean | undefined;
 }

@@ -26,8 +26,8 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 			if (error.responce.status === 401 && error.config && !error.config._isRetry) {
 				originalRequest._isRetry = true;
 				try {
-					const { data } = await api.get(`/refresh`);
-					AsyncStorage.setItem('@auth', data.token);
+					const { data } = await api.get(`/auth/refresh`);
+					AsyncStorage.setItem('@auth', JSON.stringify(data.token));
 					return api.request(originalRequest);
 				} catch (e) {
 					alert('no registration!');

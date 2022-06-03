@@ -14,6 +14,7 @@ import {
 import { registration } from '../../service/service';
 import { PropsSingUp } from './SingUp.props';
 import { styles } from './SingUp.styles';
+import { useActions } from '../../redux/customReduxHooks/useAcshion';
 
 export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 	const [checkedMale, setCheckedMale] = useState<boolean>(false);
@@ -23,6 +24,8 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 	const [gender, setGender] = useState<string>('');
 
 	const [loading, setLoading] = useState<boolean>(false);
+
+	const { addUserState } = useActions();
 
 	const {
 		control,
@@ -38,7 +41,7 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 		},
 	});
 
-	const onSubmit = async (info: IUserValidate) => {
+	const onSubmit = (info: IUserValidate) => {
 		setLoading(true);
 		const { login, email, password, city, age } = info;
 		const newData = {
@@ -50,10 +53,8 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 			gender,
 		};
 		try {
-			const reult = await registration(newData);
-			console.log('result>>>', reult);
+			addUserState(newData);
 			setLoading(false);
-			navigation.navigate('SignIn');
 		} catch (error: any) {
 			setLoading(false);
 			Alert.alert(error.response.data);

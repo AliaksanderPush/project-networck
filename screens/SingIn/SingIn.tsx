@@ -28,10 +28,6 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 		fetchUser(info);
 	};
 
-	if (error) {
-		alert(error);
-	}
-
 	return (
 		<>
 			<ScrollView>

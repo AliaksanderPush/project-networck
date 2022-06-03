@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
-import { PropsAccount } from './Account.props';
+import { HomeScreenProp, PropsAccount, PropsScreen } from './Account.props';
 import { putUser, upLoadImage } from '../../service/service';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { CircleLogo } from '../../components/UI/CircleLogo/CircleLogo';
@@ -14,10 +14,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IUserTokens } from '../../user/User.props';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParams } from '../../components/nav/RootScreensNav.props';
 
-export const Account = ({ navigation }: PropsAccount): JSX.Element => {
+export const Account = (): JSX.Element => {
 	const [isEdit, setIsEdit] = useState<boolean>(false);
 	const { user, error, loading, tokens } = useTypedSelector((state) => state.user);
+	const navigate = useNavigation<HomeScreenProp>();
 	const { updateUser } = useActions();
 	const [name, setName] = useState<string>('');
 	const [email, setEmail] = useState<string>('');
@@ -212,6 +216,12 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 						/>
 					</View>
 				</View>
+				<Text
+					onPress={() => navigate.navigation('UpdatePassword')}
+					style={styles.update_password}
+				>
+					Update password
+				</Text>
 			</View>
 		</KeyboardAwareScrollView>
 	);

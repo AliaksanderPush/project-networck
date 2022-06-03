@@ -1,6 +1,7 @@
 export type RootStackParams = {
 	SignUp: undefined;
 	SignIn: undefined;
+	UpdatePassword: undefined;
 	TabScreenStack: undefined;
 };
 
