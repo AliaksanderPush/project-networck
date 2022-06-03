@@ -10,10 +10,15 @@ import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../config/Colors';
 import { styles } from './Account.styles';
 import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IUserTokens } from '../../user/User.props';
+import { useActions } from '../../redux/customReduxHooks/useAcshion';
+import { useDispatch } from 'react-redux';
 
 export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 	const [isEdit, setIsEdit] = useState<boolean>(false);
-	const { user, error, loading } = useTypedSelector((state) => state.user);
+	const { user, error, loading, tokens } = useTypedSelector((state) => state.user);
+	const { updateUser } = useActions();
 	const [name, setName] = useState<string>('');
 	const [email, setEmail] = useState<string>('');
 	const [age, setAge] = useState<string>('');
@@ -21,7 +26,7 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 	const [city, setCity] = useState<string>('');
 	const [image, setImage] = useState<string>('');
 
-	const handlerUser = async () => {
+	const handlerUser = () => {
 		if (age.length > 3 || gender !== 'male') {
 			return alert('Enter the data correctly');
 		}
@@ -32,9 +37,9 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 			age: +age,
 			city,
 			gender,
-			password: user?.searchUser.password,
+			password: user?.password,
 		};
-		const res = await putUser(user?.searchUser._id, newUser);
+		updateUser(user?._id, newUser);
 	};
 
 	const handleCreateFoto = async () => {
@@ -53,7 +58,7 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 		const base64Image = `data:image;base64,${pickerResult.base64}`;
 		setImage(base64Image);
 		try {
-			const data = await upLoadImage(base64Image, user?.token.refreshToken);
+			const data = await upLoadImage(base64Image);
 			console.log('data>>', data);
 		} catch (error: any) {
 			console.log('er>>>', error.response);
@@ -62,11 +67,11 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 
 	useEffect(() => {
 		if (user) {
-			setName(user.searchUser.name);
-			setEmail(user.searchUser.email);
-			setAge(user.searchUser.age + '');
-			setCity(user.searchUser.city);
-			setGender(user.searchUser.gender);
+			setName(user.name);
+			setEmail(user.email);
+			setAge(user.age + '');
+			setCity(user.city);
+			setGender(user.gender);
 		}
 	}, [user]);
 
@@ -75,7 +80,7 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 			<View style={styles.container}>
 				<Text style={styles.text_title}>Your Profile</Text>
 				<CircleLogo>
-					{user?.searchUser?.avatar ? (
+					{user?.avatar ? (
 						<Image
 							style={{
 								width: 190,
@@ -105,7 +110,7 @@ export const Account = ({ navigation }: PropsAccount): JSX.Element => {
 						</TouchableOpacity>
 					)}
 				</CircleLogo>
-				{user?.searchUser?.avatar ? (
+				{user?.avatar ? (
 					<TouchableOpacity style={{ alignItems: 'center' }} onPress={handleCreateFoto}>
 						<Entypo name='camera' size={32} color='black' />
 					</TouchableOpacity>

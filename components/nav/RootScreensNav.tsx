@@ -137,15 +137,14 @@ const DrawerScreenStack = () => {
 };
 
 export const RootScreensNav = () => {
-	const { user } = useTypedSelector((state) => state.user);
-
+	const { tokens } = useTypedSelector((state) => state.user);
 	const isAuth = async (): Promise<string | null> => {
 		return await AsyncStorage.getItem('@auth');
 	};
 
 	return (
 		<NavigationContainer>
-			{user ? <DrawerScreenStack /> : <ProfileScreenStack />}
+			{tokens?.accesToken ? <DrawerScreenStack /> : <ProfileScreenStack />}
 		</NavigationContainer>
 	);
 };

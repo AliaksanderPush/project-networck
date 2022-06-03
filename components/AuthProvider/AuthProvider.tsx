@@ -6,12 +6,12 @@ import { api } from '../../service/auth-service';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
+import { IUserTokens } from '../../user/User.props';
 
 export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 	const [auth, setAuth] = useState<string | null>('');
 	const { logOut, checkUser } = useActions();
 	const { user, error, loading } = useTypedSelector((state) => state.user);
-
 	if (error) {
 		alert(error);
 	}
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 				originalRequest._isRetry = true;
 				try {
 					const { data } = await api.get(`/refresh`);
-					AsyncStorage.setItem('@auth', data.token.refreshToken);
+					AsyncStorage.setItem('@auth', data.token);
 					return api.request(originalRequest);
 				} catch (e) {
 					alert('no registration!');
@@ -40,12 +40,12 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 		const authControl = async () => {
 			let data = await AsyncStorage.getItem('@auth');
 			if (data) {
-				const token = JSON.parse(data);
-				setAuth(token);
-				checkUser();
-				setAuth('');
+				const token = JSON.parse(data) as IUserTokens;
+				if (token.accesToken) {
+					setAuth(token.refreshToken);
+					checkUser();
+				}
 			} else {
-				console.log('stora is empty!');
 				setAuth('');
 			}
 		};

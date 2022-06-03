@@ -32,10 +32,12 @@ export interface IUser {
 	roles?: string[];
 }
 
+export interface IUserTokens {
+	accesToken: string;
+	refreshToken: string;
+}
+
 export interface IUserDTO {
-	token: {
-		accesToken: string;
-		refreshToken: string;
-	};
+	token: IUserTokens;
 	searchUser: IUser;
 }

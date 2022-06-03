@@ -18,10 +18,7 @@ export async function logoutSite(): Promise<void> {
 	return api.post('/logout');
 }
 
-export async function upLoadImage(base64: string, token: string | undefined) {
-	if (!token) {
-		token = '';
-	}
+export async function upLoadImage(base64: string) {
 	const { data } = await api.post('/upload-avatar', { image: base64 });
 	return data;
 }
@@ -30,11 +27,10 @@ export async function putUser(
 	id: string | undefined,
 	newUser: IUser,
 ): Promise<AxiosResponse<IUserDTO>> {
-	const { data } = await api.put<AxiosResponse>('/user/${id}', newUser);
-	return data;
+	console.log('in rrq', id, newUser);
+	return await api.put<IUserDTO>(`/user/${id}`, newUser);
 }
 
 export async function getUsers(): Promise<AxiosResponse<IUserDTO[]>> {
-	const { data } = await axios.get<AxiosResponse>(`${API_URL}/user`);
-	return data;
+	return await axios.get<IUserDTO[]>(`${API_URL}/user`);
 }

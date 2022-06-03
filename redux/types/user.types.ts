@@ -1,9 +1,10 @@
-import { IUserDTO } from '../../user/User.props';
+import { IUser, IUserDTO, IUserTokens } from '../../user/User.props';
 
 export interface IUserState {
-	user: IUserDTO | null;
+	user: IUser | null;
 	loading: boolean;
 	error: null | string;
+	tokens: IUserTokens | null;
 }
 
 export enum UserActionTypes {

@@ -4,6 +4,7 @@ const initialState: IUserState = {
 	user: null,
 	loading: false,
 	error: null,
+	tokens: null,
 };
 
 export const UserReducer = (state = initialState, action: UserAction): IUserState => {
@@ -13,12 +14,16 @@ export const UserReducer = (state = initialState, action: UserAction): IUserStat
 				loading: true,
 				error: null,
 				user: null,
+				tokens: null,
 			};
 		case UserActionTypes.LOAD_USER_SUCCESS:
+			const { payload } = action;
+
 			return {
 				loading: false,
 				error: null,
-				user: action.payload,
+				user: payload.searchUser,
+				tokens: payload.token,
 			};
 
 		case UserActionTypes.LOAD_USER_ERROR:
@@ -26,6 +31,7 @@ export const UserReducer = (state = initialState, action: UserAction): IUserStat
 				loading: false,
 				error: action.payload,
 				user: null,
+				tokens: null,
 			};
 
 		case UserActionTypes.SINGOUT_USER:
@@ -33,13 +39,17 @@ export const UserReducer = (state = initialState, action: UserAction): IUserStat
 				loading: false,
 				error: null,
 				user: null,
+				tokens: null,
 			};
 
 		case UserActionTypes.UPDATE_USER:
+			const { updateUser } = action;
+			console.log('payload>>>', updateUser);
 			return {
 				loading: false,
 				error: null,
-				user: action.updateUser,
+				user: updateUser.searchUser,
+				tokens: updateUser.token,
 			};
 
 		default:

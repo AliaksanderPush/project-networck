@@ -15,11 +15,11 @@ export const fetchUser = (user: IUserLogin) => {
 		try {
 			dispatch({ type: UserActionTypes.LOAD_USER });
 			const response = await autorization(user);
-			console.log('priletelo>>', response.data);
-			await AsyncStorage.setItem('@auth', JSON.stringify(response.data.token.refreshToken));
+			const { data } = response;
+			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
-				payload: response.data,
+				payload: data,
 			});
 		} catch (err: any) {
 			dispatch({
@@ -36,7 +36,7 @@ export const addUserState = (user: IUserRegistr) => {
 			dispatch({ type: UserActionTypes.LOAD_USER });
 			const response = await registration(user);
 			const { data } = response;
-			await AsyncStorage.setItem('@auth', JSON.stringify(data.token.accesToken));
+			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
 				payload: data,
@@ -55,11 +55,10 @@ export const updateUser = (id: string | undefined, newUser: IUser) => {
 		try {
 			dispatch({ type: UserActionTypes.LOAD_USER });
 			const response = await putUser(id, newUser);
-			const { data } = response;
-			await AsyncStorage.setItem('@auth', JSON.stringify(data.token.accesToken));
+			await AsyncStorage.setItem('@auth', JSON.stringify(response.data.token));
 			dispatch({
 				type: UserActionTypes.UPDATE_USER,
-				updateUser: data,
+				updateUser: response.data,
 			});
 		} catch (err: any) {
 			dispatch({
@@ -93,10 +92,7 @@ export const checkUser = () => {
 		try {
 			const response = await getRefreshToken();
 			const { data } = response;
-			console.log('checkUser>>', data.token.accesToken);
-			console.log('stora>> do', await AsyncStorage.getItem('@auth'));
-			await AsyncStorage.setItem('@auth', JSON.stringify(data.token.refreshToken));
-			console.log('stora>> posle', await AsyncStorage.getItem('@auth'));
+			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
 				payload: data,
