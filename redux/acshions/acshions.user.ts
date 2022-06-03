@@ -73,6 +73,7 @@ export const logOut = () => {
 		try {
 			dispatch({ type: UserActionTypes.LOAD_USER });
 			const response = await logoutSite();
+			console.log('logout>>', response);
 			await AsyncStorage.removeItem('@auth');
 			dispatch({
 				type: UserActionTypes.SINGOUT_USER,
