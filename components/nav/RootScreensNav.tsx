@@ -16,7 +16,12 @@ import { HeaderMenu } from '../HeaderTabs/HeaderTabs';
 import React from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import { ButtomStackParams, DrawerStackParams, RootStackParams } from './RootScreensNav.props';
+import {
+	AcccountStackParams,
+	ButtomStackParams,
+	DrawerStackParams,
+	RootStackParams,
+} from './RootScreensNav.props';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { UpdatePassword } from '../UpdatePassword/UpdatePassword';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -33,8 +38,23 @@ const ProfileScreenStack = () => {
 		>
 			<Stack.Screen name='SignIn' component={SignIn} />
 			<Stack.Screen name='SignUp' component={SignUp} />
-			<Stack.Screen name='UpdatePassword' component={UpdatePassword} />
 		</Stack.Navigator>
+	);
+};
+
+const AccountStack = createNativeStackNavigator<AcccountStackParams>();
+
+const AcountScreenStack = () => {
+	return (
+		<AccountStack.Navigator
+			initialRouteName='Account'
+			screenOptions={{
+				headerShown: false,
+			}}
+		>
+			<AccountStack.Screen name='Account' component={Account} />
+			<AccountStack.Screen name='UpdatePassword' component={UpdatePassword} />
+		</AccountStack.Navigator>
 	);
 };
 
@@ -43,7 +63,7 @@ const ButtomStack = createBottomTabNavigator<ButtomStackParams>();
 const TabScreenStack = () => {
 	return (
 		<ButtomStack.Navigator
-			initialRouteName='Account'
+			initialRouteName='AcountScreenStack'
 			screenOptions={{
 				tabBarActiveTintColor: '#2BB24C',
 				tabBarInactiveTintColor: '#9B9B9B',
@@ -51,8 +71,8 @@ const TabScreenStack = () => {
 			}}
 		>
 			<ButtomStack.Screen
-				name='Account'
-				component={Account}
+				name='AcountScreenStack'
+				component={AcountScreenStack}
 				options={{
 					title: 'Profile',
 					tabBarIcon: ({ focused, color }) => (

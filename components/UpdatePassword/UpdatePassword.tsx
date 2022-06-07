@@ -17,6 +17,7 @@ export const UpdatePassword = ({ navigation }: PropsUdatePass): JSX.Element => {
 	const handleSubmit = () => {
 		if (value === confirmValue) {
 			upDatePassword(value);
+			navigation.navigate('Account');
 		} else {
 			alert('Password passwords do not match!');
 		}

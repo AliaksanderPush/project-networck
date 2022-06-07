@@ -2,26 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
-import { HomeScreenProp, PropsAccount, PropsScreen } from './Account.props';
-import { putUser, upLoadImage } from '../../service/service';
+import { PropsScreen } from './Account.props';
+import { upLoadImage } from '../../service/service';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { CircleLogo } from '../../components/UI/CircleLogo/CircleLogo';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../config/Colors';
 import { styles } from './Account.styles';
 import * as ImagePicker from 'expo-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { IUserTokens } from '../../user/User.props';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
-import { useDispatch } from 'react-redux';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from '../../components/nav/RootScreensNav.props';
+import { AcccountStackParams, RootStackParams } from '../../components/nav/RootScreensNav.props';
 
 export const Account = (): JSX.Element => {
+	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
 	const [isEdit, setIsEdit] = useState<boolean>(false);
 	const { user, error, loading, tokens } = useTypedSelector((state) => state.user);
-	const navigate = useNavigation<HomeScreenProp>();
 	const { updateUser } = useActions();
 	const [name, setName] = useState<string>('');
 	const [email, setEmail] = useState<string>('');
@@ -217,7 +214,7 @@ export const Account = (): JSX.Element => {
 					</View>
 				</View>
 				<Text
-					onPress={() => navigate.navigation('UpdatePassword')}
+					onPress={() => navigation.navigate('UpdatePassword')}
 					style={styles.update_password}
 				>
 					Update password

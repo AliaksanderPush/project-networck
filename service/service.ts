@@ -27,7 +27,6 @@ export async function putUser(
 	id: string | undefined,
 	newUser: IUser,
 ): Promise<AxiosResponse<IUserDTO>> {
-	console.log('in rrq', id, newUser);
 	return await api.put<IUserDTO>(`/user/${id}`, newUser);
 }
 
@@ -35,5 +34,5 @@ export async function getUsers(): Promise<AxiosResponse<IUserDTO[]>> {
 	return await axios.get<IUserDTO[]>(`${API_URL}/user`);
 }
 export async function upDatepass(pass: string): Promise<AxiosResponse<IUserDTO>> {
-	return await axios.post<IUserDTO>('/auth/udate-password', pass);
+	return await api.post<IUserDTO>(`/auth/update-password`, { pass: pass });
 }

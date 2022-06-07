@@ -1,4 +1,4 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from '../../components/nav/RootScreensNav.props';
+import { AcccountStackParams } from '../../components/nav/RootScreensNav.props';
 
-export type PropsUdatePass = NativeStackScreenProps<RootStackParams, 'SignIn', 'TabScreenStack'>;
+export type PropsUdatePass = NativeStackScreenProps<AcccountStackParams, 'Account'>;
