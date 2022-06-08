@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image } from 'react-native';
 
 export const Chat = () => {
@@ -14,9 +14,7 @@ export const Chat = () => {
 							marginVertical: 20,
 							borderRadius: 100,
 						}}
-						source={{
-							uri: 'https://cdn.pixabay.com/photo/2022/05/22/12/08/baby-7213274_960_720.jpg',
-						}}
+						source={require('C:\\Users\\User\\Desktop\\Network\\client\\assets\\users\\e7a27bb3-d4e6-4949-a5f7-0dfd8938ae5c.jpeg')}
 					/>
 				</View>
 			</View>

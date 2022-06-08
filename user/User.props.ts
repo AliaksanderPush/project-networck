@@ -41,3 +41,14 @@ export interface IUserDTO {
 	token: IUserTokens;
 	searchUser: IUser;
 }
+
+export interface MulterProps {
+	fildname: string;
+	originalname: string;
+	encoding: string;
+	mimetype: string;
+	destination: string;
+	filename: string;
+	path: string;
+	size: number;
+}

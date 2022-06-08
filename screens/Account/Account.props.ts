@@ -1,19 +1,14 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ButtomStackParams } from '../../components/nav/RootScreensNav.props';
-import { RootStackParams } from '../../components/nav/RootScreensNav.props';
-import { CompositeNavigationProp } from '@react-navigation/native';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { StackNavigationProp } from '@react-navigation/stack';
+interface FormDataValue {
+	uri: string;
+	name: string;
+	type: string;
+}
 
-export type PropsAccount = NativeStackScreenProps<ButtomStackParams, 'Account'>;
-
-export type PropsScreen = NativeStackScreenProps<
-	RootStackParams,
-	'UpdatePassword',
-	'TabScreenStack'
->;
-
-export type HomeScreenProp = CompositeNavigationProp<
-	StackNavigationProp<RootStackParams, 'UpdatePassword'>,
-	BottomTabNavigationProp<ButtomStackParams, 'Account'>
->;
+export interface FormData {
+	append(name: string, value: string | Blob | FormDataValue, fileName?: string): void;
+	delete(name: string): void;
+	get(name: string): FormDataEntryValue | null;
+	getAll(name: string): FormDataEntryValue[];
+	has(name: string): boolean;
+	set(name: string, value: string | Blob | FormDataValue, fileName?: string): void;
+}

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
-import { PropsScreen } from './Account.props';
-import { upLoadImage } from '../../service/service';
+import { upLoadFileImage, upLoadImage } from '../../service/service';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { CircleLogo } from '../../components/UI/CircleLogo/CircleLogo';
 import { Entypo } from '@expo/vector-icons';
+import { FormData } from './Account.props';
 import { colors } from '../../config/Colors';
 import { styles } from './Account.styles';
 import * as ImagePicker from 'expo-image-picker';
@@ -42,7 +42,7 @@ export const Account = (): JSX.Element => {
 		};
 		updateUser(user?._id, newUser);
 	};
-
+	/*
 	const handleCreateFoto = async () => {
 		const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 		if (permissionResult.granted === false) {
@@ -50,12 +50,15 @@ export const Account = (): JSX.Element => {
 		}
 		const pickerResult = await ImagePicker.launchImageLibraryAsync({
 			allowsEditing: true,
+			whith: 200,
+			height: 200,
 			aspect: [4, 3],
 			base64: true,
 		});
 		if (pickerResult.cancelled === true) {
 			return;
 		}
+		console.log('pickerResult>>', pickerResult);
 		const base64Image = `data:image;base64,${pickerResult.base64}`;
 		setImage(base64Image);
 		try {
@@ -63,6 +66,42 @@ export const Account = (): JSX.Element => {
 			console.log('data>>', data);
 		} catch (error: any) {
 			console.log('er>>>', error.response);
+		}
+	};
+
+	*/
+
+	console.log('data>>', user?.avatar);
+
+	const handleCreateFoto = async () => {
+		const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+		if (permissionResult.granted === false) {
+			return alert('camera access is required');
+		}
+		const pickerResult = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			allowsEditing: true,
+			width: 100,
+		});
+		if (!!pickerResult.cancelled) {
+			return;
+		}
+
+		setImage(pickerResult.uri);
+		console.log('picker>>', pickerResult.uri);
+
+		const formData: any = new FormData();
+		formData.append('filedata', {
+			name: 'filedata',
+			uri: pickerResult.uri,
+			type: 'image/jpg',
+		});
+
+		try {
+			const data = await upLoadFileImage(formData);
+			console.log('data>>', data);
+		} catch (error: any) {
+			console.log('err>>>', error.response);
 		}
 	};
 
@@ -89,9 +128,7 @@ export const Account = (): JSX.Element => {
 								marginVertical: 20,
 								borderRadius: 100,
 							}}
-							source={{
-								uri: 'https://cdn.pixabay.com/photo/2022/05/22/12/08/baby-7213274_960_720.jpg',
-							}}
+							source={require('C:\\Users\\User\\Desktop\\Network\\client\\assets\\users\\4ea4cb38-b044-4fd6-8e50-81cf06043850.jpeg')}
 						/>
 					) : image ? (
 						<Image

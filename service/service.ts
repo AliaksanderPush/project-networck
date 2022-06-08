@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
-import { IUserLogin, IUserRegistr, IUserDTO, IUser } from '../user/User.props';
+import { IUserLogin, IUserRegistr, IUserDTO, IUser, MulterProps } from '../user/User.props';
 import { api, API_URL } from './auth-service';
+import { FormData } from '../screens/Account/Account.props';
 
 export async function registration(user: IUserRegistr): Promise<AxiosResponse<IUserDTO>> {
 	return await api.post<IUserDTO>('/auth/register', user);
@@ -35,4 +36,15 @@ export async function getUsers(): Promise<AxiosResponse<IUserDTO[]>> {
 }
 export async function upDatepass(pass: string): Promise<AxiosResponse<IUserDTO>> {
 	return await api.post<IUserDTO>(`/auth/update-password`, { pass: pass });
+}
+
+export async function upLoadFileImage(formData: any): Promise<AxiosResponse<MulterProps>> {
+	const { data } = await api.post(`/upload`, formData, {
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'multipart/form-data',
+		},
+	});
+
+	return data;
 }
