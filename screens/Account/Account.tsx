@@ -88,7 +88,6 @@ export const Account = (): JSX.Element => {
 		}
 
 		setImage(pickerResult.uri);
-		console.log('picker>>', pickerResult.uri);
 
 		const formData: any = new FormData();
 		formData.append('filedata', {
@@ -128,7 +127,7 @@ export const Account = (): JSX.Element => {
 								marginVertical: 20,
 								borderRadius: 100,
 							}}
-							source={require('C:\\Users\\User\\Desktop\\Network\\client\\assets\\users\\4ea4cb38-b044-4fd6-8e50-81cf06043850.jpeg')}
+							source={require('C:\\Users\\Alexander\\Desktop\\networck\\client\\assets\\users\\1391acb3-b90a-4ef1-8d6e-173e1e1c7b6d.jpg')}
 						/>
 					) : image ? (
 						<Image

@@ -23,7 +23,7 @@ import {
 	RootStackParams,
 } from './RootScreensNav.props';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
-import { UpdatePassword } from '../UpdatePassword/UpdatePassword';
+import { UpdatePassword } from '../../screens/UpdatePassword/UpdatePassword';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator<RootStackParams>();

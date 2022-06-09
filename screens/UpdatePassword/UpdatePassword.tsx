@@ -3,8 +3,8 @@ import { View, Text } from 'react-native';
 import { colors } from 'react-native-elements';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
-import { PrimaryButton } from '../UI/Button/PrimaryButton';
-import { UserInput } from '../UI/TextInput/UserTextInput';
+import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
+import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { PropsUdatePass } from './UpdatePassword.props';
 import { styles } from './UpdatePassword.styles';
 
