@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
 	card_container: {
 		flexDirection: 'row',
 		pading: 10,
+		marginVertical: 10,
 	},
 	user_avatar: {
 		width: 50,

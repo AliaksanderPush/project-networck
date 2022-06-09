@@ -1,15 +1,33 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
+import { Text, View, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/core';
+import { Message } from '../../components/Message/Message';
+import chatRoomData from '../../assets/damy-data/chats';
+import { MessageInput } from '../../components/MessageInput/MessageInput';
 
-export const Feed = () => {
+export function Feed() {
+	//	const route = useRoute();
+	//	const navigation = useNavigation();
+
+	//console.warn('Displaying chat room: ', route.params?.id);
+
+	//navigation.setOptions({ title: 'Elon Musk' });
+
 	return (
-		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<View>
-				<TouchableOpacity style={{ alignItems: 'center' }}>
-					<Entypo name='camera' size={25} color='black' />
-				</TouchableOpacity>
-			</View>
-		</View>
+		<SafeAreaView style={styles.page}>
+			<FlatList
+				data={chatRoomData.messages}
+				renderItem={({ item }) => <Message message={item} />}
+				inverted
+			/>
+			<MessageInput />
+		</SafeAreaView>
 	);
-};
+}
+
+const styles = StyleSheet.create({
+	page: {
+		backgroundColor: 'white',
+		flex: 1,
+	},
+});
