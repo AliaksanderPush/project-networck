@@ -31,7 +31,7 @@ export const UserReducer = (state = initialState, action: UserAction): IUserStat
 				loading: false,
 				error: action.payload,
 				user: null,
-				tokens: null,
+				tokens: state?.tokens && { ...state.tokens },
 			};
 
 		case UserActionTypes.SINGOUT_USER:
@@ -42,15 +42,23 @@ export const UserReducer = (state = initialState, action: UserAction): IUserStat
 				tokens: null,
 			};
 
-		case UserActionTypes.UPDATE_USER:
+		case UserActionTypes.UPDATE_USER: {
 			const { updateUser } = action;
-			console.log('payload>>>', updateUser);
 			return {
-				loading: false,
-				error: null,
+				...state,
 				user: updateUser.searchUser,
 				tokens: updateUser.token,
 			};
+		}
+		case UserActionTypes.UPDATE_AVATAR: {
+			const { img } = action;
+			const newState = { ...state.user! };
+			newState['avatar'] = img;
+			return {
+				...state,
+				user: newState,
+			};
+		}
 
 		default:
 			return state;

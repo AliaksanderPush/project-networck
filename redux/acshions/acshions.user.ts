@@ -7,9 +7,10 @@ import {
 	putUser,
 	getRefreshToken,
 	logoutSite,
-	upDatepass,
+	upLoadFileImage,
 } from '../../service/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FormDataProps } from '../../screens/Account/Account.props';
 
 export const fetchUser = (user: IUserLogin) => {
 	return async (dispatch: Dispatch<UserAction>) => {
@@ -38,7 +39,6 @@ export const addUserState = (user: IUserRegistr) => {
 			const response = await registration(user);
 			const { data } = response;
 			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
-			console.log('data>>', data);
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
 				payload: data,
@@ -57,10 +57,11 @@ export const updateUser = (id: string | undefined, newUser: IUser) => {
 		try {
 			dispatch({ type: UserActionTypes.LOAD_USER });
 			const response = await putUser(id, newUser);
-			await AsyncStorage.setItem('@auth', JSON.stringify(response.data.token));
+			const { data } = response;
+			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
 			dispatch({
 				type: UserActionTypes.UPDATE_USER,
-				updateUser: response.data,
+				updateUser: data,
 			});
 		} catch (err: any) {
 			dispatch({
@@ -108,16 +109,14 @@ export const checkUser = () => {
 	};
 };
 
-export const upDatePassword = (password: string) => {
+export const upDateAvatar = (form: FormDataProps) => {
 	return async (dispatch: Dispatch<UserAction>) => {
 		try {
-			const response = await upDatepass(password);
-			//const { data } = response;
-			//await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
-			//	dispatch({
-			//type: UserActionTypes.UPDATE_PASSWORD,
-			//payload: data,
-			//	});
+			const response = await upLoadFileImage(form);
+			dispatch({
+				type: UserActionTypes.UPDATE_AVATAR,
+				img: response,
+			});
 		} catch (err: any) {
 			dispatch({
 				type: UserActionTypes.LOAD_USER_ERROR,

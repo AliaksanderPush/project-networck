@@ -7,17 +7,22 @@ import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { PropsUdatePass } from './UpdatePassword.props';
 import { styles } from './UpdatePassword.styles';
+import { upDatepass } from '../../service/service';
 
 export const UpdatePassword = ({ navigation }: PropsUdatePass): JSX.Element => {
 	const [value, setValue] = useState<string>('');
 	const [confirmValue, setConfirmValue] = useState<string>('');
-	const { upDatePassword } = useActions();
 	const { loading } = useTypedSelector((state) => state.user);
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (value === confirmValue) {
-			upDatePassword(value);
-			navigation.navigate('Account');
+			try {
+				const response = await upDatepass(value);
+				alert(response.data);
+				navigation.navigate('Account');
+			} catch (e: any) {
+				alert(e.response.data);
+			}
 		} else {
 			alert('Password passwords do not match!');
 		}

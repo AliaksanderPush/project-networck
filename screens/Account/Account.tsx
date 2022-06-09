@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
-import { upLoadFileImage, upLoadImage } from '../../service/service';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { CircleLogo } from '../../components/UI/CircleLogo/CircleLogo';
 import { Entypo } from '@expo/vector-icons';
-import { FormData } from './Account.props';
+import { FormDataProps } from './Account.props';
 import { colors } from '../../config/Colors';
 import { styles } from './Account.styles';
 import * as ImagePicker from 'expo-image-picker';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { AcccountStackParams, RootStackParams } from '../../components/nav/RootScreensNav.props';
+import { AcccountStackParams } from '../../components/nav/RootScreensNav.props';
+import { API_URL } from '../../service/auth-service';
 
 export const Account = (): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
 	const [isEdit, setIsEdit] = useState<boolean>(false);
-	const { user, error, loading, tokens } = useTypedSelector((state) => state.user);
-	const { updateUser } = useActions();
+	const { user, error, loading } = useTypedSelector((state) => state.user);
+	const { updateUser, upDateAvatar } = useActions();
 	const [name, setName] = useState<string>('');
 	const [email, setEmail] = useState<string>('');
 	const [age, setAge] = useState<string>('');
@@ -42,36 +42,6 @@ export const Account = (): JSX.Element => {
 		};
 		updateUser(user?._id, newUser);
 	};
-	/*
-	const handleCreateFoto = async () => {
-		const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-		if (permissionResult.granted === false) {
-			return alert('camera access is required');
-		}
-		const pickerResult = await ImagePicker.launchImageLibraryAsync({
-			allowsEditing: true,
-			whith: 200,
-			height: 200,
-			aspect: [4, 3],
-			base64: true,
-		});
-		if (pickerResult.cancelled === true) {
-			return;
-		}
-		console.log('pickerResult>>', pickerResult);
-		const base64Image = `data:image;base64,${pickerResult.base64}`;
-		setImage(base64Image);
-		try {
-			const data = await upLoadImage(base64Image);
-			console.log('data>>', data);
-		} catch (error: any) {
-			console.log('er>>>', error.response);
-		}
-	};
-
-	*/
-
-	console.log('data>>', user?.avatar);
 
 	const handleCreateFoto = async () => {
 		const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -89,19 +59,13 @@ export const Account = (): JSX.Element => {
 
 		setImage(pickerResult.uri);
 
-		const formData: any = new FormData();
+		const formData: FormDataProps = new FormData();
 		formData.append('filedata', {
 			name: 'filedata',
 			uri: pickerResult.uri,
 			type: 'image/jpg',
 		});
-
-		try {
-			const data = await upLoadFileImage(formData);
-			console.log('data>>', data);
-		} catch (error: any) {
-			console.log('err>>>', error.response);
-		}
+		upDateAvatar(formData);
 	};
 
 	useEffect(() => {
@@ -127,7 +91,7 @@ export const Account = (): JSX.Element => {
 								marginVertical: 20,
 								borderRadius: 100,
 							}}
-							source={require('C:\\Users\\Alexander\\Desktop\\networck\\client\\assets\\users\\1391acb3-b90a-4ef1-8d6e-173e1e1c7b6d.jpg')}
+							source={{ uri: `${API_URL}/${user?.avatar}` }}
 						/>
 					) : image ? (
 						<Image

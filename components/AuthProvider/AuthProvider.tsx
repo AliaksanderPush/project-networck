@@ -12,9 +12,7 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 	const [auth, setAuth] = useState<string | null>('');
 	const { logOut, checkUser } = useActions();
 	const { user, error, loading } = useTypedSelector((state) => state.user);
-	if (error) {
-		alert(error);
-	}
+
 	api.defaults.headers.common['Authorization'] = auth ? `Bearer ${auth}` : '';
 	api.interceptors.request.use(
 		(config) => {

@@ -4,7 +4,7 @@ interface FormDataValue {
 	type: string;
 }
 
-export interface FormData {
+export interface FormDataProps {
 	append(name: string, value: string | Blob | FormDataValue, fileName?: string): void;
 	delete(name: string): void;
 	get(name: string): FormDataEntryValue | null;

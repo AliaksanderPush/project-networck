@@ -14,6 +14,7 @@ export enum UserActionTypes {
 	SINGOUT_USER = 'SINGOUT_USER',
 	UPDATE_USER = 'UPDATE_USER',
 	UPDATE_PASSWORD = 'UPDATE_PASSWORD',
+	UPDATE_AVATAR = 'UPDATE_AVATAR',
 }
 
 interface ILoadUserAction {
@@ -40,8 +41,13 @@ interface IUserUpdate {
 }
 
 interface IUserUpdatePassword {
-	type: UserActionTypes.UPDATE_USER;
+	type: UserActionTypes.UPDATE_PASSWORD;
 	pass: string;
+}
+
+interface IUserUpdateAvatar {
+	type: UserActionTypes.UPDATE_AVATAR;
+	img: string;
 }
 
 export type UserAction =
@@ -50,4 +56,5 @@ export type UserAction =
 	| ILoadErrorUserAction
 	| IUserSingOut
 	| IUserUpdate
-	| IUserUpdatePassword;
+	| IUserUpdatePassword
+	| IUserUpdateAvatar;
