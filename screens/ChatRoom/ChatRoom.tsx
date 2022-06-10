@@ -17,6 +17,7 @@ export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
 	useEffect(() => {
 		const seachChat = chatRoom.find((item) => item.id === id);
 		//setChat(seachChat);
+		
 	}, []);
 	return (
 		<SafeAreaView style={styles.chatRoom}>

@@ -27,6 +27,7 @@ import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector'
 import { UpdatePassword } from '../../screens/UpdatePassword/UpdatePassword';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatRoom } from '../../screens/ChatRoom/ChatRoom';
+import { FogotPassword } from '../../screens/FogotPassword/FogotPassword';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -40,6 +41,7 @@ const ProfileScreenStack = () => {
 		>
 			<Stack.Screen name='SignIn' component={SignIn} />
 			<Stack.Screen name='SignUp' component={SignUp} />
+			<Stack.Screen name='FogotPassword' component={FogotPassword} />
 		</Stack.Navigator>
 	);
 };

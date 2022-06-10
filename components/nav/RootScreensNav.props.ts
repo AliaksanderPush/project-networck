@@ -3,6 +3,7 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 export type RootStackParams = {
 	SignUp: undefined;
 	SignIn: undefined;
+	FogotPassword: undefined;
 	TabScreenStack: undefined;
 };
 
