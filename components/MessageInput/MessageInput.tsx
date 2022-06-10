@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	TextInput,
-	Pressable,
-	KeyboardAvoidingView,
-	Platform,
-} from 'react-native';
-import { styles } from './MessageInput.styles';
+import { View, TextInput, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
+
 import {
 	SimpleLineIcons,
 	Feather,
@@ -16,9 +8,11 @@ import {
 	AntDesign,
 	Ionicons,
 } from '@expo/vector-icons';
+import { styles } from './MessageInput.styles';
+import { colors } from '../../config/Colors';
 
 export const MessageInput = () => {
-	const [message, setMessage] = useState('');
+	const [message, setMessage] = useState<string>('');
 
 	const sendMessage = () => {
 		// send message
@@ -41,29 +35,34 @@ export const MessageInput = () => {
 
 	return (
 		<KeyboardAvoidingView
-			style={styles.root}
+			style={styles.inp_message_container}
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={100}
 		>
-			<View style={styles.inputContainer}>
-				<SimpleLineIcons name='emotsmile' size={24} color='#595959' style={styles.icon} />
+			<View style={styles.input_message_wrap}>
+				<SimpleLineIcons
+					name='emotsmile'
+					size={24}
+					color={colors.grayDarck}
+					style={styles.icon}
+				/>
 
 				<TextInput
 					style={styles.input}
 					value={message}
 					onChangeText={setMessage}
-					placeholder='Signal message...'
+					placeholder='Text message...'
 				/>
 
-				<Feather name='camera' size={24} color='#595959' style={styles.icon} />
+				<Feather name='camera' size={24} color={colors.grayDarck} style={styles.icon} />
 				<MaterialCommunityIcons
 					name='microphone-outline'
 					size={24}
-					color='#595959'
+					color={colors.grayDarck}
 					style={styles.icon}
 				/>
 			</View>
-			<Pressable onPress={onPress} style={styles.buttonContainer}>
+			<Pressable onPress={onPress} style={styles.buttons_container}>
 				{message ? (
 					<Ionicons name='send' size={18} color='white' />
 				) : (

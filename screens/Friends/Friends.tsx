@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text, View, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import chatsRoomsData from '../../assets/damy-data/chatRoom';
+import { CardMessage } from '../../components/CardMessage/CardMessage';
+import { styles } from './Friends.styles';
 
 export const Friends = () => {
 	return (
 		<>
-			<View></View>
-			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				<Text style={{ color: 'green', fontSize: 30 }}>Friends</Text>
+			<View style={styles.friends_page}>
+				<FlatList
+					data={chatsRoomsData}
+					renderItem={({ item }) => <CardMessage chatRoom={item} />}
+				/>
 			</View>
 		</>
 	);

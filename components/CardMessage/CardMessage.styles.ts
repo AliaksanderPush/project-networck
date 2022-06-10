@@ -6,6 +6,9 @@ export const styles = StyleSheet.create({
 		flexDirection: 'row',
 		pading: 10,
 		marginVertical: 10,
+		marginHorizontal: 10,
+		borderBottomWidth: 2,
+		borderColor: colors.gray1,
 	},
 	user_avatar: {
 		width: 50,
@@ -27,11 +30,11 @@ export const styles = StyleSheet.create({
 		marginBottom: 3,
 	},
 	message: {
-		color: 'gray',
+		color: colors.grayDarck,
 		fontSize: 18,
 	},
 	bage_row: {
-		backgroundColor: 'blue',
+		backgroundColor: colors.blue,
 		width: 20,
 		height: 20,
 		borderRadius: 10,

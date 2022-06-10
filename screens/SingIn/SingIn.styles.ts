@@ -16,14 +16,7 @@ export const styles = StyleSheet.create({
 		marginHorizontal: '5%',
 		marginVertical: 30,
 	},
-	btn_btnnn: {
-		height: 50,
-		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: '#00008b',
-		marginHorizontal: 10,
-		borderRadius: 10,
-	},
+
 	checkBox_container: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',

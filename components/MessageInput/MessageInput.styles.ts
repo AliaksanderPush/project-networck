@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-	root: {
+	inp_message_container: {
 		flexDirection: 'row',
 		padding: 10,
 	},
-	inputContainer: {
+	input_message_wrap: {
 		backgroundColor: '#f2f2f2',
 		flex: 1,
 		marginRight: 10,
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
 	icon: {
 		marginHorizontal: 5,
 	},
-	buttonContainer: {
+	buttons_container: {
 		width: 40,
 		height: 40,
 		backgroundColor: '#3777f0',

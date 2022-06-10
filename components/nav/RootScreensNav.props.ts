@@ -8,13 +8,13 @@ export type RootStackParams = {
 
 export type ButtomStackParams = {
 	Chat: undefined;
-	Feed: undefined;
+	ChatRoomScreenStack: NavigatorScreenParams<ChatRoomStackParams>;
 	AcountScreenStack: NavigatorScreenParams<AcccountStackParams>;
 	Profile: NavigatorScreenParams<RootStackParams>;
 };
 
 export type DrawerStackParams = {
-	Friends: undefined;
+	Posts: undefined;
 	Likes: undefined;
 	TabScreenStack: undefined;
 };
@@ -22,4 +22,11 @@ export type DrawerStackParams = {
 export type AcccountStackParams = {
 	UpdatePassword: undefined;
 	Account: undefined;
+};
+
+export type ChatRoomStackParams = {
+	Friends: undefined;
+	ChatRoom: {
+		id: string;
+	};
 };

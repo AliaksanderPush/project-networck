@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-	feed_page: {
-		backgroundColor: 'white',
+	friends_page: {
 		flex: 1,
 	},
 });

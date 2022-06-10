@@ -3,9 +3,6 @@ import { styles } from './Message.styles';
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const blue = '#3777f0';
-const grey = 'lightgrey';
-
 const myID = 'u1';
 
 export const Message = ({ message }: any) => {

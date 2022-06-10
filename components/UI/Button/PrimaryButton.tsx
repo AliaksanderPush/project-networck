@@ -3,18 +3,28 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { IPrimaryButton } from './PrimaryButton.props';
 import { colors } from '../../../config/Colors';
 
-export const PrimaryButton = ({ buttonBg, text, label, setValue }: IPrimaryButton): JSX.Element => {
+export const PrimaryButton = ({
+	buttonBg,
+	text,
+	label,
+	setValue,
+	loading,
+	size,
+}: IPrimaryButton): JSX.Element => {
 	const buttonBackground = buttonBg || colors.primary;
 	const textColor = text || colors.secondary;
 	const textLabel = label;
+	const sizeBtn = size || 5;
 
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity
 				onPress={setValue}
-				style={[styles.button, { backgroundColor: buttonBackground }]}
+				style={[styles.button, { backgroundColor: buttonBackground, padding: sizeBtn }]}
 			>
-				<Text style={[styles.text, { color: textColor }]}>{textLabel}</Text>
+				<Text style={[styles.text, { color: textColor }]}>
+					{!loading ? textLabel : 'Please wait...'}
+				</Text>
 			</TouchableOpacity>
 		</View>
 	);
@@ -25,13 +35,10 @@ export const styles = StyleSheet.create({
 		width: '100%',
 	},
 	button: {
-		backgroundColor: colors.primary,
-		borderRadius: 5,
-		padding: 5,
+		borderRadius: 7,
 	},
 	text: {
-		color: colors.secondary,
 		textAlign: 'center',
-		fontSize: 18,
+		fontSize: 20,
 	},
 });

@@ -8,6 +8,7 @@ import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { Props } from './SingIn.props';
 import { styles } from './SingIn.styles';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
+import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 
 export const SignIn = ({ navigation }: Props): JSX.Element => {
 	const { user, error, loading } = useTypedSelector((state) => state.user);
@@ -77,11 +78,12 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 					{errors.password && alert(errors.password.message as string)}
 
 					<View style={styles.btn_container}>
-						<TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn_btnnn}>
-							<Text style={{ color: 'white', fontSize: 20 }}>
-								{!loading ? 'Sing In' : 'Please waite...'}
-							</Text>
-						</TouchableOpacity>
+						<PrimaryButton
+							label='Sing In'
+							size={10}
+							loading={loading}
+							setValue={handleSubmit(onSubmit)}
+						/>
 					</View>
 					<View>
 						<Text style={{ textAlign: 'center' }}>
