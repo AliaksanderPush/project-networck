@@ -65,6 +65,7 @@ export const Account = (): JSX.Element => {
 			uri: pickerResult.uri,
 			type: 'image/jpg',
 		});
+
 		upDateAvatar(formData);
 	};
 

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
-import { colors } from 'react-native-elements';
-import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';

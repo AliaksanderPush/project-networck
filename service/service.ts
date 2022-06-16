@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IUserLogin, IUserRegistr, IUserDTO, IUser, MulterProps } from '../user/User.props';
+import { IUserLogin, IUserRegistr, IUserDTO, IUser } from '../user/User.props';
 import { api, API_URL } from './auth-service';
 import { FormDataProps } from '../screens/Account/Account.props';
 
@@ -50,6 +50,6 @@ export async function upLoadFileImage(formData: FormDataProps): Promise<string> 
 			'Content-Type': 'multipart/form-data',
 		},
 	});
-
+	console.log('data>>', data);
 	return data;
 }

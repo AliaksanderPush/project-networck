@@ -30,6 +30,9 @@ export interface IUser {
 	password: string | undefined;
 	avatar?: string | undefined;
 	roles?: string[];
+	contacts?: IFriend[];
+	created_at?: Date;
+	posts?: IPost[];
 }
 
 export interface IUserTokens {
@@ -40,6 +43,29 @@ export interface IUserTokens {
 export interface IUserDTO {
 	token: IUserTokens;
 	searchUser: IUser;
+}
+
+export interface IPost {
+	title: string;
+	slug: string;
+	content: string;
+	featuredImage?: IMedia;
+	published?: boolean;
+	postedBy: IUser;
+	createdAt: Date;
+	updatedAt: Date;
+}
+
+export interface IMedia {
+	url: string;
+	public_id: string;
+	postedBy: IUser;
+	timestamps: Date;
+}
+
+export interface IFriend {
+	userName: string;
+	userId: IUser;
 }
 
 export interface MulterProps {
