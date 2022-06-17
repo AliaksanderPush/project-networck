@@ -9,6 +9,7 @@ export type RootStackParams = {
 
 export type ButtomStackParams = {
 	Chat: undefined;
+	Post: undefined;
 	ChatRoomScreenStack: NavigatorScreenParams<ChatRoomStackParams>;
 	AcountScreenStack: NavigatorScreenParams<AcccountStackParams>;
 	Profile: NavigatorScreenParams<RootStackParams>;

@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 	},
-	info_item: {},
+
 	info_count: {
 		textAlign: 'center',
 		fontSize: 22,

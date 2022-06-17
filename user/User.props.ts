@@ -1,3 +1,4 @@
+import { FormDataProps } from '../screens/Account/Account.props';
 export interface IUserRegistr {
 	name: string;
 	email: string;
@@ -54,6 +55,17 @@ export interface IPost {
 	postedBy: IUser;
 	createdAt: Date;
 	updatedAt: Date;
+}
+
+export interface ICreatePost {
+	title: string;
+	content: string;
+	formData: FormDataProps;
+}
+export interface ICreatePostDTO {
+	title: string;
+	content: string;
+	featuredImage: string;
 }
 
 export interface IMedia {

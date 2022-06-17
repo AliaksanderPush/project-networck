@@ -100,15 +100,15 @@ export const Account = (): JSX.Element => {
 					</TouchableOpacity>
 				</View>
 				<View style={styles.info}>
-					<View style={styles.info_item}>
+					<View>
 						<Text style={styles.info_text}>Posts</Text>
 						<Text style={styles.info_count}>23</Text>
 					</View>
-					<View style={styles.info_item}>
+					<View>
 						<Text style={styles.info_text}>Friends</Text>
 						<Text style={styles.info_count}>12</Text>
 					</View>
-					<View style={styles.info_item}>
+					<View>
 						<Text style={styles.info_text}>Comments</Text>
 						<Text style={styles.info_count}>4</Text>
 					</View>

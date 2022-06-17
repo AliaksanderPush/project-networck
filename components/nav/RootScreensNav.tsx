@@ -28,6 +28,7 @@ import { UpdateProfile } from '../../screens/UpdatePassword/UpdateProfile';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatRoom } from '../../screens/ChatRoom/ChatRoom';
 import { FogotPassword } from '../../screens/FogotPassword/FogotPassword';
+import { AddPost } from '../../screens/AddPost/AddPost';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -106,6 +107,16 @@ const TabScreenStack = () => {
 				component={Chat}
 				options={{
 					tabBarIcon: ({ color }) => <AntDesign name='wechat' size={32} color={color} />,
+					headerRight: () => <HeaderMenu />,
+				}}
+			/>
+			<ButtomStack.Screen
+				name='Post'
+				component={AddPost}
+				options={{
+					tabBarIcon: ({ color }) => (
+						<MaterialIcons name='add-circle' size={32} color={color} />
+					),
 					headerRight: () => <HeaderMenu />,
 				}}
 			/>
