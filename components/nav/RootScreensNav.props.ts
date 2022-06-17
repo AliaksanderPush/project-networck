@@ -21,7 +21,7 @@ export type DrawerStackParams = {
 };
 
 export type AcccountStackParams = {
-	UpdatePassword: undefined;
+	UpdateProfile: undefined;
 	Account: undefined;
 };
 

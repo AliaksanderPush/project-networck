@@ -24,7 +24,7 @@ import {
 	RootStackParams,
 } from './RootScreensNav.props';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
-import { UpdatePassword } from '../../screens/UpdatePassword/UpdatePassword';
+import { UpdateProfile } from '../../screens/UpdatePassword/UpdateProfile';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatRoom } from '../../screens/ChatRoom/ChatRoom';
 import { FogotPassword } from '../../screens/FogotPassword/FogotPassword';
@@ -57,7 +57,7 @@ const AcountScreenStack = () => {
 			}}
 		>
 			<AccountStack.Screen name='Account' component={Account} />
-			<AccountStack.Screen name='UpdatePassword' component={UpdatePassword} />
+			<AccountStack.Screen name='UpdateProfile' component={UpdateProfile} />
 		</AccountStack.Navigator>
 	);
 };

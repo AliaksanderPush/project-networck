@@ -2,7 +2,7 @@ import { AppAction, AppActionTypes } from '../types/app.types';
 
 const initialState = {
 	loading: false,
-	error: false,
+	error: null,
 };
 
 export const AppReducer = (state = initialState, action: AppAction) => {
@@ -20,12 +20,12 @@ export const AppReducer = (state = initialState, action: AppAction) => {
 		case AppActionTypes.ERROR_DISPLAY_ON:
 			return {
 				...state,
-				error: true,
+				error: action.payload,
 			};
 		case AppActionTypes.ERROR_DISPLAY_OFF:
 			return {
 				...state,
-				error: false,
+				error: null,
 			};
 
 		default:

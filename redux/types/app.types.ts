@@ -12,22 +12,22 @@ export enum AppActionTypes {
 	ERROR_DISPLAY_ON = 'ERROR_DISPLAY_ON',
 }
 
-interface ILoadONAction {
+export interface ILoadONAction {
 	type: AppActionTypes.LOADER_DISPLAY_ON;
 }
 
-interface ILoadOFFAction {
+export interface ILoadOFFAction {
 	type: AppActionTypes.LOADER_DISPLAY_OFF;
 }
 
-interface IErrorONPostsAction {
+export interface IErrorONAction {
 	type: AppActionTypes.ERROR_DISPLAY_ON;
 	payload: string;
 }
 
-interface IErrorOFFPostsAction {
+export interface IErrorOFFAction {
 	type: AppActionTypes.ERROR_DISPLAY_OFF;
 	payload: null;
 }
 
-export type AppAction = ILoadONAction | IErrorONPostsAction | IErrorOFFPostsAction | ILoadOFFAction;
+export type AppAction = ILoadONAction | IErrorONAction | IErrorOFFAction | ILoadOFFAction;

@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../config/Colors';
 
 export const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		justifyContent: 'center',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
 		backgroundColor: '#EEEEEE',
+		paddingHorizontal: 10,
 	},
 	text_item: {
 		fontSize: 16,
@@ -12,6 +14,25 @@ export const styles = StyleSheet.create({
 		marginHorizontal: 20,
 		marginVertical: 10,
 	},
+
+	info: {
+		width: '50%',
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+	},
+	info_item: {},
+	info_count: {
+		textAlign: 'center',
+		fontSize: 22,
+		fontWeight: '700',
+	},
+
+	info_text: {
+		textAlign: 'center',
+		marginVertical: 10,
+		fontSize: 20,
+	},
+
 	btn: {
 		width: '30%',
 		justifyContent: 'center',
@@ -24,39 +45,31 @@ export const styles = StyleSheet.create({
 		textAlign: 'center',
 		marginHorizontal: 10,
 		marginVertical: 10,
-		color: 'green',
+		color: colors.blue,
 		fontWeight: '700',
 	},
-	data_item: {
-		fontSize: 24,
+	status: {
+		width: 300,
+		height: 40,
+		backgroundColor: '#b7def7',
+		borderBottomRightRadius: 15,
+		borderTopLeftRadius: 15,
+		borderTopRightRadius: 15,
+		marginLeft: 90,
+		marginTop: 20,
 	},
-	input: {
-		borderWidth: 1,
-		borderColor: 'blue',
-		borderRadius: 4,
-		width: 200,
-		flex: 1,
-	},
-	iconContainer: {
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderWidth: 1,
-		borderColor: 'blue',
-	},
-
-	icon: {
-		width: 200,
-		height: 200,
-	},
-	container_btn: {
-		flexDirection: 'row',
-		justifyContent: 'space-around',
-	},
-	update_password: {
+	status_text: {
 		textAlign: 'center',
-		marginVertical: 20,
-		color: 'red',
-		fontSize: 18,
+		lineHeight: 40,
+		fontSize: 20,
+	},
+	status_text_item: {
+		marginLeft: 30,
+		color: colors.blue,
+	},
+	post_container: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		flexWrap: 'wrap',
 	},
 });

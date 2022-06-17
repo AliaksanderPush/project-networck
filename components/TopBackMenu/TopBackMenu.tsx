@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { IconBack } from '../UI/icons/IconBack';
 import { useNavigation } from '@react-navigation/core';
+import { colors } from '../../config/Colors';
 
 export const TopBackMenu = () => {
 	const navigation = useNavigation();
@@ -11,12 +12,12 @@ export const TopBackMenu = () => {
 		<View style={styles.container}>
 			<TouchableHighlight
 				style={styles.backButton}
-				underlayColor='#f0ddcc'
+				underlayColor={colors.blue}
 				onPress={() => {
 					navigation.goBack();
 				}}
 			>
-				<IconBack color='#333' size={20} />
+				<IconBack color='#333' size={30} />
 			</TouchableHighlight>
 		</View>
 	);

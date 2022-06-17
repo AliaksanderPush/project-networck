@@ -3,19 +3,20 @@ import { View, Text, Image, FlatList } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { CardMessage } from '../../components/CardMessage/CardMessage';
 import { fetchPosts } from '../../redux/acshions/acshions.post';
+import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { ChatRoom } from '../ChatRoom/ChatRoom';
 import { styles } from './Chat.styles';
 
 export const Chat = () => {
-	const dispatch = useDispatch();
-	const { posts, error, loading } = useTypedSelector((state) => state.posts);
-	console.log('posts>>>>', posts);
-	console.log('er>>', error);
+	const { fetchPosts } = useActions();
+	const { posts } = useTypedSelector((state) => state.posts);
+	const { error, loading } = useTypedSelector((state) => state.AppReducer);
+	//console.log('posts>>', posts);
 
 	useEffect(() => {
-		dispatch(fetchPosts());
-	}, [dispatch]);
+		fetchPosts();
+	}, []);
 
 	return (
 		<View style={styles.feed_page}>

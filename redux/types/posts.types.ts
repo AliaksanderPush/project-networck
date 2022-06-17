@@ -2,28 +2,15 @@ import { IPost } from '../../user/User.props';
 
 export interface IPostState {
 	posts: IPost[];
-	loading: boolean;
-	error: null | string;
 }
 
 export enum PostsActionTypes {
-	LOAD_POST = 'LOAD_POST',
-	LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS',
-	LOAD_POST_ERROR = 'LOAD_POST_ERROR',
+	LOAD_POSTS = 'LOAD_POSTS',
 }
 
 interface ILoadPostsAction {
-	type: PostsActionTypes.LOAD_POST;
-}
-
-interface ILoadSuccessPostsAction {
-	type: PostsActionTypes.LOAD_POST_SUCCESS;
+	type: PostsActionTypes.LOAD_POSTS;
 	payload: IPost[];
 }
 
-interface ILoadErrorPostsAction {
-	type: PostsActionTypes.LOAD_POST_ERROR;
-	payload: string;
-}
-
-export type PostsAction = ILoadPostsAction | ILoadSuccessPostsAction | ILoadErrorPostsAction;
+export type PostsAction = ILoadPostsAction;
