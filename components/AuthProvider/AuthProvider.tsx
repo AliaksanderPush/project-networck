@@ -10,9 +10,9 @@ import { IUserTokens } from '../../user/User.props';
 
 export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 	const [auth, setAuth] = useState<string | null>('');
-	const { logOut, checkUser } = useActions();
-	const { user, error, loading } = useTypedSelector((state) => state.user);
-
+	const { checkUser } = useActions();
+	const { tokens } = useTypedSelector((state) => state.user);
+	console.log('auth>>>', auth);
 	api.defaults.headers.common['Authorization'] = auth ? `Bearer ${auth}` : '';
 	api.interceptors.request.use(
 		(config) => {
@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 	useEffect(() => {
 		const authControl = async () => {
 			let data = await AsyncStorage.getItem('@auth');
+			console.log('storage>>', data);
 			if (data) {
 				const token = JSON.parse(data) as IUserTokens;
 				if (token.accesToken) {
@@ -49,6 +50,15 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 		};
 		authControl();
 	}, []);
+
+	useEffect(() => {
+		if (!tokens) {
+			setAuth('');
+			console.log('it wokck!');
+		} else {
+			setAuth(tokens.refreshToken);
+		}
+	}, [tokens]);
 
 	return <SafeAreaProvider>{children}</SafeAreaProvider>;
 };

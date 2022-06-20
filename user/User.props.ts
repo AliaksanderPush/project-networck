@@ -29,7 +29,7 @@ export interface IUser {
 	gender: string;
 	name: string;
 	password: string | undefined;
-	avatar?: string | undefined;
+	avatar: string;
 	roles?: string[];
 	contacts?: IFriend[];
 	created_at?: Date;
@@ -50,7 +50,7 @@ export interface IPost {
 	title: string;
 	slug: string;
 	content: string;
-	featuredImage?: IMedia;
+	featuredImage: string;
 	published?: boolean;
 	postedBy: IUser;
 	createdAt: Date;

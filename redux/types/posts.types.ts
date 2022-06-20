@@ -2,7 +2,6 @@ import { IPost } from '../../user/User.props';
 
 export interface IPostState {
 	posts: IPost[];
-	myPosts: IPost[];
 }
 
 export enum PostsActionTypes {

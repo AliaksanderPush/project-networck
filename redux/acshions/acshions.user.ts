@@ -11,11 +11,13 @@ import {
 } from '../../service/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FormDataProps } from '../../screens/Account/Account.props';
+import { errorOn, loaderOff, loaderOn } from './acshions.app';
+import { AppAction } from '../types/app.types';
 
 export const fetchUser = (user: IUserLogin) => {
-	return async (dispatch: Dispatch<UserAction>) => {
+	return async (dispatch: Dispatch<UserAction | AppAction>) => {
 		try {
-			dispatch({ type: UserActionTypes.LOAD_USER });
+			dispatch(loaderOn());
 			const response = await autorization(user);
 			const { data } = response;
 			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
@@ -23,75 +25,71 @@ export const fetchUser = (user: IUserLogin) => {
 				type: UserActionTypes.LOAD_USER_SUCCESS,
 				payload: data,
 			});
+			dispatch(loaderOff());
 		} catch (err: any) {
-			dispatch({
-				type: UserActionTypes.LOAD_USER_ERROR,
-				payload: err.response.data,
-			});
+			console.log(err);
+			dispatch(errorOn(err.response.data));
 		}
 	};
 };
 
 export const addUserState = (user: IUserRegistr) => {
-	return async (dispatch: Dispatch<UserAction>) => {
+	return async (dispatch: Dispatch<UserAction | AppAction>) => {
 		try {
-			dispatch({ type: UserActionTypes.LOAD_USER });
+			dispatch(loaderOn());
 			const response = await registration(user);
 			const { data } = response;
 			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
+			dispatch(loaderOff());
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
 				payload: data,
 			});
 		} catch (err: any) {
-			dispatch({
-				type: UserActionTypes.LOAD_USER_ERROR,
-				payload: err.response.data,
-			});
+			console.log(err);
+			dispatch(errorOn(err.response.data));
 		}
 	};
 };
 
 export const updateUser = (id: string | undefined, newUser: IUser) => {
-	return async (dispatch: Dispatch<UserAction>) => {
+	return async (dispatch: Dispatch<UserAction | AppAction>) => {
 		try {
-			dispatch({ type: UserActionTypes.LOAD_USER });
+			dispatch(loaderOn());
 			const response = await putUser(id, newUser);
 			const { data } = response;
 			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
+			dispatch(loaderOff());
 			dispatch({
 				type: UserActionTypes.UPDATE_USER,
 				updateUser: data,
 			});
 		} catch (err: any) {
-			dispatch({
-				type: UserActionTypes.LOAD_USER_ERROR,
-				payload: err.response.data,
-			});
+			console.log(err);
+			dispatch(errorOn(err.response.data));
 		}
 	};
 };
 
 export const logOut = () => {
-	return async (dispatch: Dispatch<UserAction>) => {
+	return async (dispatch: Dispatch<UserAction | AppAction>) => {
 		try {
-			dispatch({ type: UserActionTypes.LOAD_USER });
+			dispatch(loaderOn());
 			await AsyncStorage.removeItem('@auth');
-			const response = await logoutSite();
 			dispatch({
 				type: UserActionTypes.SINGOUT_USER,
 			});
+			await logoutSite();
+			dispatch(loaderOff());
 		} catch (err: any) {
-			dispatch({
-				type: UserActionTypes.LOAD_USER_ERROR,
-				payload: err.response.data,
-			});
+			console.log(err);
+			dispatch(errorOn(err.response.data));
 		}
 	};
 };
 
 export const checkUser = () => {
-	return async (dispatch: Dispatch<UserAction>) => {
+	return async (dispatch: Dispatch<UserAction | AppAction>) => {
 		try {
 			const response = await getRefreshToken();
 			const { data } = response;
@@ -101,27 +99,25 @@ export const checkUser = () => {
 				payload: data,
 			});
 		} catch (err: any) {
-			dispatch({
-				type: UserActionTypes.LOAD_USER_ERROR,
-				payload: err.response.data,
-			});
+			console.log(err);
+			dispatch(errorOn(err.response.data));
 		}
 	};
 };
 
 export const upDateAvatar = (form: FormDataProps) => {
-	return async (dispatch: Dispatch<UserAction>) => {
+	return async (dispatch: Dispatch<UserAction | AppAction>) => {
 		try {
+			dispatch(loaderOn());
 			const response = await upLoadFileImage(form);
 			dispatch({
 				type: UserActionTypes.UPDATE_AVATAR,
 				img: response,
 			});
+			dispatch(loaderOff());
 		} catch (err: any) {
-			dispatch({
-				type: UserActionTypes.LOAD_USER_ERROR,
-				payload: err.response.data,
-			});
+			console.log(err);
+			dispatch(errorOn(err.response.data));
 		}
 	};
 };

@@ -3,22 +3,27 @@ import { View, Text, Image, Pressable, TouchableHighlight } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Avatar } from '../Avatar/Avatar';
+import { IPost } from '../../user/User.props';
 import { styles } from './CardPost.styles';
+import { ICardPost } from './CardPost.props';
+import { API_URL } from '../../service/auth-service';
 
-export const CardPost = () => {
+export const CardPost = ({ post }: ICardPost): JSX.Element => {
+	console.log('post in CardPost>>', post);
+	const { postedBy, featuredImage, content, title } = post;
 	return (
 		<View style={styles.card_container}>
 			<View style={styles.card_header}>
-				<Avatar />
+				<Avatar url={postedBy.avatar} size={70} />
 				<View>
-					<Text style={styles.card_header_text}>Name</Text>
+					<Text style={styles.card_header_text}>{postedBy.name}</Text>
 				</View>
 			</View>
 			<View>
 				<Image
 					style={styles.image}
 					source={{
-						uri: 'https://cdn.pixabay.com/photo/2022/06/11/21/38/puffin-7257000__340.jpg',
+						uri: `${API_URL}/${featuredImage}`,
 					}}
 				/>
 			</View>
@@ -34,22 +39,8 @@ export const CardPost = () => {
 				</View>
 
 				<Text style={{ color: 'blue' }}>Likes 8</Text>
-
-				<Text style={styles.footer_content}>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum reprehenderit
-					neque dolore ab labore laudantium voluptas, ducimus facilis adipisci temporibus,
-					ratione animi molestias reiciendis praesentium excepturi nam iure nesciunt amet?
-					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate suscipit
-					incidunt enim placeat, cumque, aperiam corporis rem aspernatur labore magnam
-					vero accusantium amet mollitia excepturi, veritatis autem numquam perferendis
-					quia! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod
-					cupiditate est ullam eum consectetur, aliquam sint autem libero deserunt
-					voluptatibus expedita sit temporibus dolore deleniti quis quas perspiciatis
-					necessitatibus. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse
-					assumenda eius minima minus quas consectetur illum debitis recusandae dolore!
-					Labore, amet. Perferendis eveniet autem eligendi quaerat ad soluta voluptatem
-					quas?
-				</Text>
+				<Text style={styles.footer_title}>{title}</Text>
+				<Text style={styles.footer_content}>{content}</Text>
 				<Pressable>
 					<Text style={{ color: 'blue' }}>More...</Text>
 				</Pressable>

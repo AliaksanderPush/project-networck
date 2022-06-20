@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import { SignUp } from '../../screens/SingUp/SingUp';
 import { SignIn } from '../../screens/SingIn/SingIn';
 import { Chat } from '../../screens/Chat/Chat';
-import { Friends } from '../../screens/Friends/Friends';
+import { Feed } from '../../screens/Feed/Feed';
 import { Likes } from '../../screens/Likes/Likes';
 import { MyPosts } from '../../screens/MyPosts/MyPosts';
 import { NavigationContainer } from '@react-navigation/native';
@@ -73,7 +73,7 @@ const ChatRoomScreenStack = () => {
 				headerShown: false,
 			}}
 		>
-			<ChatRoomStack.Screen name='Friends' component={Friends} />
+			<ChatRoomStack.Screen name='Friends' component={Feed} />
 			<ChatRoomStack.Screen name='ChatRoom' component={ChatRoom} />
 		</ChatRoomStack.Navigator>
 	);
@@ -124,9 +124,9 @@ const TabScreenStack = () => {
 				name='ChatRoomScreenStack'
 				component={ChatRoomScreenStack}
 				options={{
-					title: 'Friends',
+					title: 'Feed',
 					tabBarIcon: ({ color }) => (
-						<FontAwesome5 name='user-friends' size={32} color={color} />
+						<Octicons name='feed-discussion' size={32} color={color} />
 					),
 					headerRight: () => <HeaderMenu />,
 				}}

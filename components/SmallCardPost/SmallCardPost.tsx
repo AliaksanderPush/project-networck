@@ -1,20 +1,22 @@
 import React from 'react';
-import { View, Text, Image, Pressable, TouchableHighlight } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
+import { Props } from './SmallCardPosts.props';
+import { API_URL } from '../../service/auth-service';
 import { styles } from './SmallCardPost.styles';
 
-export const SmallCardPost = () => {
+export const SmallCardPost = ({ img }: Props): JSX.Element => {
 	const handlePress = () => {
 		alert('press');
 	};
 
 	return (
-		<TouchableHighlight onPress={handlePress}>
+		<TouchableOpacity onPress={handlePress}>
 			<Image
 				style={styles.image}
 				source={{
-					uri: 'https://cdn.pixabay.com/photo/2022/04/30/15/56/dandelion-7165893__340.jpg',
+					uri: `${API_URL}/${img}`,
 				}}
 			/>
-		</TouchableHighlight>
+		</TouchableOpacity>
 	);
 };

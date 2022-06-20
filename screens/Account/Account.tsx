@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -15,12 +15,19 @@ import { useNavigation } from '@react-navigation/native';
 import { AcccountStackParams } from '../../components/nav/RootScreensNav.props';
 import { API_URL } from '../../service/auth-service';
 import { SmallCardPost } from '../../components/SmallCardPost/SmallCardPost';
+import { useDispatch } from 'react-redux';
+import { fetchPosts } from '../../redux/acshions/acshions.post';
+import { FlatList } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Account = (): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
-	const { user, error, loading } = useTypedSelector((state) => state.user);
+	const { user } = useTypedSelector((state) => state.user);
+	const { posts } = useTypedSelector((state) => state.posts);
 	const { upDateAvatar } = useActions();
+	const dispatch = useDispatch();
 	const [image, setImage] = useState<string>('');
+	console.log('user>>', user);
 
 	const handleCreateFoto = async () => {
 		const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -47,6 +54,22 @@ export const Account = (): JSX.Element => {
 
 		upDateAvatar(formData);
 	};
+
+	const filterPostById = () => {
+		return posts.filter((item) => item.postedBy._id === user?._id);
+	};
+
+	useEffect(() => {
+		dispatch(fetchPosts());
+	}, [dispatch]);
+
+	useEffect(() => {
+		if (posts) {
+			filterPostById();
+		}
+	}, [posts]);
+
+	const myPost = filterPostById();
 
 	return (
 		<KeyboardAwareScrollView>
@@ -119,10 +142,11 @@ export const Account = (): JSX.Element => {
 			</View>
 			<Text style={styles.status_text_item}>My status</Text>
 			<View style={styles.post_container}>
-				<SmallCardPost />
-				<SmallCardPost />
-				<SmallCardPost />
-				<SmallCardPost />
+				{myPost?.map((item, index) => (
+					<React.Fragment key={item.slug}>
+						<SmallCardPost img={item.featuredImage} />
+					</React.Fragment>
+				))}
 			</View>
 		</KeyboardAwareScrollView>
 	);

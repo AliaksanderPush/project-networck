@@ -11,8 +11,8 @@ import { FormDataProps } from '../Account/Account.props';
 
 export const AddPost = () => {
 	const loading = false;
-	const [title, SetTitle] = useState<string>('');
-	const [content, SetContent] = useState<string>('');
+	const [title, setTitle] = useState<string>('');
+	const [content, setContent] = useState<string>('');
 	const [image, setImage] = useState<string>('');
 
 	const { createPosts } = useActions();
@@ -49,6 +49,9 @@ export const AddPost = () => {
 			formData,
 		};
 		createPosts(data);
+		setImage('');
+		setTitle('');
+		setContent('');
 	};
 	return (
 		<KeyboardAwareScrollView>
@@ -69,13 +72,13 @@ export const AddPost = () => {
 				) : null}
 				<View style={styles.text_container}>
 					<Text style={{ marginLeft: '10%' }}>Title</Text>
-					<TextInput style={styles.input_title} onChangeText={SetTitle} value={title} />
+					<TextInput style={styles.input_title} onChangeText={setTitle} value={title} />
 					<Text style={{ marginLeft: '10%' }}>Content</Text>
 					<TextInput
 						style={styles.input}
 						multiline={true}
 						numberOfLines={4}
-						onChangeText={SetContent}
+						onChangeText={setContent}
 						value={content}
 					/>
 					<View style={styles.post_button}>

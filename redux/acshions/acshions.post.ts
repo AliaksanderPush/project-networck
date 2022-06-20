@@ -6,12 +6,11 @@ import { AppAction } from '../types/app.types';
 import { loaderOn, errorOn, loaderOff } from './acshions.app';
 import { upLoadFileImage } from '../../service/service';
 
-export const fetchPosts = () => {
+export const fetchPosts = (): any => {
 	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
 		try {
 			dispatch(loaderOn());
 			const response = await getPostsAll();
-
 			const { data } = response;
 			dispatch({
 				type: PostsActionTypes.LOAD_POSTS,

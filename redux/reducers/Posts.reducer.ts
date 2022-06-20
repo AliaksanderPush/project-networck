@@ -2,7 +2,6 @@ import { IPostState, PostsAction, PostsActionTypes } from '../types/posts.types'
 
 const initialState: IPostState = {
 	posts: [],
-	myPosts: [],
 };
 
 export const PostsReducer = (state = initialState, action: PostsAction): IPostState => {
@@ -16,8 +15,7 @@ export const PostsReducer = (state = initialState, action: PostsAction): IPostSt
 			const { myPost } = action;
 			return {
 				...state,
-				posts: [myPost, ...state.posts],
-				myPosts: [...state.myPosts, myPost],
+				posts: [...state.posts, myPost],
 			};
 		}
 		default:
