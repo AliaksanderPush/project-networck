@@ -1,4 +1,4 @@
 export interface IAvatar {
-	url: string;
+	url: string | undefined;
 	size: number;
 }

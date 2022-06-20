@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export const MyPosts = () => {
+export const People = () => {
 	return (
 		<>
 			<View></View>

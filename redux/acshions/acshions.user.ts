@@ -8,6 +8,7 @@ import {
 	getRefreshToken,
 	logoutSite,
 	upLoadFileImage,
+	putAvatar,
 } from '../../service/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FormDataProps } from '../../screens/Account/Account.props';
@@ -109,10 +110,11 @@ export const upDateAvatar = (form: FormDataProps) => {
 	return async (dispatch: Dispatch<UserAction | AppAction>) => {
 		try {
 			dispatch(loaderOn());
-			const response = await upLoadFileImage(form);
+			const path = await upLoadFileImage(form);
+			const response = await putAvatar(path);
 			dispatch({
 				type: UserActionTypes.UPDATE_AVATAR,
-				img: response,
+				img: response.data,
 			});
 			dispatch(loaderOff());
 		} catch (err: any) {

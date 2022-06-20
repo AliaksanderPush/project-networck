@@ -1,1 +1,4 @@
-export type Props = { img: string };
+export interface ISmallCard {
+	img: string;
+	cardId: string;
+}

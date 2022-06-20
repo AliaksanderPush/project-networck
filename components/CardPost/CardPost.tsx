@@ -9,21 +9,19 @@ import { ICardPost } from './CardPost.props';
 import { API_URL } from '../../service/auth-service';
 
 export const CardPost = ({ post }: ICardPost): JSX.Element => {
-	console.log('post in CardPost>>', post);
-	const { postedBy, featuredImage, content, title } = post;
 	return (
 		<View style={styles.card_container}>
 			<View style={styles.card_header}>
-				<Avatar url={postedBy.avatar} size={70} />
+				<Avatar url={post?.postedBy?.avatar} size={70} />
 				<View>
-					<Text style={styles.card_header_text}>{postedBy.name}</Text>
+					<Text style={styles.card_header_text}>{post?.postedBy.name}</Text>
 				</View>
 			</View>
 			<View>
 				<Image
 					style={styles.image}
 					source={{
-						uri: `${API_URL}/${featuredImage}`,
+						uri: `${API_URL}/${post?.featuredImage}`,
 					}}
 				/>
 			</View>
@@ -39,8 +37,8 @@ export const CardPost = ({ post }: ICardPost): JSX.Element => {
 				</View>
 
 				<Text style={{ color: 'blue' }}>Likes 8</Text>
-				<Text style={styles.footer_title}>{title}</Text>
-				<Text style={styles.footer_content}>{content}</Text>
+				<Text style={styles.footer_title}>{post?.title}</Text>
+				<Text style={styles.footer_content}>{post?.content}</Text>
 				<Pressable>
 					<Text style={{ color: 'blue' }}>More...</Text>
 				</Pressable>

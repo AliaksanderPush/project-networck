@@ -8,7 +8,7 @@ export type RootStackParams = {
 };
 
 export type ButtomStackParams = {
-	Chat: undefined;
+	Feed: undefined;
 	Post: undefined;
 	ChatRoomScreenStack: NavigatorScreenParams<ChatRoomStackParams>;
 	AcountScreenStack: NavigatorScreenParams<AcccountStackParams>;
@@ -16,13 +16,14 @@ export type ButtomStackParams = {
 };
 
 export type DrawerStackParams = {
-	Posts: undefined;
+	People: undefined;
 	Likes: undefined;
 	TabScreenStack: undefined;
 };
 
 export type AcccountStackParams = {
 	UpdateProfile: undefined;
+	MyPost: { id: string };
 	Account: undefined;
 };
 

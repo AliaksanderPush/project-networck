@@ -4,7 +4,7 @@ import { SignIn } from '../../screens/SingIn/SingIn';
 import { Chat } from '../../screens/Chat/Chat';
 import { Feed } from '../../screens/Feed/Feed';
 import { Likes } from '../../screens/Likes/Likes';
-import { MyPosts } from '../../screens/MyPosts/MyPosts';
+import { MyPost } from '../../screens/MyPosts/MyPost';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -29,6 +29,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatRoom } from '../../screens/ChatRoom/ChatRoom';
 import { FogotPassword } from '../../screens/FogotPassword/FogotPassword';
 import { AddPost } from '../../screens/AddPost/AddPost';
+import { People } from '../../screens/People/People';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -59,6 +60,7 @@ const AcountScreenStack = () => {
 		>
 			<AccountStack.Screen name='Account' component={Account} />
 			<AccountStack.Screen name='UpdateProfile' component={UpdateProfile} />
+			<AccountStack.Screen name='MyPost' component={MyPost} />
 		</AccountStack.Navigator>
 	);
 };
@@ -103,9 +105,10 @@ const TabScreenStack = () => {
 				}}
 			/>
 			<ButtomStack.Screen
-				name='Chat'
-				component={Chat}
+				name='ChatRoomScreenStack'
+				component={ChatRoomScreenStack}
 				options={{
+					title: 'Chat',
 					tabBarIcon: ({ color }) => <AntDesign name='wechat' size={32} color={color} />,
 					headerRight: () => <HeaderMenu />,
 				}}
@@ -121,8 +124,8 @@ const TabScreenStack = () => {
 				}}
 			/>
 			<ButtomStack.Screen
-				name='ChatRoomScreenStack'
-				component={ChatRoomScreenStack}
+				name='Feed'
+				component={Feed}
 				options={{
 					title: 'Feed',
 					tabBarIcon: ({ color }) => (
@@ -166,8 +169,8 @@ const DrawerScreenStack = () => {
 				}}
 			/>
 			<Drawer.Screen
-				name='Posts'
-				component={MyPosts}
+				name='People'
+				component={People}
 				options={{
 					drawerIcon: ({ color }) => (
 						<FontAwesome5 name='user-friends' size={32} color={color} />

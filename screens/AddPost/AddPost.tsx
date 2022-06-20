@@ -8,8 +8,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import * as ImagePicker from 'expo-image-picker';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { FormDataProps } from '../Account/Account.props';
+import { AddPostProps } from './AddPost.props';
 
-export const AddPost = () => {
+export const AddPost = ({ navigation }: AddPostProps): JSX.Element => {
 	const loading = false;
 	const [title, setTitle] = useState<string>('');
 	const [content, setContent] = useState<string>('');
@@ -52,6 +53,7 @@ export const AddPost = () => {
 		setImage('');
 		setTitle('');
 		setContent('');
+		navigation.navigate('Feed');
 	};
 	return (
 		<KeyboardAwareScrollView>
