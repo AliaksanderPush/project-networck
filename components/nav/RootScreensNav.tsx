@@ -30,6 +30,7 @@ import { ChatRoom } from '../../screens/ChatRoom/ChatRoom';
 import { FogotPassword } from '../../screens/FogotPassword/FogotPassword';
 import { AddPost } from '../../screens/AddPost/AddPost';
 import { People } from '../../screens/People/People';
+import { UpdatePost } from '../../screens/UpdatePost/UpdatePost';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -61,6 +62,7 @@ const AcountScreenStack = () => {
 			<AccountStack.Screen name='Account' component={Account} />
 			<AccountStack.Screen name='UpdateProfile' component={UpdateProfile} />
 			<AccountStack.Screen name='MyPost' component={MyPost} />
+			<AccountStack.Screen name='UpdatePost' component={UpdatePost} />
 		</AccountStack.Navigator>
 	);
 };

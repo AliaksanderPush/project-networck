@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { View, Text, ScrollView } from 'react-native';
 import { CardPost } from '../../components/CardPost/CardPost';
 import { EditMenu } from '../../components/EditMenu/EditMenu';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
@@ -21,7 +20,7 @@ export const MyPost = ({ route }: MyPostProps) => {
 		}
 	}, []);
 	return (
-		<KeyboardAwareScrollView>
+		<ScrollView>
 			<View
 				style={{
 					flexDirection: 'row',
@@ -30,9 +29,9 @@ export const MyPost = ({ route }: MyPostProps) => {
 				}}
 			>
 				<TopBackMenu />
-				<EditMenu path='Post' />
+				<EditMenu path='UpdatePost' />
 			</View>
 			<CardPost post={myPost} />
-		</KeyboardAwareScrollView>
+		</ScrollView>
 	);
 };

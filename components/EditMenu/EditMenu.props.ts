@@ -1,3 +1,3 @@
 export interface IEditMenu {
-	path: 'UpdateProfile' | 'Post';
+	path: 'UpdatePost' | 'UpdateProfile';
 }

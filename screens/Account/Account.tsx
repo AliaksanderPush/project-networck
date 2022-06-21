@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AcccountStackParams } from '../../components/nav/RootScreensNav.props';
 import { API_URL } from '../../service/auth-service';
 import { SmallCardPost } from '../../components/SmallCardPost/SmallCardPost';
+import { createFoto } from '../../helpers/helper';
 
 export const Account = (): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
@@ -24,25 +25,13 @@ export const Account = (): JSX.Element => {
 	const [image, setImage] = useState<string>('');
 
 	const handleCreateFoto = async () => {
-		const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-		if (permissionResult.granted === false) {
-			return alert('camera access is required');
-		}
-		const pickerResult = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.Images,
-			allowsEditing: true,
-			width: 100,
-		});
-		if (!!pickerResult.cancelled) {
-			return;
-		}
-
-		setImage(pickerResult.uri);
+		const uri = await createFoto();
+		setImage(uri as string);
 
 		const formData: FormDataProps = new FormData();
 		formData.append('filedata', {
 			name: 'filedata',
-			uri: pickerResult.uri,
+			uri: image,
 			type: 'image/jpg',
 		});
 

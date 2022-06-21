@@ -24,6 +24,7 @@ export type DrawerStackParams = {
 export type AcccountStackParams = {
 	UpdateProfile: undefined;
 	MyPost: { id: string };
+	UpdatePost: { id: string };
 	Account: undefined;
 };
 

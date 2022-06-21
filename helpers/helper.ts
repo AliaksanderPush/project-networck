@@ -1,3 +1,6 @@
+import * as ImagePicker from 'expo-image-picker';
+import { FormDataProps } from '../screens/Account/Account.props';
+
 export function formatDateTime(currTime: Date): string {
 	const dt = new Date(currTime);
 	return formatDate(dt);
@@ -29,4 +32,30 @@ function str0l(val: number, len: number): string {
 	let strVal = val.toString();
 	while (strVal.length < len) strVal = '0' + strVal;
 	return strVal;
+}
+
+export async function createFoto(): Promise<ImagePicker.ImageInfo | void | string> {
+	const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+	if (permissionResult.granted === false) {
+		return alert('camera access is required');
+	}
+	const pickerResult = await ImagePicker.launchImageLibraryAsync({
+		mediaTypes: ImagePicker.MediaTypeOptions.Images,
+		allowsEditing: true,
+		width: 100,
+	});
+	if (!!pickerResult.cancelled) {
+		return;
+	}
+	return pickerResult.uri;
+}
+
+export function createFormdata(image: string): FormDataProps {
+	const formData: FormDataProps = new FormData();
+	formData.append('filedata', {
+		name: 'filedata',
+		uri: image,
+		type: 'image/jpg',
+	});
+	return formData;
 }

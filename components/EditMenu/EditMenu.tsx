@@ -10,9 +10,7 @@ import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { AcccountStackParams, ButtomStackParams } from '../nav/RootScreensNav.props';
 
 export const EditMenu = ({ path }: IEditMenu) => {
-	const navigation = useNavigation<
-		NativeStackNavigationProp<AcccountStackParams> | BottomTabNavigationProp<ButtomStackParams>
-	>();
+	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
 
 	return (
 		<View style={styles.container}>
