@@ -61,12 +61,13 @@ export interface IPost {
 export interface ICreatePost {
 	title: string;
 	content: string;
-	formData: FormDataProps;
+	image: FormDataProps | string;
 }
 export interface ICreatePostDTO {
 	title: string;
 	content: string;
 	featuredImage: string;
+	imgFormData?: boolean;
 }
 
 export interface IMedia {

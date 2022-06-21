@@ -9,3 +9,11 @@ export async function getPostsAll(): Promise<AxiosResponse<IPost[]>> {
 export async function createPost(data: ICreatePostDTO): Promise<AxiosResponse<IPost>> {
 	return await api.post<IPost>(`/posts/message`, data);
 }
+
+export async function updatePost(data: ICreatePostDTO, id: string): Promise<AxiosResponse<IPost>> {
+	return await api.put<IPost>(`/posts/update/${id}`, data);
+}
+
+export async function removePost(id: string): Promise<AxiosResponse<IPost>> {
+	return await api.delete<IPost>(`/posts/delete/${id}`);
+}

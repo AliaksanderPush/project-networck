@@ -7,6 +7,8 @@ export interface IPostState {
 export enum PostsActionTypes {
 	LOAD_POSTS = 'LOAD_POSTS',
 	CREATE_POST = 'CREATE_POST',
+	UPDATE_POST = 'UPDATE_POST',
+	DELETE_POST = 'DELETE_POST',
 }
 
 interface ILoadPostsAction {
@@ -17,5 +19,18 @@ interface ICreatePostAction {
 	type: PostsActionTypes.CREATE_POST;
 	myPost: IPost;
 }
+interface IUpdatePostAction {
+	type: PostsActionTypes.UPDATE_POST;
+	updatePost: IPost;
+}
 
-export type PostsAction = ILoadPostsAction | ICreatePostAction;
+interface IDeletePostAction {
+	type: PostsActionTypes.DELETE_POST;
+	remId: string;
+}
+
+export type PostsAction =
+	| ILoadPostsAction
+	| ICreatePostAction
+	| IUpdatePostAction
+	| IDeletePostAction;

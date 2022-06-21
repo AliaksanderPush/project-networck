@@ -3,19 +3,24 @@ import { View, Text, Image, Pressable, TouchableHighlight } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Avatar } from '../Avatar/Avatar';
-import { IPost } from '../../user/User.props';
-import { styles } from './CardPost.styles';
 import { ICardPost } from './CardPost.props';
 import { API_URL } from '../../service/auth-service';
+import { DeleteMenu } from '../DeleteMenu/DeleteMenu';
+import { styles } from './CardPost.styles';
 
-export const CardPost = ({ post }: ICardPost): JSX.Element => {
+export const CardPost = ({ post, id }: ICardPost): JSX.Element => {
+	let isMe = id === post?.postedBy._id;
+
 	return (
 		<View style={styles.card_container}>
 			<View style={styles.card_header}>
 				<Avatar url={post?.postedBy?.avatar} size={70} />
 				<View>
-					<Text style={styles.card_header_text}>{post?.postedBy.name}</Text>
+					<Text style={{ fontSize: 24, marginRight: isMe ? '50%' : '60%' }}>
+						{post?.postedBy.name}
+					</Text>
 				</View>
+				{isMe && <DeleteMenu id={post?._id} />}
 			</View>
 			<View>
 				<Image

@@ -36,7 +36,7 @@ export const AddPost = ({ navigation }: AddPostProps): JSX.Element => {
 		const data = {
 			title,
 			content,
-			formData,
+			image: formData,
 		};
 		createPosts(data);
 		setImage('');

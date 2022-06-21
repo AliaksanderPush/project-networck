@@ -6,10 +6,9 @@ import { useNavigation } from '@react-navigation/core';
 import { colors } from '../../config/Colors';
 import { IEditMenu } from './EditMenu.props';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { AcccountStackParams, ButtomStackParams } from '../nav/RootScreensNav.props';
 
-export const EditMenu = ({ path }: IEditMenu) => {
+export const EditMenu = ({ path, postId }: IEditMenu) => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
 
 	return (
@@ -18,7 +17,7 @@ export const EditMenu = ({ path }: IEditMenu) => {
 				style={styles.backButton}
 				underlayColor={colors.blue}
 				onPress={() => {
-					navigation.navigate(path);
+					navigation.navigate(path, postId ? { id: postId } : undefined);
 				}}
 			>
 				<FontAwesome name='edit' size={32} color='black' />

@@ -94,13 +94,13 @@ export const checkUser = () => {
 		try {
 			const response = await getRefreshToken();
 			const { data } = response;
+			console.log('checkUser>>', data);
 			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
 				payload: data,
 			});
 		} catch (err: any) {
-			console.log(err);
 			dispatch(errorOn(err.response.data));
 		}
 	};

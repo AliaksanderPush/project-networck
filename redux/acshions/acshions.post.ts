@@ -1,10 +1,11 @@
 import { Dispatch } from 'redux';
-import { ICreatePost } from '../../user/User.props';
-import { createPost, getPostsAll } from '../../service/posts.service';
+import { ICreatePost, IPost } from '../../user/User.props';
+import { createPost, getPostsAll, removePost, updatePost } from '../../service/posts.service';
 import { PostsAction, PostsActionTypes } from '../types/posts.types';
 import { AppAction } from '../types/app.types';
 import { loaderOn, errorOn, loaderOff } from './acshions.app';
 import { upLoadFileImage } from '../../service/service';
+import { FormDataProps } from '../../screens/Account/Account.props';
 
 export const fetchPosts = (): any => {
 	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
@@ -26,15 +27,71 @@ export const fetchPosts = (): any => {
 
 export const createPosts = (post: ICreatePost) => {
 	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
-		const { title, content, formData } = post;
+		const { title, content, image } = post;
 		try {
 			dispatch(loaderOn());
-			const img = await upLoadFileImage(formData);
+			const img = await upLoadFileImage(image as FormDataProps);
 			const response = await createPost({ title, content, featuredImage: img });
 			const { data } = response;
 			dispatch({
 				type: PostsActionTypes.CREATE_POST,
 				myPost: data,
+			});
+
+			dispatch(loaderOff());
+		} catch (err: any) {
+			console.log(err);
+			dispatch(errorOn(err.response.data));
+		}
+	};
+};
+
+const upPost = (data: PostsAction | AppAction, type: PostsActionTypes) => {
+	return {
+		type: PostsActionTypes.UPDATE_POST,
+		updatePost: data,
+	};
+};
+
+export const updatePosts = (post: ICreatePost, id: string, imgFormData: boolean) => {
+	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
+		const { title, content, image } = post;
+		try {
+			dispatch(loaderOn());
+			let response;
+			if (imgFormData) {
+				const img = await upLoadFileImage(image as FormDataProps);
+				response = await updatePost(
+					{ imgFormData, title, content, featuredImage: img },
+					id,
+				);
+			} else {
+				response = await updatePost(
+					{ imgFormData, title, content, featuredImage: image as string },
+					id,
+				);
+			}
+			dispatch({
+				type: PostsActionTypes.UPDATE_POST,
+				updatePost: response.data,
+			});
+			dispatch(loaderOff());
+		} catch (err: any) {
+			console.log(err);
+			dispatch(errorOn(err.response.data));
+		}
+	};
+};
+
+export const deletePosts = (id: string) => {
+	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
+		try {
+			dispatch(loaderOn());
+			const response = await removePost(id);
+			const { data } = response;
+			dispatch({
+				type: PostsActionTypes.DELETE_POST,
+				remId: data._id,
 			});
 
 			dispatch(loaderOff());

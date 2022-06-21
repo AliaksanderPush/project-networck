@@ -9,8 +9,7 @@ import { MyPostProps } from './MyPost.props';
 
 export const MyPost = ({ route }: MyPostProps) => {
 	const { posts } = useTypedSelector((state) => state.posts);
-
-	let { id } = route.params;
+	const { id } = route.params;
 	const [myPost, setMyPost] = useState<IPost | null>(null);
 
 	useEffect(() => {
@@ -29,7 +28,7 @@ export const MyPost = ({ route }: MyPostProps) => {
 				}}
 			>
 				<TopBackMenu />
-				<EditMenu path='UpdatePost' />
+				<EditMenu postId={id} path='UpdatePost' />
 			</View>
 			<CardPost post={myPost} />
 		</ScrollView>

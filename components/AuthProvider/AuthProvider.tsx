@@ -15,6 +15,8 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 	const { checkUser } = useActions();
 	const dispatch = useDispatch();
 	const { tokens } = useTypedSelector((state) => state.user);
+	const { posts } = useTypedSelector((state) => state.posts);
+
 	api.defaults.headers.common['Authorization'] = auth ? `Bearer ${auth}` : '';
 	api.interceptors.request.use(
 		(config) => {
@@ -27,6 +29,7 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 				originalRequest._isRetry = true;
 				try {
 					const { data } = await api.get(`/auth/refresh`);
+					console.log('token>>', data);
 					AsyncStorage.setItem('@auth', JSON.stringify(data.token));
 					return api.request(originalRequest);
 				} catch (e) {
@@ -60,6 +63,7 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 			setAuth(tokens.refreshToken);
 		}
 	}, [tokens]);
+
 	useEffect(() => {
 		dispatch(fetchPosts());
 	}, [dispatch]);

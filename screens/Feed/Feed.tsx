@@ -11,6 +11,7 @@ import { fetchPosts } from '../../redux/acshions/acshions.post';
 
 export const Feed = () => {
 	const { posts } = useTypedSelector((state) => state.posts);
+	const { user } = useTypedSelector((state) => state.user);
 	const dispatch = useDispatch();
 	const getHeader = () => {
 		return <Text>{'Feed'}</Text>;
@@ -25,7 +26,7 @@ export const Feed = () => {
 			<FlatList
 				data={posts}
 				renderItem={({ item }) => {
-					return <CardPost post={item} />;
+					return <CardPost post={item} id={user?._id} />;
 				}}
 				ListHeaderComponent={getHeader}
 			/>
