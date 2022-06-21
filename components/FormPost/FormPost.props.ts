@@ -7,8 +7,8 @@ export interface IFormProps {
 	title: string | undefined;
 	image: string | undefined;
 	imgFormData: boolean;
-	setTitl: (text: SetStateAction<string | undefined>) => void;
-	setConten: (text: SetStateAction<string | undefined>) => void;
+	setTitl: (text: SetStateAction<string>) => void;
+	setConten: (text: SetStateAction<string>) => void;
 	handleSubmit: () => void;
 	handleCreateFoto: () => void;
 }

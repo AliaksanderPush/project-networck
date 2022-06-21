@@ -5,17 +5,16 @@ import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { CircleLogo } from '../../components/UI/CircleLogo/CircleLogo';
 import { Entypo } from '@expo/vector-icons';
-import { FormDataProps } from './Account.props';
 import { colors } from '../../config/Colors';
 import { styles } from './Account.styles';
-import * as ImagePicker from 'expo-image-picker';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { AcccountStackParams } from '../../components/nav/RootScreensNav.props';
 import { API_URL } from '../../service/auth-service';
 import { SmallCardPost } from '../../components/SmallCardPost/SmallCardPost';
-import { createFoto } from '../../helpers/helper';
+import { createFormdata, createFoto } from '../../helpers/helper';
+import { EditMenu } from '../../components/EditMenu/EditMenu';
 
 export const Account = (): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
@@ -27,14 +26,7 @@ export const Account = (): JSX.Element => {
 	const handleCreateFoto = async () => {
 		const uri = await createFoto();
 		setImage(uri as string);
-
-		const formData: FormDataProps = new FormData();
-		formData.append('filedata', {
-			name: 'filedata',
-			uri: image,
-			type: 'image/jpg',
-		});
-
+		const formData = createFormdata(image);
 		upDateAvatar(formData);
 	};
 
@@ -93,13 +85,9 @@ export const Account = (): JSX.Element => {
 							<Entypo name='camera' size={32} color='black' />
 						</TouchableOpacity>
 					) : null}
-
-					<TouchableOpacity
-						style={{ alignItems: 'center', marginTop: 20 }}
-						onPress={() => navigation.navigate('UpdateProfile')}
-					>
-						<FontAwesome name='edit' size={32} color='black' />
-					</TouchableOpacity>
+					<View style={{ alignItems: 'center', marginTop: 20 }}>
+						<EditMenu path='UpdateProfile' />
+					</View>
 				</View>
 				<View style={styles.info}>
 					<View>

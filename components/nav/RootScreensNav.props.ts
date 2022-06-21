@@ -8,7 +8,7 @@ export type RootStackParams = {
 };
 
 export type ButtomStackParams = {
-	Feed: undefined;
+	FeedScreenStack: undefined;
 	Post: undefined;
 	ChatRoomScreenStack: NavigatorScreenParams<ChatRoomStackParams>;
 	AcountScreenStack: NavigatorScreenParams<AcccountStackParams>;
@@ -33,4 +33,9 @@ export type ChatRoomStackParams = {
 	ChatRoom: {
 		id: string;
 	};
+};
+
+export type FeedStackParams = {
+	Feed: undefined;
+	AddComment: undefined;
 };

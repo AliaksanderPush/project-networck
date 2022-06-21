@@ -5,11 +5,10 @@ import { Entypo } from '@expo/vector-icons';
 import { styles } from './AddPost.styles';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as ImagePicker from 'expo-image-picker';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
-import { FormDataProps } from '../Account/Account.props';
 import { AddPostProps } from './AddPost.props';
-import { createFoto } from '../../helpers/helper';
+import { createFormdata, createFoto } from '../../helpers/helper';
+import { FormPost } from '../../components/FormPost/FormPost';
 
 export const AddPost = ({ navigation }: AddPostProps): JSX.Element => {
 	const loading = false;
@@ -27,12 +26,7 @@ export const AddPost = ({ navigation }: AddPostProps): JSX.Element => {
 		if (!title && !content && !image) {
 			return;
 		}
-		const formData: FormDataProps = new FormData();
-		formData.append('filedata', {
-			name: 'filedata',
-			uri: image,
-			type: 'image/jpg',
-		});
+		const formData = createFormdata(image);
 		const data = {
 			title,
 			content,
@@ -42,46 +36,22 @@ export const AddPost = ({ navigation }: AddPostProps): JSX.Element => {
 		setImage('');
 		setTitle('');
 		setContent('');
-		navigation.navigate('Feed');
+		navigation.navigate('FeedScreenStack');
 	};
 	return (
-		<KeyboardAwareScrollView>
-			<View style={styles.container}>
-				<View style={styles.post_image}>
-					{image ? (
-						<Image style={{ width: 250, height: 250 }} source={{ uri: image }} />
-					) : (
-						<TouchableOpacity onPress={handleCreateFoto}>
-							<Entypo name='camera' size={60} color={colors.gray1} />
-						</TouchableOpacity>
-					)}
-				</View>
-				{image ? (
-					<TouchableOpacity onPress={handleCreateFoto}>
-						<Entypo name='camera' size={32} color={colors.black} />
-					</TouchableOpacity>
-				) : null}
-				<View style={styles.text_container}>
-					<Text style={{ marginLeft: '10%' }}>Title</Text>
-					<TextInput style={styles.input_title} onChangeText={setTitle} value={title} />
-					<Text style={{ marginLeft: '10%' }}>Content</Text>
-					<TextInput
-						style={styles.input}
-						multiline={true}
-						numberOfLines={4}
-						onChangeText={setContent}
-						value={content}
-					/>
-					<View style={styles.post_button}>
-						<PrimaryButton
-							label='Add Post'
-							size={10}
-							loading={loading}
-							setValue={handleSubmit}
-						/>
-					</View>
-				</View>
-			</View>
-		</KeyboardAwareScrollView>
+		<>
+			<FormPost
+				loading={false}
+				imgFormData={false}
+				lable={'Add Post'}
+				image={image}
+				title={title}
+				content={content}
+				setConten={setContent}
+				handleSubmit={handleSubmit}
+				setTitl={setTitle}
+				handleCreateFoto={handleCreateFoto}
+			/>
+		</>
 	);
 };

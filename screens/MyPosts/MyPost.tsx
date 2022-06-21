@@ -30,7 +30,7 @@ export const MyPost = ({ route }: MyPostProps) => {
 				<TopBackMenu />
 				<EditMenu postId={id} path='UpdatePost' />
 			</View>
-			<CardPost post={myPost} />
+			<CardPost post={myPost} id={id} />
 		</ScrollView>
 	);
 };

@@ -10,9 +10,9 @@ import { useActions } from '../../redux/customReduxHooks/useAcshion';
 export const UpdatePost = ({ navigation, route }: PropsUpdatePost) => {
 	const { posts } = useTypedSelector((state) => state.posts);
 	const { id } = route.params;
-	const [title, setTitle] = useState<string>();
-	const [content, setContent] = useState<string>();
-	const [image, setImage] = useState<string>();
+	const [title, setTitle] = useState<string>('');
+	const [content, setContent] = useState<string>('');
+	const [image, setImage] = useState<string>('');
 	const { updatePosts } = useActions();
 	const [imgFormData, setImgFormData] = useState<boolean>(false);
 
