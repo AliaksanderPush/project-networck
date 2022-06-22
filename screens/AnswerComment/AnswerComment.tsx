@@ -5,10 +5,10 @@ import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { InfoInput } from '../../components/UI/InfoInput/InfoInput';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
-import { IUpdateComment } from './UpdateComment.props';
-import { styles } from './UpdateComment.styles';
+import { IUpdateComment } from './AnswerComment.props';
+import { styles } from './AnswerComment.styles';
 
-export const UpdateComment = ({ navigation, route }: IUpdateComment) => {
+export const AnswerComment = ({ navigation, route }: IUpdateComment) => {
 	const { comments } = useTypedSelector((state) => state.comments);
 	const { id } = route.params;
 	const [text, setText] = useState<string>('');
@@ -31,16 +31,16 @@ export const UpdateComment = ({ navigation, route }: IUpdateComment) => {
 			const comm = comments.find((item) => item._id === id);
 			setText(comm!.content);
 		}
-	}, []);
+	}, [comments]);
 	return (
 		<>
 			<TopBackMenu />
 
 			<View style={styles.container}>
-				<Text style={styles.text}>Update your comment:</Text>
+				<Text style={styles.text}>Answer on comment:</Text>
 				<InfoInput position='top' value={text} setValue={setText} size={100} />
 				<PrimaryButton
-					label={'Update Comment'}
+					label={'Answer'}
 					size={10}
 					loading={loading}
 					setValue={handleSubmit}

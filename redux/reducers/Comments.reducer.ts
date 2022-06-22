@@ -23,9 +23,10 @@ export const CommentsReducer = (state = initialState, action: CommentsAction): I
 			const { comments } = state;
 			const copyState = [...comments];
 			const index = copyState.findIndex((item) => item._id === updateComm._id);
+			console.log('reducer index>>', index);
 			const after = copyState.slice(0, index);
 			const before = copyState.slice(index + 1);
-			const newState = [updateComm, ...before, ...after];
+			const newState = [...before, updateComm, ...after];
 			return {
 				...state,
 				comments: newState,
@@ -35,7 +36,7 @@ export const CommentsReducer = (state = initialState, action: CommentsAction): I
 			const { removeComm } = action;
 			const { comments } = state;
 			const copyState = [...comments];
-			const newState = copyState.filter((item) => item._id !== removeComm);
+			const newState = copyState.filter((item) => item._id !== removeComm._id);
 			return {
 				...state,
 				comments: newState,

@@ -43,7 +43,7 @@ export type FeedStackParams = {
 	Comments: {
 		id: string | undefined;
 	};
-	UpdateComment: {
+	AnswerComment: {
 		id: string | undefined;
 	};
 };

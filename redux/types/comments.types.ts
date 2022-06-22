@@ -26,7 +26,7 @@ interface IUpdateCommentsAction {
 }
 interface IRemoveCommentsAction {
 	type: CommentsActionTypes.DELETE_COMMENT;
-	removeComm: string;
+	removeComm: IComment;
 }
 
 export type CommentsAction =

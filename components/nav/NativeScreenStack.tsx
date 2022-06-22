@@ -17,7 +17,7 @@ import { FogotPassword } from '../../screens/FogotPassword/FogotPassword';
 import { UpdatePost } from '../../screens/UpdatePost/UpdatePost';
 import 'react-native-gesture-handler';
 import { AddComment } from '../../screens/AddComment/AddComment';
-import { UpdateComment } from '../../screens/UpdateComment/UpdateComment';
+import { AnswerComment } from '../../screens/AnswerComment/AnswerComment';
 import { Comments } from '../../screens/Comments/Comments';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
@@ -68,7 +68,7 @@ export const FeedScreenStack = () => {
 			<FeedStack.Screen name='Feed' component={Feed} />
 			<FeedStack.Screen name='AddComment' component={AddComment} />
 			<FeedStack.Screen name='Comments' component={Comments} />
-			<FeedStack.Screen name='UpdateComment' component={UpdateComment} />
+			<FeedStack.Screen name='AnswerComment' component={AnswerComment} />
 		</FeedStack.Navigator>
 	);
 };

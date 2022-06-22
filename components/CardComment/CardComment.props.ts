@@ -5,4 +5,5 @@ export interface ICardComment {
 	userId: string;
 	role: string;
 	postId: string;
+	removeComment: (_id: string) => void;
 }

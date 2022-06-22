@@ -7,13 +7,19 @@ import { CardComments } from '../../components/CardComment/CardComment';
 import { ICommentProps } from './Comments.props';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
 import { IComment } from '../../user/User.props';
+import { useActions } from '../../redux/customReduxHooks/useAcshion';
 
 export const Comments = ({ route }: ICommentProps) => {
 	const [postComments, setPostComments] = useState<IComment[]>([]);
 	const { id } = route.params;
 	const { comments } = useTypedSelector((state) => state.comments);
 	const { user } = useTypedSelector((state) => state.user);
+	const { deleteComments } = useActions();
 	const dispatch = useDispatch();
+
+	const removeComment = (_id: string): void => {
+		deleteComments(_id);
+	};
 
 	useEffect(() => {
 		dispatch(fetchComments());
@@ -35,6 +41,7 @@ export const Comments = ({ route }: ICommentProps) => {
 					return (
 						<CardComments
 							comment={item}
+							removeComment={removeComment}
 							postId={id!}
 							userId={user!._id!}
 							role={user!.roles![0]}
