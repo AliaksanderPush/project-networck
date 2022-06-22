@@ -15,7 +15,7 @@ export const PostsReducer = (state = initialState, action: PostsAction): IPostSt
 			const { myPost } = action;
 			return {
 				...state,
-				posts: [...state.posts, myPost],
+				posts: [myPost, ...state.posts],
 			};
 		}
 		case PostsActionTypes.UPDATE_POST: {

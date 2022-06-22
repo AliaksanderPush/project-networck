@@ -7,6 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { styles } from './FormPost.styles';
 import { IFormProps } from './FormPost.props';
 import { API_URL } from '../../service/auth-service';
+import { InfoInput } from '../UI/InfoInput/InfoInput';
 
 export const FormPost = ({
 	image,
@@ -33,7 +34,7 @@ export const FormPost = ({
 				<View style={styles.post_image}>
 					{image ? (
 						<Image
-							style={{ width: 250, height: 250 }}
+							style={{ width: 340, height: 340 }}
 							source={{ uri: !imgFormData ? `${API_URL}/${img}` : img }}
 						/>
 					) : (
@@ -48,20 +49,11 @@ export const FormPost = ({
 					</TouchableOpacity>
 				) : null}
 				<View style={styles.text_container}>
-					<Text style={{ marginLeft: '10%' }}>Title</Text>
-					<TextInput
-						style={styles.input_title}
-						onChangeText={(text) => setTitl(text)}
-						value={title}
-					/>
-					<Text style={{ marginLeft: '10%' }}>Content</Text>
-					<TextInput
-						style={styles.input}
-						multiline={true}
-						numberOfLines={4}
-						onChangeText={(text) => setConten(text)}
-						value={content}
-					/>
+					<Text>Title</Text>
+					<InfoInput position='center' value={title} setValue={setTitl} size={40} />
+					<Text>Content</Text>
+					<InfoInput position='top' value={content} setValue={setConten} size={150} />
+
 					<View style={styles.post_button}>
 						<PrimaryButton
 							label={lable}

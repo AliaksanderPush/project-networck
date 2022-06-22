@@ -15,6 +15,7 @@ import { API_URL } from '../../service/auth-service';
 import { SmallCardPost } from '../../components/SmallCardPost/SmallCardPost';
 import { createFormdata, createFoto } from '../../helpers/helper';
 import { EditMenu } from '../../components/EditMenu/EditMenu';
+import { FormDataProps } from './Account.props';
 
 export const Account = (): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
@@ -26,7 +27,7 @@ export const Account = (): JSX.Element => {
 	const handleCreateFoto = async () => {
 		const uri = await createFoto();
 		setImage(uri as string);
-		const formData = createFormdata(image);
+		const formData = createFormdata(uri as string);
 		upDateAvatar(formData);
 	};
 

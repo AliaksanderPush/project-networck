@@ -37,5 +37,13 @@ export type ChatRoomStackParams = {
 
 export type FeedStackParams = {
 	Feed: undefined;
-	AddComment: undefined;
+	AddComment: {
+		id: string | undefined;
+	};
+	Comments: {
+		id: string | undefined;
+	};
+	UpdateComment: {
+		id: string | undefined;
+	};
 };

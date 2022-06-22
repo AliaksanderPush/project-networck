@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Pressable, TouchableHighlight } from 'react-native';
+import { View, Text, Image, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Avatar } from '../Avatar/Avatar';
@@ -7,9 +7,20 @@ import { ICardPost } from './CardPost.props';
 import { API_URL } from '../../service/auth-service';
 import { DeleteMenu } from '../DeleteMenu/DeleteMenu';
 import { styles } from './CardPost.styles';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { FeedStackParams } from '../nav/RootScreensNav.props';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const CardPost = ({ post, id }: ICardPost): JSX.Element => {
+	const navigation = useNavigation<NativeStackNavigationProp<FeedStackParams>>();
 	let isMe = id === post?.postedBy._id;
+	const redirectToAddComment = () => {
+		navigation.navigate('AddComment', { id: post?._id });
+	};
+	const redirectToComments = () => {
+		navigation.navigate('Comments', { id: post?._id });
+	};
 
 	return (
 		<View style={styles.card_container}>
@@ -33,12 +44,14 @@ export const CardPost = ({ post, id }: ICardPost): JSX.Element => {
 
 			<View style={styles.card_footer}>
 				<View style={styles.card_icons}>
-					<TouchableHighlight>
+					<TouchableOpacity>
 						<AntDesign name='like2' size={32} color='black' />
-					</TouchableHighlight>
-					<TouchableHighlight style={{ marginLeft: 15 }}>
-						<FontAwesome5 name='comment' size={32} color='black' />
-					</TouchableHighlight>
+					</TouchableOpacity>
+					<View>
+						<TouchableOpacity onPress={redirectToAddComment} style={{ marginLeft: 15 }}>
+							<FontAwesome5 name='comment' size={32} color='black' />
+						</TouchableOpacity>
+					</View>
 				</View>
 
 				<Text style={{ color: 'blue' }}>Likes 8</Text>
@@ -47,7 +60,7 @@ export const CardPost = ({ post, id }: ICardPost): JSX.Element => {
 				<Pressable>
 					<Text style={{ color: 'blue' }}>More...</Text>
 				</Pressable>
-				<Pressable>
+				<Pressable onPress={redirectToComments}>
 					<Text style={styles.card_footer_comment}>Comments (7)</Text>
 				</Pressable>
 			</View>

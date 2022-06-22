@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Image } from 'react-native';
-import { colors } from '../../config/Colors';
-import { Entypo } from '@expo/vector-icons';
-import { styles } from './AddPost.styles';
-import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { AddPostProps } from './AddPost.props';
 import { createFormdata, createFoto } from '../../helpers/helper';
 import { FormPost } from '../../components/FormPost/FormPost';
+import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 
 export const AddPost = ({ navigation }: AddPostProps): JSX.Element => {
-	const loading = false;
 	const [title, setTitle] = useState<string>('');
 	const [content, setContent] = useState<string>('');
 	const [image, setImage] = useState<string>('');
 
+	const { loading } = useTypedSelector((state) => state.AppReducer);
 	const { createPosts } = useActions();
 
 	const handleCreateFoto = async () => {
@@ -41,8 +36,8 @@ export const AddPost = ({ navigation }: AddPostProps): JSX.Element => {
 	return (
 		<>
 			<FormPost
-				loading={false}
-				imgFormData={false}
+				loading={loading}
+				imgFormData={true}
 				lable={'Add Post'}
 				image={image}
 				title={title}

@@ -82,13 +82,11 @@ export interface IFriend {
 	userId: IUser;
 }
 
-export interface MulterProps {
-	fildname: string;
-	originalname: string;
-	encoding: string;
-	mimetype: string;
-	destination: string;
-	filename: string;
-	path: string;
-	size: number;
+export interface IComment {
+	_id: string;
+	content: string;
+	postedBy: IUser;
+	postId: string;
+	createdAt: Date;
+	updatedAt: Date;
 }
