@@ -7,7 +7,6 @@ export interface ICommentState {
 export enum CommentsActionTypes {
 	LOAD_COMMENTS = 'LOAD_COMMENTS',
 	CREATE_COMMENT = 'CREATE_COMMENT',
-	UPDATE_COMMENT = 'UPDATE_COMMENT',
 	DELETE_COMMENT = 'DELETE_COMMENT',
 }
 
@@ -20,17 +19,10 @@ interface ICreateCommentsAction {
 	type: CommentsActionTypes.CREATE_COMMENT;
 	comment: IComment;
 }
-interface IUpdateCommentsAction {
-	type: CommentsActionTypes.UPDATE_COMMENT;
-	updateComm: IComment;
-}
+
 interface IRemoveCommentsAction {
 	type: CommentsActionTypes.DELETE_COMMENT;
 	removeComm: IComment;
 }
 
-export type CommentsAction =
-	| ILoadCommentsAction
-	| ICreateCommentsAction
-	| IUpdateCommentsAction
-	| IRemoveCommentsAction;
+export type CommentsAction = ILoadCommentsAction | ICreateCommentsAction | IRemoveCommentsAction;

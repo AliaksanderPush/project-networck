@@ -19,7 +19,7 @@ export const Feed = () => {
 			<FlatList
 				data={posts}
 				renderItem={({ item }) => {
-					return <CardPost post={item} id={user?._id} />;
+					return <CardPost post={item} id={user?._id} hide={true} />;
 				}}
 			/>
 		</View>

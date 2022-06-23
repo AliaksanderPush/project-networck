@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -10,10 +10,17 @@ import { styles } from './CardPost.styles';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FeedStackParams } from '../nav/RootScreensNav.props';
+import { Entypo } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useActions } from '../../redux/customReduxHooks/useAcshion';
+import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 
-export const CardPost = ({ post, id }: ICardPost): JSX.Element => {
+export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<FeedStackParams>>();
+	const [show, setShow] = useState<boolean>(false);
+	const { user } = useTypedSelector((state) => state.user);
+	const { countViews, like, unLike } = useActions();
+
 	let isMe = id === post?.postedBy._id;
 	const redirectToAddComment = () => {
 		navigation.navigate('AddComment', { id: post?._id });
@@ -21,6 +28,32 @@ export const CardPost = ({ post, id }: ICardPost): JSX.Element => {
 	const redirectToComments = () => {
 		navigation.navigate('Comments', { id: post?._id });
 	};
+	const redirectPostDetails = () => {
+		if (post) {
+			countViews(post?._id);
+		}
+		navigation.navigate('PostDetails', { id: post?._id });
+	};
+
+	const showDesrciption = () => {
+		setShow(!show);
+	};
+
+	const handleLikes = () => {
+		if (post) {
+			like(post._id);
+		}
+	};
+
+	const handleDisLikes = () => {
+		if (post) {
+			unLike(post._id);
+		}
+	};
+
+	useEffect(() => {
+		setShow(hide);
+	}, []);
 
 	return (
 		<View style={styles.card_container}>
@@ -33,35 +66,52 @@ export const CardPost = ({ post, id }: ICardPost): JSX.Element => {
 				</View>
 				{isMe && <DeleteMenu id={post?._id} />}
 			</View>
-			<View>
+			<Pressable onPress={redirectPostDetails}>
 				<Image
 					style={styles.image}
 					source={{
 						uri: `${API_URL}/${post?.featuredImage}`,
 					}}
 				/>
-			</View>
+			</Pressable>
 
 			<View style={styles.card_footer}>
 				<View style={styles.card_icons}>
-					<TouchableOpacity>
-						<AntDesign name='like2' size={32} color='black' />
-					</TouchableOpacity>
+					{post?.likes.includes(user?._id!) ? (
+						<TouchableOpacity onPress={handleDisLikes} style={{ marginHorizontal: 10 }}>
+							<AntDesign name='dislike1' size={32} color='black' />
+						</TouchableOpacity>
+					) : (
+						<TouchableOpacity onPress={handleLikes}>
+							<AntDesign name='like2' size={32} color='black' />
+						</TouchableOpacity>
+					)}
 					<View>
-						<TouchableOpacity onPress={redirectToAddComment} style={{ marginLeft: 15 }}>
+						<TouchableOpacity
+							onPress={redirectToAddComment}
+							style={{ marginHorizontal: 15 }}
+						>
 							<FontAwesome5 name='comment' size={32} color='black' />
 						</TouchableOpacity>
 					</View>
+					<View>
+						<TouchableOpacity>
+							<Entypo name='eye' size={32} color='black' />
+						</TouchableOpacity>
+						<Text style={{ textAlign: 'center' }}>{post?.views}</Text>
+					</View>
 				</View>
 
-				<Text style={{ color: 'blue' }}>Likes 8</Text>
+				<Text style={{ color: 'blue' }}>Likes {post?.likes.length}</Text>
 				<Text style={styles.footer_title}>{post?.title}</Text>
-				<Text style={styles.footer_content}>{post?.content}</Text>
-				<Pressable>
+				{!show && <Text style={styles.footer_content}>{post?.content}</Text>}
+				<Pressable onPress={showDesrciption}>
 					<Text style={{ color: 'blue' }}>More...</Text>
 				</Pressable>
 				<Pressable onPress={redirectToComments}>
-					<Text style={styles.card_footer_comment}>Comments (7)</Text>
+					<Text style={styles.card_footer_comment}>
+						Comments ({post?.comments.length})
+					</Text>
 				</Pressable>
 			</View>
 		</View>

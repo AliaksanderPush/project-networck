@@ -11,14 +11,20 @@ export const styles = StyleSheet.create({
 	post_image: {
 		width: 340,
 		height: 340,
+		backgroundColor: '#fff',
 		marginBottom: 7,
-		borderWidth: 2,
-		borderColor: colors.grayDarck,
+		marginTop: 20,
 		alignItems: 'center',
 		justifyContent: 'center',
+		shadowColor: 'black',
+		shadowOffset: { width: -2, height: 4 },
+		shadowOpacity: 0.2,
+		shadowRadius: 3,
+		borderRadius: 14,
 	},
 	text_container: {
 		width: '80%',
+		marginTop: 5,
 	},
 
 	post_button: {

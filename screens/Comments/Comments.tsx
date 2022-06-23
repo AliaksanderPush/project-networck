@@ -18,7 +18,9 @@ export const Comments = ({ route }: ICommentProps) => {
 	const dispatch = useDispatch();
 
 	const removeComment = (_id: string): void => {
-		deleteComments(_id);
+		if (id) {
+			deleteComments(_id, id);
+		}
 	};
 
 	useEffect(() => {

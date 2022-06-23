@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { CardPost } from '../../components/CardPost/CardPost';
 import { EditMenu } from '../../components/EditMenu/EditMenu';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { IPost } from '../../user/User.props';
-import { MyPostProps } from './MyPost.props';
+import { PostDetailsProps } from './PostDetails.props';
 
-export const MyPost = ({ route }: MyPostProps) => {
+export const PostDetails = ({ route }: PostDetailsProps) => {
 	const { posts } = useTypedSelector((state) => state.posts);
+	const { user } = useTypedSelector((state) => state.user);
 	const { id } = route.params;
-	const [myPost, setMyPost] = useState<IPost | null>(null);
+	const [post, setPost] = useState<IPost | null>(null);
 
 	useEffect(() => {
-		const seachPost = posts.find((item) => item._id === id);
-		if (seachPost) {
-			setMyPost(seachPost);
+		const searchPost = posts.find((item) => item._id === id);
+		if (searchPost) {
+			setPost(searchPost);
 		}
 	}, []);
 	return (
@@ -28,9 +29,9 @@ export const MyPost = ({ route }: MyPostProps) => {
 				}}
 			>
 				<TopBackMenu />
-				<EditMenu postId={id} path='UpdatePost' />
+				{user?.roles[0] === 'admin' && <EditMenu postId={id} path='UpdatePost' />}
 			</View>
-			<CardPost post={myPost} id={id} hide={false} />
+			<CardPost post={post} id={id} hide={false} />
 		</ScrollView>
 	);
 };

@@ -14,6 +14,7 @@ import {
 	FeedScreenStack,
 	ProfileScreenStack,
 } from './NativeScreenStack';
+import { colors } from '../../config/Colors';
 
 const ButtomStack = createBottomTabNavigator<ButtomStackParams>();
 
@@ -22,8 +23,8 @@ export const TabScreenStack = () => {
 		<ButtomStack.Navigator
 			initialRouteName='AcountScreenStack'
 			screenOptions={{
-				tabBarActiveTintColor: '#2BB24C',
-				tabBarInactiveTintColor: '#9B9B9B',
+				tabBarActiveTintColor: colors.primary,
+				tabBarInactiveTintColor: colors.grayDarck,
 				headerShown: false,
 			}}
 		>

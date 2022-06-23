@@ -17,7 +17,7 @@ export const AddComment = ({ navigation, route }: IAddComment) => {
 		if (id && text) {
 			createComments(text, id);
 			setText('');
-			navigation.goBack();
+			navigation.navigate('Comments', { id });
 		} else {
 			alert('Enter your comment');
 			return;
@@ -26,7 +26,6 @@ export const AddComment = ({ navigation, route }: IAddComment) => {
 	return (
 		<>
 			<TopBackMenu />
-
 			<View style={styles.container}>
 				<Text style={styles.text}>Add your comment:</Text>
 				<InfoInput position='top' value={text} setValue={setText} size={100} />

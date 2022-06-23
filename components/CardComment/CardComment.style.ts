@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
 	comment_container: {
 		padding: 10,
-		backgroundColor: '#5EC4CD',
+		backgroundColor: '#52BBE6',
 		marginHorizontal: 5,
 		borderRadius: 30,
 	},

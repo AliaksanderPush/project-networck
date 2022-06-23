@@ -30,7 +30,7 @@ export interface IUser {
 	name: string;
 	password: string | undefined;
 	avatar: string;
-	roles?: string[];
+	roles: string[];
 	contacts?: IFriend[];
 	created_at?: Date;
 	posts?: IPost[];
@@ -51,8 +51,11 @@ export interface IPost {
 	title: string;
 	slug: string;
 	content: string;
+	comments: string[];
 	featuredImage: string;
 	published?: boolean;
+	likes: string[];
+	views: number;
 	postedBy: IUser;
 	createdAt: Date;
 	updatedAt: Date;

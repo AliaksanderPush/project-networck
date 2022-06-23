@@ -9,6 +9,9 @@ export enum PostsActionTypes {
 	CREATE_POST = 'CREATE_POST',
 	UPDATE_POST = 'UPDATE_POST',
 	DELETE_POST = 'DELETE_POST',
+	VIEW_COUNT = 'VIEW_COUNT',
+	LIKE_POST = 'LIKE_POST',
+	DISLIKE_POST = 'DISLIKE_POST',
 }
 
 interface ILoadPostsAction {
@@ -28,9 +31,25 @@ interface IDeletePostAction {
 	type: PostsActionTypes.DELETE_POST;
 	remId: string;
 }
+interface IViewCountPostAction {
+	type: PostsActionTypes.VIEW_COUNT;
+	countId: string;
+}
+
+interface ILikePostAction {
+	type: PostsActionTypes.LIKE_POST;
+	like: IPost;
+}
+interface IDisLikePostAction {
+	type: PostsActionTypes.DISLIKE_POST;
+	disLike: IPost;
+}
 
 export type PostsAction =
 	| ILoadPostsAction
 	| ICreatePostAction
 	| IUpdatePostAction
-	| IDeletePostAction;
+	| IDeletePostAction
+	| IViewCountPostAction
+	| ILikePostAction
+	| IDisLikePostAction;

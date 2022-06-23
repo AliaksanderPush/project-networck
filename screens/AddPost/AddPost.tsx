@@ -12,9 +12,10 @@ export const AddPost = ({ navigation }: AddPostProps): JSX.Element => {
 
 	const { loading } = useTypedSelector((state) => state.AppReducer);
 	const { createPosts } = useActions();
-
+	console.log(image);
 	const handleCreateFoto = async () => {
 		const uri = await createFoto();
+		setImage('');
 		setImage(uri as string);
 	};
 	const handleSubmit = () => {

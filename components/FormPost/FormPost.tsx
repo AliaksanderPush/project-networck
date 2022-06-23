@@ -34,7 +34,7 @@ export const FormPost = ({
 				<View style={styles.post_image}>
 					{image ? (
 						<Image
-							style={{ width: 340, height: 340 }}
+							style={{ width: 340, height: 340, borderRadius: 14 }}
 							source={{ uri: !imgFormData ? `${API_URL}/${img}` : img }}
 						/>
 					) : (
@@ -49,10 +49,21 @@ export const FormPost = ({
 					</TouchableOpacity>
 				) : null}
 				<View style={styles.text_container}>
-					<Text>Title</Text>
-					<InfoInput position='center' value={title} setValue={setTitl} size={40} />
-					<Text>Content</Text>
-					<InfoInput position='top' value={content} setValue={setConten} size={150} />
+					<InfoInput
+						position='center'
+						value={title}
+						setValue={setTitl}
+						size={40}
+						placehold='Title'
+					/>
+
+					<InfoInput
+						position='top'
+						value={content}
+						setValue={setConten}
+						size={150}
+						placehold='Content'
+					/>
 
 					<View style={styles.post_button}>
 						<PrimaryButton

@@ -2,25 +2,22 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
-import { formatDateDay, formatDateTime, formatDateHour } from '../../helpers/helper';
+import { formatDateDay, formatDateHour } from '../../helpers/helper';
 import { Avatar } from '../Avatar/Avatar';
 import { FeedStackParams } from '../nav/RootScreensNav.props';
-import { TopBackMenu } from '../TopBackMenu/TopBackMenu';
 import { ICardComment } from './CardComment.props';
-import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useActions } from '../../redux/customReduxHooks/useAcshion';
-import { deleteComments } from '../../redux/acshions/acshions.comments';
 import { styles } from './CardComment.style';
-import { useEffect } from 'react';
 
 export const CardComments = ({
 	comment,
 	userId,
 	role,
+	postId,
 	removeComment,
 }: ICardComment): JSX.Element => {
+	const [respond, setRespond] = useState<boolean>(false);
 	const navigation = useNavigation<NativeStackNavigationProp<FeedStackParams>>();
 	const { postedBy, createdAt, content, _id } = comment;
 	let isMe = userId === postedBy._id;
@@ -28,10 +25,10 @@ export const CardComments = ({
 	const dateHour = formatDateHour(createdAt);
 
 	const answerComment = () => {
-		navigation.navigate('AnswerComment', { id: _id });
+		navigation.navigate('AddComment', { id: postId });
 	};
 	const respondOnComment = () => {
-		alert('like');
+		setRespond(!respond);
 	};
 
 	return (
@@ -49,12 +46,12 @@ export const CardComments = ({
 							<Text>{dateHour}</Text>
 						</View>
 
-						<View>
+						<View style={{ maxWidth: 240 }}>
 							<Text style={styles.comment_content}>{content}</Text>
 						</View>
 					</View>
 					<TouchableOpacity style={{ marginRight: 10 }} onPress={respondOnComment}>
-						<AntDesign name='hearto' size={24} color='black' />
+						<AntDesign name='hearto' size={24} color={respond ? 'red' : 'black'} />
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -63,12 +60,14 @@ export const CardComments = ({
 					<Text style={styles.handle_button}>Answer</Text>
 				</Pressable>
 
-				<Text>|</Text>
 				{role === 'admin' ||
 					(isMe && (
-						<Pressable onPress={() => removeComment(_id)}>
-							<Text style={styles.handle_button}>Delete</Text>
-						</Pressable>
+						<>
+							<Text>|</Text>
+							<Pressable onPress={() => removeComment(_id)}>
+								<Text style={styles.handle_button}>Delete</Text>
+							</Pressable>
+						</>
 					))}
 			</View>
 		</>

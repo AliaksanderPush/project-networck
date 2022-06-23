@@ -1,6 +1,13 @@
 import { Dispatch } from 'redux';
 import { ICreatePost, IPost } from '../../user/User.props';
-import { createPost, getPostsAll, removePost, updatePost } from '../../service/posts.service';
+import {
+	createPost,
+	getPostsAll,
+	likePost,
+	removePost,
+	unlikePost,
+	viewPost,
+} from '../../service/posts.service';
 import { PostsAction, PostsActionTypes } from '../types/posts.types';
 import { AppAction } from '../types/app.types';
 import { loaderOn, errorOn, loaderOff } from './acshions.app';
@@ -53,36 +60,6 @@ const upPost = (data: PostsAction | AppAction, type: PostsActionTypes) => {
 	};
 };
 
-export const updatePosts = (post: ICreatePost, id: string, imgFormData: boolean) => {
-	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
-		const { title, content, image } = post;
-		try {
-			dispatch(loaderOn());
-			let response;
-			if (imgFormData) {
-				const img = await upLoadFileImage(image as FormDataProps);
-				response = await updatePost(
-					{ imgFormData, title, content, featuredImage: img },
-					id,
-				);
-			} else {
-				response = await updatePost(
-					{ imgFormData, title, content, featuredImage: image as string },
-					id,
-				);
-			}
-			dispatch({
-				type: PostsActionTypes.UPDATE_POST,
-				updatePost: response.data,
-			});
-			dispatch(loaderOff());
-		} catch (err: any) {
-			console.log(err);
-			dispatch(errorOn(err.response.data));
-		}
-	};
-};
-
 export const deletePosts = (id: string) => {
 	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
 		try {
@@ -94,6 +71,62 @@ export const deletePosts = (id: string) => {
 				remId: data._id,
 			});
 
+			dispatch(loaderOff());
+		} catch (err: any) {
+			console.log(err);
+			dispatch(errorOn(err.response.data));
+		}
+	};
+};
+
+export const countViews = (id: string) => {
+	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
+		try {
+			dispatch(loaderOn());
+			const response = await viewPost(id);
+			const { data } = response;
+			dispatch({
+				type: PostsActionTypes.VIEW_COUNT,
+				countId: data._id,
+			});
+
+			dispatch(loaderOff());
+		} catch (err: any) {
+			console.log(err);
+			dispatch(errorOn(err.response.data));
+		}
+	};
+};
+export const like = (id: string) => {
+	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
+		try {
+			dispatch(loaderOn());
+			const response = await likePost(id);
+			const { data } = response;
+			console.log('priletelo>>', data.likes);
+			dispatch({
+				type: PostsActionTypes.LIKE_POST,
+				like: data,
+			});
+
+			dispatch(loaderOff());
+		} catch (err: any) {
+			console.log(err);
+			dispatch(errorOn(err.response.data));
+		}
+	};
+};
+export const unLike = (id: string) => {
+	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
+		try {
+			dispatch(loaderOn());
+			const response = await unlikePost(id);
+			const { data } = response;
+			console.log('priletelo>>', data);
+			dispatch({
+				type: PostsActionTypes.DISLIKE_POST,
+				disLike: data,
+			});
 			dispatch(loaderOff());
 		} catch (err: any) {
 			console.log(err);

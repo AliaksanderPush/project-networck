@@ -23,7 +23,7 @@ export type DrawerStackParams = {
 
 export type AcccountStackParams = {
 	UpdateProfile: undefined;
-	MyPost: { id: string };
+	MyPost: { id: string | undefined };
 	UpdatePost: { id: string };
 	Account: undefined;
 };
@@ -43,7 +43,7 @@ export type FeedStackParams = {
 	Comments: {
 		id: string | undefined;
 	};
-	AnswerComment: {
+	PostDetails: {
 		id: string | undefined;
 	};
 };

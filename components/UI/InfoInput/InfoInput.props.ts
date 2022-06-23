@@ -5,4 +5,5 @@ export interface IInfoInput {
 	setValue: (text: SetStateAction<string>) => void;
 	size: number;
 	position: 'top' | 'center';
+	placehold?: string;
 }

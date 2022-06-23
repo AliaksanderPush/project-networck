@@ -10,10 +10,18 @@ export async function createPost(data: ICreatePostDTO): Promise<AxiosResponse<IP
 	return await api.post<IPost>(`/posts/message`, data);
 }
 
-export async function updatePost(data: ICreatePostDTO, id: string): Promise<AxiosResponse<IPost>> {
-	return await api.put<IPost>(`/posts/update/${id}`, data);
+export async function viewPost(id: string): Promise<AxiosResponse<IPost>> {
+	return await api.put<IPost>(`/posts/view-count/${id}`);
 }
 
 export async function removePost(id: string): Promise<AxiosResponse<IPost>> {
 	return await api.delete<IPost>(`/posts/delete/${id}`);
+}
+
+export async function likePost(id: string): Promise<AxiosResponse<IPost>> {
+	return await api.put<IPost>(`/posts/like`, { id });
+}
+
+export async function unlikePost(id: string): Promise<AxiosResponse<IPost>> {
+	return await api.put<IPost>(`/posts/unlike`, { id });
 }

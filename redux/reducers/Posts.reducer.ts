@@ -41,6 +41,40 @@ export const PostsReducer = (state = initialState, action: PostsAction): IPostSt
 				posts: newState,
 			};
 		}
+		case PostsActionTypes.VIEW_COUNT: {
+			const { countId } = action;
+			const { posts } = state;
+			const copyPosts = [...posts];
+			const index = copyPosts.findIndex((item) => item._id === countId);
+			copyPosts[index].views = copyPosts[index].views + 1;
+
+			return {
+				...state,
+				posts: copyPosts,
+			};
+		}
+		case PostsActionTypes.LIKE_POST: {
+			const { like } = action;
+			const { posts } = state;
+			const copyPosts = [...posts];
+			const index = copyPosts.findIndex((item) => item._id === like._id);
+			copyPosts[index].likes = like.likes;
+			return {
+				...state,
+				posts: copyPosts,
+			};
+		}
+		case PostsActionTypes.DISLIKE_POST: {
+			const { disLike } = action;
+			const { posts } = state;
+			const copyPosts = [...posts];
+			const index = copyPosts.findIndex((item) => item._id === disLike._id);
+			copyPosts[index].likes = disLike.likes;
+			return {
+				...state,
+				posts: copyPosts,
+			};
+		}
 
 		default:
 			return state;

@@ -10,10 +10,6 @@ export async function createComment(content: string, id: string): Promise<AxiosR
 	return await api.post<IComment>(`/commit/${id}`, { content });
 }
 
-export async function updateComment(content: string, id: string): Promise<AxiosResponse<IComment>> {
-	return await api.put<IComment>(`/commit/update/${id}`, { content });
-}
-
-export async function deleteComment(id: string): Promise<AxiosResponse<IComment>> {
-	return await api.delete<IComment>(`/commit/delete/${id}`);
+export async function deleteComment(id: string, _id: string): Promise<AxiosResponse<IComment>> {
+	return await api.delete<IComment>(`/commit/delete/${id}`, { data: { postId: _id } });
 }

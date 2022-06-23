@@ -18,20 +18,7 @@ export const CommentsReducer = (state = initialState, action: CommentsAction): I
 				comments: [comment, ...state.comments],
 			};
 		}
-		case CommentsActionTypes.UPDATE_COMMENT: {
-			const { updateComm } = action;
-			const { comments } = state;
-			const copyState = [...comments];
-			const index = copyState.findIndex((item) => item._id === updateComm._id);
-			console.log('reducer index>>', index);
-			const after = copyState.slice(0, index);
-			const before = copyState.slice(index + 1);
-			const newState = [...before, updateComm, ...after];
-			return {
-				...state,
-				comments: newState,
-			};
-		}
+
 		case CommentsActionTypes.DELETE_COMMENT: {
 			const { removeComm } = action;
 			const { comments } = state;
