@@ -1,7 +1,11 @@
 import * as ImagePicker from 'expo-image-picker';
 import { FormDataProps } from '../screens/Account/Account.props';
+import { IPost } from '../user/User.props';
 
-export function formatDateTime(currTime: Date): string {
+export function formatDateTime(currTime: Date | undefined): string | null {
+	if (!currTime) {
+		return null;
+	}
 	const dt = new Date(currTime);
 	return formatDate(dt);
 }
@@ -84,3 +88,9 @@ export function createFormdata(image: string): FormDataProps {
 	});
 	return formData;
 }
+
+export const searchByTitle = (row: IPost['title'], searchWords: string): boolean => {
+	const titleArr = row.split(' ');
+	const serchWordArr = searchWords.split(' ');
+	return titleArr.some((item) => serchWordArr.includes(item));
+};

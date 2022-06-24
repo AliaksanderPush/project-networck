@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { fetchComments } from '../../redux/acshions/acshions.comments';
@@ -9,7 +9,7 @@ import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
 import { IComment } from '../../user/User.props';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 
-export const Comments = ({ route }: ICommentProps) => {
+export const Comments = ({ route }: ICommentProps): JSX.Element => {
 	const [postComments, setPostComments] = useState<IComment[]>([]);
 	const { id } = route.params;
 	const { comments } = useTypedSelector((state) => state.comments);
@@ -37,20 +37,26 @@ export const Comments = ({ route }: ICommentProps) => {
 	return (
 		<View style={{ flex: 1 }}>
 			<TopBackMenu />
-			<FlatList
-				data={postComments}
-				renderItem={({ item }) => {
-					return (
-						<CardComments
-							comment={item}
-							removeComment={removeComment}
-							postId={id!}
-							userId={user!._id!}
-							role={user!.roles![0]}
-						/>
-					);
-				}}
-			/>
+			{!postComments.length ? (
+				<View>
+					<Text style={{ textAlign: 'center', fontSize: 20 }}>No Comments</Text>
+				</View>
+			) : (
+				<FlatList
+					data={postComments}
+					renderItem={({ item }) => {
+						return (
+							<CardComments
+								comment={item}
+								removeComment={removeComment}
+								postId={id!}
+								userId={user!._id!}
+								role={user!.roles![0]}
+							/>
+						);
+					}}
+				/>
+			)}
 		</View>
 	);
 };

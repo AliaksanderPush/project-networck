@@ -41,7 +41,8 @@
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
     "webpack-dev-server": "~3.11.0",
-    "yarn": "^1.22.18"
+    "yarn": "^1.22.18",
+    "expo-av": "~11.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

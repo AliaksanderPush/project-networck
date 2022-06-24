@@ -21,6 +21,7 @@ export const CardComments = ({
 	const navigation = useNavigation<NativeStackNavigationProp<FeedStackParams>>();
 	const { postedBy, createdAt, content, _id } = comment;
 	let isMe = userId === postedBy._id;
+	const condition = role === 'admin' || isMe;
 	const dateDay = formatDateDay(createdAt);
 	const dateHour = formatDateHour(createdAt);
 
@@ -60,15 +61,14 @@ export const CardComments = ({
 					<Text style={styles.handle_button}>Answer</Text>
 				</Pressable>
 
-				{role === 'admin' ||
-					(isMe && (
-						<>
-							<Text>|</Text>
-							<Pressable onPress={() => removeComment(_id)}>
-								<Text style={styles.handle_button}>Delete</Text>
-							</Pressable>
-						</>
-					))}
+				{condition && (
+					<>
+						<Text>|</Text>
+						<Pressable onPress={() => removeComment(_id)}>
+							<Text style={styles.handle_button}>Delete</Text>
+						</Pressable>
+					</>
+				)}
 			</View>
 		</>
 	);

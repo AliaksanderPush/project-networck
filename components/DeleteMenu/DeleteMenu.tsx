@@ -5,10 +5,13 @@ import { colors } from '../../config/Colors';
 import { AntDesign } from '@expo/vector-icons';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { IDeleteMenu } from './DeleteMenu.props';
+import { useNavigation } from '@react-navigation/native';
 
 export const DeleteMenu = ({ id }: IDeleteMenu) => {
 	const { deletePosts } = useActions();
+	const navigation = useNavigation();
 	const removePost = () => {
+		navigation.goBack();
 		if (id) {
 			deletePosts(id);
 		}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { CardPost } from '../../components/CardPost/CardPost';
+import { DeleteMenu } from '../../components/DeleteMenu/DeleteMenu';
 import { EditMenu } from '../../components/EditMenu/EditMenu';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
@@ -29,7 +30,12 @@ export const PostDetails = ({ route }: PostDetailsProps) => {
 				}}
 			>
 				<TopBackMenu />
-				{user?.roles[0] === 'admin' && <EditMenu postId={id} path='UpdatePost' />}
+				{user?.roles[0] === 'admin' && (
+					<View style={{ flexDirection: 'row' }}>
+						<EditMenu postId={id} path='UpdatePost' />
+						<DeleteMenu id={post?._id} />
+					</View>
+				)}
 			</View>
 			<CardPost post={post} id={id} hide={false} />
 		</ScrollView>

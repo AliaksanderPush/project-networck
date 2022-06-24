@@ -14,14 +14,16 @@ import { Entypo } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
+import { formatDateTime } from '../../helpers/helper';
 
 export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
-	const navigation = useNavigation<NativeStackNavigationProp<FeedStackParams>>();
 	const [show, setShow] = useState<boolean>(false);
+	const navigation = useNavigation<NativeStackNavigationProp<FeedStackParams>>();
 	const { user } = useTypedSelector((state) => state.user);
 	const { countViews, like, unLike } = useActions();
+	const date = formatDateTime(post?.createdAt);
+	const isMe = id === post?.postedBy._id;
 
-	let isMe = id === post?.postedBy._id;
 	const redirectToAddComment = () => {
 		navigation.navigate('AddComment', { id: post?._id });
 	};
@@ -51,6 +53,8 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 		}
 	};
 
+	console.log('image>>>', post?.featuredImage.split('.')[1] === 'jpg');
+
 	useEffect(() => {
 		setShow(hide);
 	}, []);
@@ -76,29 +80,37 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 			</Pressable>
 
 			<View style={styles.card_footer}>
-				<View style={styles.card_icons}>
-					{post?.likes.includes(user?._id!) ? (
-						<TouchableOpacity onPress={handleDisLikes} style={{ marginHorizontal: 10 }}>
-							<AntDesign name='dislike1' size={32} color='black' />
-						</TouchableOpacity>
-					) : (
-						<TouchableOpacity onPress={handleLikes}>
-							<AntDesign name='like2' size={32} color='black' />
-						</TouchableOpacity>
-					)}
-					<View>
-						<TouchableOpacity
-							onPress={redirectToAddComment}
-							style={{ marginHorizontal: 15 }}
-						>
-							<FontAwesome5 name='comment' size={32} color='black' />
-						</TouchableOpacity>
+				<View style={styles.card_options}>
+					<View style={styles.card_icons}>
+						{post?.likes.includes(user?._id!) ? (
+							<TouchableOpacity
+								onPress={handleDisLikes}
+								style={{ marginHorizontal: 10 }}
+							>
+								<AntDesign name='dislike1' size={32} color='black' />
+							</TouchableOpacity>
+						) : (
+							<TouchableOpacity onPress={handleLikes}>
+								<AntDesign name='like2' size={32} color='black' />
+							</TouchableOpacity>
+						)}
+						<View>
+							<TouchableOpacity
+								onPress={redirectToAddComment}
+								style={{ marginHorizontal: 15 }}
+							>
+								<FontAwesome5 name='comment' size={32} color='black' />
+							</TouchableOpacity>
+						</View>
+						<View>
+							<TouchableOpacity>
+								<Entypo name='eye' size={32} color='black' />
+							</TouchableOpacity>
+							<Text style={{ textAlign: 'center' }}>{post?.views}</Text>
+						</View>
 					</View>
 					<View>
-						<TouchableOpacity>
-							<Entypo name='eye' size={32} color='black' />
-						</TouchableOpacity>
-						<Text style={{ textAlign: 'center' }}>{post?.views}</Text>
+						<Text>{date}</Text>
 					</View>
 				</View>
 

@@ -37,4 +37,9 @@ export const styles = StyleSheet.create({
 	footer_content: {
 		textAlign: 'justify',
 	},
+	card_options: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
 });

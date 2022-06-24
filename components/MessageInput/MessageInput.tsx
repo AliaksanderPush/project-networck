@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { View, TextInput, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
-
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, Pressable, KeyboardAvoidingView, Platform, Text } from 'react-native';
 import {
 	SimpleLineIcons,
 	Feather,
@@ -10,15 +9,11 @@ import {
 } from '@expo/vector-icons';
 import { styles } from './MessageInput.styles';
 import { colors } from '../../config/Colors';
+import { IMessageInput } from './MessageInput.props';
 
-export const MessageInput = () => {
-	const [message, setMessage] = useState<string>('');
-
+export const MessageInput = ({ chat, onChange, value, handlePress }: IMessageInput) => {
 	const sendMessage = () => {
-		// send message
-		console.warn('sending: ', message);
-
-		setMessage('');
+		alert('Hello');
 	};
 
 	const onPlusClicked = () => {
@@ -26,7 +21,7 @@ export const MessageInput = () => {
 	};
 
 	const onPress = () => {
-		if (message) {
+		if (value) {
 			sendMessage();
 		} else {
 			onPlusClicked();
@@ -40,35 +35,51 @@ export const MessageInput = () => {
 			keyboardVerticalOffset={100}
 		>
 			<View style={styles.input_message_wrap}>
-				<SimpleLineIcons
-					name='emotsmile'
-					size={24}
-					color={colors.grayDarck}
-					style={styles.icon}
-				/>
+				{chat && (
+					<SimpleLineIcons
+						name='emotsmile'
+						size={24}
+						color={colors.grayDarck}
+						style={styles.icon}
+					/>
+				)}
 
 				<TextInput
 					style={styles.input}
-					value={message}
-					onChangeText={setMessage}
-					placeholder='Text message...'
+					value={value}
+					onChangeText={onChange}
+					placeholder={chat ? 'Text message...' : 'Search post'}
 				/>
-
-				<Feather name='camera' size={24} color={colors.grayDarck} style={styles.icon} />
-				<MaterialCommunityIcons
-					name='microphone-outline'
-					size={24}
-					color={colors.grayDarck}
-					style={styles.icon}
-				/>
-			</View>
-			<Pressable onPress={onPress} style={styles.buttons_container}>
-				{message ? (
-					<Ionicons name='send' size={18} color='white' />
-				) : (
-					<AntDesign name='plus' size={24} color='white' />
+				{chat && (
+					<>
+						<Feather
+							name='camera'
+							size={24}
+							color={colors.grayDarck}
+							style={styles.icon}
+						/>
+						<MaterialCommunityIcons
+							name='microphone-outline'
+							size={24}
+							color={colors.grayDarck}
+							style={styles.icon}
+						/>
+					</>
 				)}
-			</Pressable>
+			</View>
+			{chat ? (
+				<Pressable onPress={onPress} style={styles.buttons_container}>
+					{value ? (
+						<Ionicons name='send' size={18} color='white' />
+					) : (
+						<AntDesign name='plus' size={24} color='white' />
+					)}
+				</Pressable>
+			) : (
+				<Pressable onPress={handlePress} style={styles.buttons_container}>
+					<Ionicons name='search' size={24} color='white' />
+				</Pressable>
+			)}
 		</KeyboardAvoidingView>
 	);
 };

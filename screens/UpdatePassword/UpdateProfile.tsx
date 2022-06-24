@@ -50,6 +50,7 @@ export const UpdateProfile = ({ navigation }: PropsUdatePass): JSX.Element => {
 			city,
 			avatar: '',
 			gender,
+			roles: [],
 			password: user?.password,
 		};
 		updateUser(user?._id, newUser);

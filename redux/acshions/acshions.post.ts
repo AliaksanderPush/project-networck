@@ -122,7 +122,6 @@ export const unLike = (id: string) => {
 			dispatch(loaderOn());
 			const response = await unlikePost(id);
 			const { data } = response;
-			console.log('priletelo>>', data);
 			dispatch({
 				type: PostsActionTypes.DISLIKE_POST,
 				disLike: data,
