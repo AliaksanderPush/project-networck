@@ -15,6 +15,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { formatDateTime } from '../../helpers/helper';
+import VideoPlayer from '../Video/VideoPlayer';
 
 export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	const [show, setShow] = useState<boolean>(false);
@@ -23,6 +24,8 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	const { countViews, like, unLike } = useActions();
 	const date = formatDateTime(post?.createdAt);
 	const isMe = id === post?.postedBy._id;
+	const type = post?.featuredImage.split('.')[1] === 'mov';
+	console.log('type>>', type);
 
 	const redirectToAddComment = () => {
 		navigation.navigate('AddComment', { id: post?._id });
@@ -53,8 +56,6 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 		}
 	};
 
-	console.log('image>>>', post?.featuredImage.split('.')[1] === 'jpg');
-
 	useEffect(() => {
 		setShow(hide);
 	}, []);
@@ -71,12 +72,16 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 				{isMe && <DeleteMenu id={post?._id} />}
 			</View>
 			<Pressable onPress={redirectPostDetails}>
-				<Image
-					style={styles.image}
-					source={{
-						uri: `${API_URL}/${post?.featuredImage}`,
-					}}
-				/>
+				{!type ? (
+					<Image
+						style={styles.image}
+						source={{
+							uri: `${API_URL}/${post?.featuredImage}`,
+						}}
+					/>
+				) : (
+					<VideoPlayer videoURI={`${API_URL}/${post?.featuredImage}`} />
+				)}
 			</Pressable>
 
 			<View style={styles.card_footer}>

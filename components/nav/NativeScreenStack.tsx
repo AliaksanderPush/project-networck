@@ -19,6 +19,7 @@ import 'react-native-gesture-handler';
 import { AddComment } from '../../screens/AddComment/AddComment';
 import { Comments } from '../../screens/Comments/Comments';
 import { PostDetails } from '../../screens/PostDetails/PostDetails';
+import { Chat } from '../../screens/Chat/Chat';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -83,7 +84,7 @@ export const ChatRoomScreenStack = () => {
 				headerShown: false,
 			}}
 		>
-			<ChatRoomStack.Screen name='Friends' component={Feed} />
+			<ChatRoomStack.Screen name='Friends' component={Chat} />
 			<ChatRoomStack.Screen name='ChatRoom' component={ChatRoom} />
 		</ChatRoomStack.Navigator>
 	);
