@@ -15,9 +15,8 @@ import { API_URL } from '../../service/auth-service';
 import { SmallCardPost } from '../../components/SmallCardPost/SmallCardPost';
 import { createFormdata, createFoto } from '../../helpers/helper';
 import { EditMenu } from '../../components/EditMenu/EditMenu';
-import { FormDataProps } from './Account.props';
 
-export const Account = (): JSX.Element => {
+const Account = (): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
 	const { user } = useTypedSelector((state) => state.user);
 	const { posts } = useTypedSelector((state) => state.posts);
@@ -92,25 +91,26 @@ export const Account = (): JSX.Element => {
 				</View>
 				<View style={styles.info}>
 					<View>
+						<Text style={styles.info_count}>{user?.posts?.length}</Text>
 						<Text style={styles.info_text}>Posts</Text>
-						<Text style={styles.info_count}>23</Text>
 					</View>
 					<View>
+						<Text style={styles.info_count}>{user?.contacts?.length}</Text>
 						<Text style={styles.info_text}>Friends</Text>
-						<Text style={styles.info_count}>12</Text>
 					</View>
 					<View>
-						<Text style={styles.info_text}>Comments</Text>
-						<Text style={styles.info_count}>4</Text>
+						<Text style={styles.info_text}>City</Text>
+						<Text style={styles.info_count}>{user?.city}</Text>
 					</View>
 				</View>
 			</View>
 			<View style={styles.status}>
+				<Text style={styles.status_text_item}>My status</Text>
 				<Text style={styles.status_text}>Open to work</Text>
 			</View>
-			<Text style={styles.status_text_item}>My status</Text>
+
 			<View style={styles.post_container}>
-				{myPost?.map((item, index) => (
+				{myPost?.map((item) => (
 					<React.Fragment key={item.slug}>
 						<SmallCardPost img={item.featuredImage} cardId={item._id} />
 					</React.Fragment>
@@ -119,3 +119,5 @@ export const Account = (): JSX.Element => {
 		</KeyboardAwareScrollView>
 	);
 };
+
+export default React.memo(Account);

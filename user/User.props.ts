@@ -31,7 +31,7 @@ export interface IUser {
 	password: string | undefined;
 	avatar: string;
 	roles: string[];
-	contacts?: IFriend[];
+	contacts: IFriend[] | string[];
 	created_at?: Date;
 	posts?: IPost[];
 }
@@ -81,8 +81,21 @@ export interface IMedia {
 }
 
 export interface IFriend {
-	userName: string;
+	dialog: IDialog;
 	userId: IUser;
+}
+
+export interface IDialog {
+	partner: IUser | string;
+	author: IUser | string;
+	messages: IMessage[];
+	lastMessage: IMessage | string;
+}
+
+export interface IMessage {
+	text: string;
+	dialog: IDialog | string;
+	read: boolean;
 }
 
 export interface IComment {

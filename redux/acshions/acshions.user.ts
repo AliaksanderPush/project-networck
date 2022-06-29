@@ -9,11 +9,13 @@ import {
 	logoutSite,
 	upLoadFileImage,
 	putAvatar,
+	getUsers,
 } from '../../service/service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FormDataProps } from '../../screens/Account/Account.props';
 import { errorOn, loaderOff, loaderOn } from './acshions.app';
 import { AppAction } from '../types/app.types';
+import { addNewFriend, removeFriend } from '../../service/friends.service';
 
 export const fetchUser = (user: IUserLogin) => {
 	return async (dispatch: Dispatch<UserAction | AppAction>) => {
@@ -115,6 +117,58 @@ export const upDateAvatar = (form: FormDataProps) => {
 			dispatch({
 				type: UserActionTypes.UPDATE_AVATAR,
 				img: response.data,
+			});
+			dispatch(loaderOff());
+		} catch (err: any) {
+			console.log(err);
+			dispatch(errorOn(err.response.data));
+		}
+	};
+};
+
+export const fetchAllUsers = (): any => {
+	return async (dispatch: Dispatch<UserAction | AppAction>) => {
+		try {
+			dispatch(loaderOn());
+			const response = await getUsers();
+			dispatch({
+				type: UserActionTypes.GET_ALL_USERS,
+				users: response.data,
+			});
+			dispatch(loaderOff());
+		} catch (err: any) {
+			console.log(err);
+			dispatch(errorOn(err.response.data));
+		}
+	};
+};
+
+export const createNewFriend = (id: string): any => {
+	return async (dispatch: Dispatch<UserAction | AppAction>) => {
+		try {
+			dispatch(loaderOn());
+			const response = await addNewFriend(id);
+			await fetchAllUsers();
+			dispatch({
+				type: UserActionTypes.ADD_FRIENDS,
+				upUser: response.data,
+			});
+			dispatch(loaderOff());
+		} catch (err: any) {
+			console.log(err);
+			dispatch(errorOn(err.response.data));
+		}
+	};
+};
+export const deleteFriend = (id: string): any => {
+	return async (dispatch: Dispatch<UserAction | AppAction>) => {
+		try {
+			dispatch(loaderOn());
+			const response = await removeFriend(id);
+			await fetchAllUsers();
+			dispatch({
+				type: UserActionTypes.DELETE_FRIEND,
+				remUser: response.data,
 			});
 			dispatch(loaderOff());
 		} catch (err: any) {

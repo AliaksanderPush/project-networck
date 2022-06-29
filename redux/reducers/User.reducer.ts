@@ -3,6 +3,7 @@ import { IUserState, UserActionTypes, UserAction } from '../types/user.types';
 const initialState: IUserState = {
 	user: null,
 	tokens: null,
+	users: [],
 };
 
 export const UserReducer = (state = initialState, action: UserAction): IUserState => {
@@ -13,12 +14,14 @@ export const UserReducer = (state = initialState, action: UserAction): IUserStat
 			return {
 				user: payload.searchUser,
 				tokens: payload.token,
+				users: [],
 			};
 
 		case UserActionTypes.SINGOUT_USER:
 			return {
 				user: null,
 				tokens: null,
+				users: [],
 			};
 
 		case UserActionTypes.UPDATE_USER: {
@@ -29,13 +32,25 @@ export const UserReducer = (state = initialState, action: UserAction): IUserStat
 				tokens: updateUser.token,
 			};
 		}
-		case UserActionTypes.UPDATE_AVATAR: {
-			const { img } = action;
-			const newState = { ...state.user! };
-			newState['avatar'] = img;
+		case UserActionTypes.GET_ALL_USERS: {
+			const { users } = action;
 			return {
 				...state,
-				user: newState,
+				users,
+			};
+		}
+		case UserActionTypes.ADD_FRIENDS: {
+			const { upUser } = action;
+			return {
+				...state,
+				user: upUser,
+			};
+		}
+		case UserActionTypes.DELETE_FRIEND: {
+			const { remUser } = action;
+			return {
+				...state,
+				user: remUser,
 			};
 		}
 

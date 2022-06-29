@@ -31,8 +31,8 @@ export async function putUser(
 	return await api.put<IUserDTO>(`/user/${id}`, newUser);
 }
 
-export async function getUsers(): Promise<AxiosResponse<IUserDTO[]>> {
-	return await axios.get<IUserDTO[]>(`${API_URL}/user`);
+export async function getUsers(): Promise<AxiosResponse<IUser[]>> {
+	return await axios.get<IUser[]>(`${API_URL}/user`);
 }
 
 export async function upDatepass(pass: string): Promise<AxiosResponse<IUserDTO>> {

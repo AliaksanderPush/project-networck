@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import { Feed } from '../../screens/Feed/Feed';
+import Feed from '../../screens/Feed/Feed';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';

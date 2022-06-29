@@ -1,17 +1,17 @@
 import React from 'react';
 import { SignUp } from '../../screens/SingUp/SingUp';
 import { SignIn } from '../../screens/SingIn/SingIn';
-import { Feed } from '../../screens/Feed/Feed';
+import Feed from '../../screens/Feed/Feed';
 import { MyPost } from '../../screens/MyPosts/MyPost';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Account } from '../../screens/Account/Account';
+import Account from '../../screens/Account/Account';
 import {
 	AcccountStackParams,
 	ChatRoomStackParams,
 	FeedStackParams,
 	RootStackParams,
 } from './RootScreensNav.props';
-import { UpdateProfile } from '../../screens/UpdatePassword/UpdateProfile';
+import { UpdateProfile } from '../../screens/UpdateProfile/UpdateProfile';
 import { ChatRoom } from '../../screens/ChatRoom/ChatRoom';
 import { FogotPassword } from '../../screens/FogotPassword/FogotPassword';
 import { UpdatePost } from '../../screens/UpdatePost/UpdatePost';

@@ -94,3 +94,7 @@ export const searchByTitle = (row: IPost['title'], searchWords: string): boolean
 	const serchWordArr = searchWords.split(' ');
 	return titleArr.some((item) => serchWordArr.includes(item));
 };
+
+export function arrayCommon(arr1: string[], arr2: string[]): string[] {
+	return arr1.filter((item) => arr2.includes(item));
+}

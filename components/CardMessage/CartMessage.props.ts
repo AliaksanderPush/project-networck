@@ -1,5 +1,5 @@
-import { IPost } from '../../user/User.props';
+import { IFriend } from '../../user/User.props';
 
 export interface ICartMessageProps {
-	item: IPost;
+	item: IFriend;
 }

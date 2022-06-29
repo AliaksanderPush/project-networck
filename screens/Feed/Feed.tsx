@@ -7,7 +7,7 @@ import { IPost } from '../../user/User.props';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { searchByTitle } from '../../helpers/helper';
 
-export const Feed = () => {
+const Feed = (): JSX.Element => {
 	const { posts } = useTypedSelector((state) => state.posts);
 	const { user } = useTypedSelector((state) => state.user);
 	const [allPosts, setAllPosts] = useState<IPost[]>([]);
@@ -74,3 +74,5 @@ export const Feed = () => {
 		</>
 	);
 };
+
+export default React.memo(Feed);

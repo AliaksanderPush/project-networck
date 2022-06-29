@@ -49,13 +49,10 @@ export const styles = StyleSheet.create({
 		fontWeight: '700',
 	},
 	status: {
-		width: 300,
+		width: '100%',
 		height: 40,
 		backgroundColor: '#b7def7',
-		borderBottomRightRadius: 15,
-		borderTopLeftRadius: 15,
-		borderTopRightRadius: 15,
-		marginLeft: 90,
+		flexDirection: 'row',
 		marginTop: 20,
 	},
 	status_text: {

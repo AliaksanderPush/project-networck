@@ -25,7 +25,6 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	const date = formatDateTime(post?.createdAt);
 	const isMe = id === post?.postedBy._id;
 	const type = post?.featuredImage.split('.')[1] === 'mov';
-	console.log('type>>', type);
 
 	const redirectToAddComment = () => {
 		navigation.navigate('AddComment', { id: post?._id });

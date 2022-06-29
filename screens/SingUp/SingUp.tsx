@@ -39,6 +39,7 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 			password: '',
 			city: '',
 			age: '',
+			contacts: [],
 		},
 	});
 

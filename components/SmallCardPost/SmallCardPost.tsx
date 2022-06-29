@@ -6,9 +6,11 @@ import { styles } from './SmallCardPost.styles';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AcccountStackParams } from '../nav/RootScreensNav.props';
+import VideoPlayer from '../Video/VideoPlayer';
 
 export const SmallCardPost = ({ img, cardId }: ISmallCard): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
+	const type = img.split('.')[1] === 'mov';
 
 	const handlePress = () => {
 		navigation.navigate('MyPost', { id: cardId });
@@ -16,12 +18,16 @@ export const SmallCardPost = ({ img, cardId }: ISmallCard): JSX.Element => {
 
 	return (
 		<TouchableOpacity onPress={handlePress}>
-			<Image
-				style={styles.image}
-				source={{
-					uri: `${API_URL}/${img}`,
-				}}
-			/>
+			{!type ? (
+				<Image
+					style={styles.image}
+					source={{
+						uri: `${API_URL}/${img}`,
+					}}
+				/>
+			) : (
+				<VideoPlayer videoURI={`${API_URL}/${img}`} />
+			)}
 		</TouchableOpacity>
 	);
 };

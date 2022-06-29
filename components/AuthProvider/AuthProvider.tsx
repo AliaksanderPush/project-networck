@@ -10,7 +10,7 @@ import { IUserTokens } from '../../user/User.props';
 import { fetchPosts } from '../../redux/acshions/acshions.post';
 import { useDispatch } from 'react-redux';
 
-export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
+const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 	const [auth, setAuth] = useState<string | null>('');
 	const { checkUser } = useActions();
 	const dispatch = useDispatch();
@@ -70,3 +70,5 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 
 	return <SafeAreaProvider>{children}</SafeAreaProvider>;
 };
+
+export default React.memo(AuthProvider);

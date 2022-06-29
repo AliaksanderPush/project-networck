@@ -38,7 +38,11 @@ export const createPosts = (post: ICreatePost) => {
 		try {
 			dispatch(loaderOn());
 			const img = await upLoadFileImage(image as FormDataProps);
-			const response = await createPost({ title, content, featuredImage: img });
+			const response = await createPost({
+				title,
+				content,
+				featuredImage: img,
+			});
 			const { data } = response;
 			dispatch({
 				type: PostsActionTypes.CREATE_POST,
