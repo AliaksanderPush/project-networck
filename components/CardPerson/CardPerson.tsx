@@ -24,8 +24,7 @@ export const CardPerson = ({ info, isMe }: ICardPerson): JSX.Element => {
 			}
 		}
 	};
-	console.log('Iam>>>', isMe);
-	console.log('MuUser>>>', info);
+
 	useEffect(() => {
 		if (info && isMe) {
 			const res = arrayCommon(isMe.contacts, info.contacts);

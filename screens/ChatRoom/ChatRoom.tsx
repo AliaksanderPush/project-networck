@@ -6,27 +6,44 @@ import chatRoom from '../../assets/damy-data/chatRoom';
 import { MessageInput } from '../../components/MessageInput/MessageInput';
 import { styles } from './ChatRoom.styles';
 import { PropsChatRoom } from './ChatRoom.props';
+import { useDispatch } from 'react-redux';
+import { fetchMessages } from '../../redux/acshions/acshions.messages';
+import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 
 export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
 	let { id } = route.params;
-	const [chat, setChat] = useState(null);
+	const [message, setMessage] = useState<string>('');
+	const dispatch = useDispatch();
+	const { loading } = useTypedSelector((state) => state.AppReducer);
+	const { messages } = useTypedSelector((state) => state.messages);
 	console.log('Displaying chat room: ', id);
-	console.log('chat>>', chat);
+	console.log('chat>>', messages);
 
 	navigation.setOptions({ title: 'Elon Musk' });
+
+	const handleMessage = () => {
+		alert(message);
+	};
+
 	useEffect(() => {
-		const seachChat = chatRoom.find((item) => item.id === id);
-		//setChat(seachChat);
-		
-	}, []);
+		if (id) {
+			dispatch(fetchMessages(id));
+		}
+	}, [dispatch]);
+
 	return (
 		<SafeAreaView style={styles.chatRoom}>
 			<FlatList
-				data={chatRoomData.messages}
+				data={messages}
 				renderItem={({ item }) => <Message message={item} />}
 				inverted
 			/>
-			<MessageInput />
+			<MessageInput
+				value={message}
+				onChange={setMessage}
+				handlePress={handleMessage}
+				chat={true}
+			/>
 		</SafeAreaView>
 	);
 };

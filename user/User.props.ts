@@ -81,21 +81,21 @@ export interface IMedia {
 }
 
 export interface IFriend {
-	dialog: IDialog;
-	userId: IUser;
-}
-
-export interface IDialog {
-	partner: IUser | string;
-	author: IUser | string;
+	_id: string;
+	friendId: IUser;
+	myId: string;
 	messages: IMessage[];
-	lastMessage: IMessage | string;
 }
 
 export interface IMessage {
+	_id: string;
 	text: string;
-	dialog: IDialog | string;
+	user: IUser;
 	read: boolean;
+	attachments: string;
+	createdAt: Date;
+	updatedAt: Date;
+	friendBy: string;
 }
 
 export interface IComment {

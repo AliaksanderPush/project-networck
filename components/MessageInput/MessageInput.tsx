@@ -12,17 +12,13 @@ import { colors } from '../../config/Colors';
 import { IMessageInput } from './MessageInput.props';
 
 export const MessageInput = ({ chat, onChange, value, handlePress }: IMessageInput) => {
-	const sendMessage = () => {
-		alert('Hello');
-	};
-
 	const onPlusClicked = () => {
 		console.warn('On plus clicked');
 	};
 
 	const onPress = () => {
 		if (value) {
-			sendMessage();
+			handlePress();
 		} else {
 			onPlusClicked();
 		}

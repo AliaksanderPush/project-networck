@@ -11,13 +11,6 @@ export const FriendsReducer = (state = initialState, action: FriendsAction): IFr
 				...state,
 				friends: action.payload,
 			};
-		case FriendsActionTypes.ADD_FRIEND: {
-			const { friend } = action;
-			return {
-				...state,
-				friends: [friend, ...state.friends],
-			};
-		}
 
 		default:
 			return state;

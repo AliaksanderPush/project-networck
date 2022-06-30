@@ -11,27 +11,20 @@ import { formatDateTime } from '../../helpers/helper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const CardMessage = ({ item }: ICartMessageProps) => {
-	const { userId } = item;
-	const data = formatDateTime(userId.created_at);
-
-	/*
-
+	const { friendId, messages } = item;
+	const data = formatDateTime(item.messages[messages.length - 1].createdAt);
 	const navigation = useNavigation<NativeStackNavigationProp<ChatRoomStackParams>>();
 
 	const handleNavigateToUser = () => {
-		navigation.navigate('ChatRoom', { id: chatRoom.id });
-	};
- */
-	const handlePress = () => {
-		alert(userId._id);
+		navigation.navigate('ChatRoom', { id: item._id });
 	};
 
 	return (
-		<TouchableOpacity onPress={handlePress} style={styles.card_container}>
+		<TouchableOpacity onPress={handleNavigateToUser} style={styles.card_container}>
 			<Image
 				style={styles.user_avatar}
 				source={{
-					uri: `${API_URL}/${userId.avatar}`,
+					uri: `${API_URL}/${friendId.avatar}`,
 				}}
 			/>
 			<View style={styles.bage_row}>
@@ -39,11 +32,11 @@ export const CardMessage = ({ item }: ICartMessageProps) => {
 			</View>
 			<View style={styles.card_row}>
 				<View style={styles.card_item}>
-					<Text style={styles.name}>{userId.name}</Text>
+					<Text style={styles.name}>{friendId.name}</Text>
 					<Text style={styles.message}>{data}</Text>
 				</View>
 				<Text numberOfLines={1} ellipsizeMode='head' style={styles.message}>
-					Hove are you
+					{messages[messages.length - 1].text}
 				</Text>
 			</View>
 		</TouchableOpacity>
