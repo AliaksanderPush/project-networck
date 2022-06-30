@@ -19,16 +19,6 @@ export const FriendsReducer = (state = initialState, action: FriendsAction): IFr
 			};
 		}
 
-		case FriendsActionTypes.DELETE_FRIEND: {
-			const { friendId } = action;
-			const { friends } = state;
-			const copyState = [...friends];
-			const newState = copyState.filter((item) => item.userId._id !== friendId);
-			return {
-				...state,
-				friends: newState,
-			};
-		}
 		default:
 			return state;
 	}

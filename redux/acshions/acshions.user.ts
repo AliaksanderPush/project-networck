@@ -148,7 +148,8 @@ export const createNewFriend = (id: string): any => {
 		try {
 			dispatch(loaderOn());
 			const response = await addNewFriend(id);
-			await fetchAllUsers();
+			await dispatch(fetchAllUsers());
+
 			dispatch({
 				type: UserActionTypes.ADD_FRIENDS,
 				upUser: response.data,
@@ -160,15 +161,15 @@ export const createNewFriend = (id: string): any => {
 		}
 	};
 };
-export const deleteFriend = (id: string): any => {
+export const deleteFriend = (friendsModelId: string, userId: string): any => {
 	return async (dispatch: Dispatch<UserAction | AppAction>) => {
 		try {
 			dispatch(loaderOn());
-			const response = await removeFriend(id);
-			await fetchAllUsers();
+			await removeFriend(friendsModelId);
 			dispatch({
 				type: UserActionTypes.DELETE_FRIEND,
-				remUser: response.data,
+				remUser: userId,
+				frModel: friendsModelId,
 			});
 			dispatch(loaderOff());
 		} catch (err: any) {

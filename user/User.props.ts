@@ -31,7 +31,7 @@ export interface IUser {
 	password: string | undefined;
 	avatar: string;
 	roles: string[];
-	contacts: IFriend[] | string[];
+	contacts: string[];
 	created_at?: Date;
 	posts?: IPost[];
 }

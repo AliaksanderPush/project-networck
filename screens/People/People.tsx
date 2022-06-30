@@ -10,8 +10,6 @@ export const People = () => {
 	const { users, user } = useTypedSelector((state) => state.user);
 	const { loading } = useTypedSelector((state) => state.AppReducer);
 
-	console.log('users>>>', users);
-
 	useEffect(() => {
 		dispatch(fetchAllUsers());
 	}, [dispatch]);

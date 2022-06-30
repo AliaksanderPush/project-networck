@@ -53,7 +53,8 @@ interface IAddFriend {
 
 interface IRemoveFriend {
 	type: UserActionTypes.DELETE_FRIEND;
-	remUser: IUser;
+	remUser: string;
+	frModel: string;
 }
 
 export type UserAction =

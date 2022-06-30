@@ -9,24 +9,28 @@ import { styles } from './CardPerson.style';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 
 export const CardPerson = ({ info, isMe }: ICardPerson): JSX.Element => {
-	const [friendsId, setFriendsId] = useState<string[]>([]);
+	const [friendsId, setFriendsId] = useState<string | undefined>(undefined);
 	const { name, avatar, _id } = info;
 	const Iam = isMe._id === _id;
 	const { loading } = useTypedSelector((state) => state.AppReducer);
 	const { createNewFriend, deleteFriend } = useActions();
 
 	const handlerFriend = () => {
-		if (friendsId.length) {
-			deleteFriend(friendsId[0]);
+		if (friendsId && info?._id) {
+			deleteFriend(friendsId, info._id);
 		} else {
 			if (info._id) {
 				createNewFriend(info._id);
 			}
 		}
 	};
+	console.log('Iam>>>', isMe);
+	console.log('MuUser>>>', info);
 	useEffect(() => {
-		const res = arrayCommon(isMe.contacts as string[], info.contacts as string[]);
-		setFriendsId(res);
+		if (info && isMe) {
+			const res = arrayCommon(isMe.contacts, info.contacts);
+			setFriendsId(res);
+		}
 	}, [info, isMe]);
 
 	return (
@@ -40,7 +44,7 @@ export const CardPerson = ({ info, isMe }: ICardPerson): JSX.Element => {
 						</View>
 						<View style={styles.person_btn}>
 							<PrimaryButton
-								label={!friendsId.length ? 'Add to friends' : 'Delete from frends'}
+								label={!friendsId ? 'Add to friends' : 'Delete from frends'}
 								setValue={handlerFriend}
 								loading={loading}
 							/>

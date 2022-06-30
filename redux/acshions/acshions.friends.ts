@@ -41,6 +41,7 @@ export const addFriend = (userName: string, id: string) => {
 	};
 };
 
+/*
 export const deleteFriend = (id: string) => {
 	return async (dispatch: Dispatch<FriendsAction | AppAction>) => {
 		try {
@@ -59,3 +60,4 @@ export const deleteFriend = (id: string) => {
 		}
 	};
 };
+*/
