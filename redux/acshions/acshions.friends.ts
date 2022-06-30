@@ -10,7 +10,6 @@ export const fetchFriends = (): any => {
 			dispatch(loaderOn());
 			const response = await getFriendsAll();
 			const { data } = response;
-			console.log('priletelo!>>>', data);
 			dispatch({
 				type: FriendsActionTypes.LOAD_FRIENDS_SUCCESS,
 				payload: data,

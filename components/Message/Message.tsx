@@ -1,15 +1,17 @@
-import { styles } from './Message.styles';
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { IMessageProps } from './Messge.props';
-import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
+import { styles } from './Message.styles';
 
-const myID = 'u1';
+export const Message = ({ message, id }: IMessageProps) => {
+	const [isMe, setIsMe] = useState<boolean>(true);
 
-export const Message = ({ message }: IMessageProps) => {
-	const { user } = useTypedSelector((state) => state.user);
-	const isMe = message.user._id === user?._id;
+	useEffect(() => {
+		if (message.user._id && id) {
+			const myMess = message.user._id === id;
+			setIsMe(myMess);
+		}
+	}, [message, id]);
 
 	return (
 		<View

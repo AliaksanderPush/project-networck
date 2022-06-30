@@ -11,6 +11,11 @@ export const MessagesReducer = (state = initialState, action: MessagesAction): I
 				...state,
 				messages: action.payload,
 			};
+		case MessageActionTypes.ADD_MESSAGE:
+			return {
+				...state,
+				messages: [action.content, ...state.messages],
+			};
 
 		default:
 			return state;

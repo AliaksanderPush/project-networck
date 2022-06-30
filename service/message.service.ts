@@ -6,12 +6,8 @@ export async function getMessageAll(id: string): Promise<AxiosResponse<IMessage[
 	return await api.get<IMessage[]>(`/message/getMessages/${id}`);
 }
 
-export async function addNewMessage(
-	id: string,
-	content: string,
-	image: string,
-): Promise<AxiosResponse<IMessage>> {
-	return await api.post<IMessage>(`/message/addMessage/${id}`, { content, image });
+export async function addNewMessage(id: string, content: string): Promise<AxiosResponse<IMessage>> {
+	return await api.post<IMessage>(`/message/addMessage/${id}`, { content });
 }
 
 export async function removeMessage(id: string): Promise<AxiosResponse<IMessage>> {

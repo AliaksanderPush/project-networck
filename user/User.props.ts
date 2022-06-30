@@ -83,7 +83,7 @@ export interface IMedia {
 export interface IFriend {
 	_id: string;
 	friendId: IUser;
-	myId: string;
+	myId: IUser;
 	messages: IMessage[];
 }
 
