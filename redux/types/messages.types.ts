@@ -7,6 +7,7 @@ export interface IMessagesState {
 export enum MessageActionTypes {
 	LOAD_MESSAGES_SUCCESS = 'LOAD_MESSAGES_SUCCESS',
 	ADD_MESSAGE = 'ADD_MESSAGE',
+	DELETE_MESSAGE = 'DELETE_MESSAGE',
 }
 
 interface ILoadSuccessMessagesAction {
@@ -18,4 +19,12 @@ interface IAddMessagesAction {
 	content: IMessage;
 }
 
-export type MessagesAction = ILoadSuccessMessagesAction | IAddMessagesAction;
+interface IDeleteMessagesAction {
+	type: MessageActionTypes.DELETE_MESSAGE;
+	mesId: string;
+}
+
+export type MessagesAction =
+	| ILoadSuccessMessagesAction
+	| IAddMessagesAction
+	| IDeleteMessagesAction;

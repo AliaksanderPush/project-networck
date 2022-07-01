@@ -9,6 +9,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { DrawerStackParams } from './RootScreensNav.props';
 import { People } from '../../screens/People/People';
 import { TabScreenStack } from './TabScreenStack';
+import { TopBackMenu } from '../TopBackMenu/TopBackMenu';
 
 const Drawer = createDrawerNavigator<DrawerStackParams>();
 
@@ -48,6 +49,7 @@ export const DrawerScreenStack = () => {
 						<Octicons name='feed-person' size={32} color={color} />
 					),
 					headerRight: () => <HeaderMenu />,
+					headerTitle: '',
 				}}
 			/>
 		</Drawer.Navigator>

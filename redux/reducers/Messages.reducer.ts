@@ -16,6 +16,15 @@ export const MessagesReducer = (state = initialState, action: MessagesAction): I
 				...state,
 				messages: [action.content, ...state.messages],
 			};
+		case MessageActionTypes.DELETE_MESSAGE:
+			const { mesId } = action;
+			const { messages } = state;
+			const copyState = [...messages];
+			const newState = copyState.filter((item) => item._id !== mesId);
+			return {
+				...state,
+				messages: newState,
+			};
 
 		default:
 			return state;

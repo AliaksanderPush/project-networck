@@ -37,7 +37,7 @@ export const CardPerson = ({ info, isMe }: ICardPerson): JSX.Element => {
 			{!Iam && (
 				<View style={styles.person_container}>
 					<View style={styles.person_header}>
-						<Avatar url={avatar} size={70} />
+						<Avatar border={true} path={avatar} size={70} />
 						<View>
 							<Text style={styles.person_name}>{name}</Text>
 						</View>

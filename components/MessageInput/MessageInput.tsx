@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Pressable, KeyboardAvoidingView, Platform, Text } from 'react-native';
+import {
+	View,
+	TextInput,
+	Pressable,
+	KeyboardAvoidingView,
+	Platform,
+	TouchableOpacity,
+} from 'react-native';
 import {
 	SimpleLineIcons,
 	Feather,
@@ -7,11 +14,17 @@ import {
 	AntDesign,
 	Ionicons,
 } from '@expo/vector-icons';
-import { styles } from './MessageInput.styles';
 import { colors } from '../../config/Colors';
 import { IMessageInput } from './MessageInput.props';
+import { styles } from './MessageInput.styles';
 
-export const MessageInput = ({ chat, onChange, value, handlePress }: IMessageInput) => {
+export const MessageInput = ({
+	chat,
+	onChange,
+	value,
+	handlePress,
+	handleCreateFoto,
+}: IMessageInput) => {
 	const onPlusClicked = () => {
 		console.warn('On plus clicked');
 	};
@@ -48,12 +61,14 @@ export const MessageInput = ({ chat, onChange, value, handlePress }: IMessageInp
 				/>
 				{chat && (
 					<>
-						<Feather
-							name='camera'
-							size={24}
-							color={colors.grayDarck}
-							style={styles.icon}
-						/>
+						<TouchableOpacity onPress={handleCreateFoto}>
+							<Feather
+								name='camera'
+								size={24}
+								color={colors.grayDarck}
+								style={styles.icon}
+							/>
+						</TouchableOpacity>
 						<MaterialCommunityIcons
 							name='microphone-outline'
 							size={24}

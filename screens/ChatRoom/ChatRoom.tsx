@@ -8,20 +8,37 @@ import { useDispatch } from 'react-redux';
 import { fetchMessages } from '../../redux/acshions/acshions.messages';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
+import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
+import { Avatar } from 'react-native-elements';
+import { API_URL } from '../../service/auth-service';
+import { createFormdata, createFoto } from '../../helpers/helper';
 
 export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
 	let { id } = route.params;
 	const [message, setMessage] = useState<string>('');
+	const [image, setImage] = useState<string>('');
 	const dispatch = useDispatch();
 	const { createMessage } = useActions();
 	const { loading } = useTypedSelector((state) => state.AppReducer);
 	const { messages } = useTypedSelector((state) => state.messages);
+	const { friends } = useTypedSelector((state) => state.friends);
 	const { user } = useTypedSelector((state) => state.user);
 
-	navigation.setOptions({ title: 'Elon Musk' });
+	//navi.setOptions({ title: 'Elon Musk' });
+	const handleCreateFoto = async () => {
+		const uri = await createFoto();
+		setImage('');
+		setImage(uri as string);
+	};
 
 	const handleMessage = () => {
-		createMessage(id, message);
+		if (image) {
+			const formData = createFormdata(image);
+			createMessage(id, message, formData);
+			setImage('');
+		} else {
+			createMessage(id, message, image);
+		}
 		setMessage('');
 	};
 
@@ -33,6 +50,7 @@ export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
 
 	return (
 		<SafeAreaView style={styles.chatRoom}>
+			<TopBackMenu />
 			{loading && (
 				<View style={styles.loading}>
 					<Text>Loading...</Text>
@@ -47,6 +65,7 @@ export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
 				value={message}
 				onChange={setMessage}
 				handlePress={handleMessage}
+				handleCreateFoto={handleCreateFoto}
 				chat={true}
 			/>
 		</SafeAreaView>

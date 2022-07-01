@@ -15,6 +15,7 @@ import {
 	ProfileScreenStack,
 } from './NativeScreenStack';
 import { colors } from '../../config/Colors';
+import { TopBackMenu } from '../TopBackMenu/TopBackMenu';
 
 const ButtomStack = createBottomTabNavigator<ButtomStackParams>();
 
@@ -32,7 +33,6 @@ export const TabScreenStack = () => {
 				name='AcountScreenStack'
 				component={AcountScreenStack}
 				options={{
-					title: 'Profile',
 					tabBarIcon: ({ focused, color }) => (
 						<Octicons name='feed-person' focused={focused} size={32} color={color} />
 					),

@@ -50,7 +50,6 @@ export async function upLoadFileImage(formData: FormDataProps): Promise<string> 
 			'Content-Type': 'multipart/form-data',
 		},
 	});
-
 	return data;
 }
 export async function putAvatar(path: string): Promise<AxiosResponse<string>> {
