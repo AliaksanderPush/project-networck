@@ -110,4 +110,4 @@ export function removeFriendId(listUsers: string[], remUser: string): string[] {
 	}
 }
 
-export function countMessages(messages: IMessage, date: Date) {}
+//export function countMessages(messages: IMessage, date: Date) {}
