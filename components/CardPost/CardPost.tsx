@@ -62,7 +62,7 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	return (
 		<View style={styles.card_container}>
 			<View style={styles.card_header}>
-				<Avatar url={post?.postedBy?.avatar} size={70} />
+				<Avatar path={post?.postedBy?.avatar} size={70} border={true} />
 				<View>
 					<Text style={{ fontSize: 24, marginRight: isMe ? '50%' : '60%' }}>
 						{post?.postedBy.name}

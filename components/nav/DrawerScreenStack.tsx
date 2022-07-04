@@ -7,7 +7,7 @@ import { HeaderMenu } from '../HeaderTabs/HeaderTabs';
 import React from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { DrawerStackParams } from './RootScreensNav.props';
-import { People } from '../../screens/People/People';
+import People from '../../screens/People/People';
 import { TabScreenStack } from './TabScreenStack';
 import { TopBackMenu } from '../TopBackMenu/TopBackMenu';
 

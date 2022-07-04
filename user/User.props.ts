@@ -22,7 +22,7 @@ export interface IUserValidate {
 }
 
 export interface IUser {
-	_id?: string;
+	_id: string;
 	age: number;
 	city: string;
 	email: string;
@@ -31,7 +31,6 @@ export interface IUser {
 	password: string | undefined;
 	avatar: string;
 	roles: string[];
-	contacts: string[];
 	created_at?: Date;
 	posts?: IPost[];
 }
@@ -82,8 +81,7 @@ export interface IMedia {
 
 export interface IFriend {
 	_id: string;
-	friendId: IUser;
-	myId: IUser;
+	friends: IUser[];
 	messages: IMessage[];
 }
 

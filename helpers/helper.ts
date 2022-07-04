@@ -94,9 +94,13 @@ export const searchByTitle = (row: IPost['title'], searchWords: string): boolean
 	return titleArr.some((item) => serchWordArr.includes(item));
 };
 
-export function arrayCommon(arr1: string[], arr2: string[]): string {
-	const result = arr1.filter((item) => arr2.includes(item));
-	return result[0];
+export function arrayCommon(id: string, arrFriends: IFriend[]) {
+	const result = arrFriends.map((item) => checkId(id, item.friends));
+	return result;
+}
+
+function checkId(id: string, arrFriend: IUser[]) {
+	return arrFriend.find((item) => item._id === id);
 }
 
 export function removeFriendId(listUsers: string[], remUser: string): string[] {
@@ -109,5 +113,3 @@ export function removeFriendId(listUsers: string[], remUser: string): string[] {
 		return [];
 	}
 }
-
-//export function countMessages(messages: IMessage, date: Date) {}

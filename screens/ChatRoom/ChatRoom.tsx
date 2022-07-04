@@ -9,7 +9,6 @@ import { fetchMessages } from '../../redux/acshions/acshions.messages';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
-import { Avatar } from 'react-native-elements';
 import { API_URL } from '../../service/auth-service';
 import { createFormdata, createFoto } from '../../helpers/helper';
 
@@ -24,7 +23,6 @@ export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
 	const { friends } = useTypedSelector((state) => state.friends);
 	const { user } = useTypedSelector((state) => state.user);
 
-	//navi.setOptions({ title: 'Elon Musk' });
 	const handleCreateFoto = async () => {
 		const uri = await createFoto();
 		setImage('');
@@ -58,7 +56,9 @@ export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
 			)}
 			<FlatList
 				data={messages}
-				renderItem={({ item }) => <Message message={item} id={user?._id} />}
+				renderItem={({ item }) => (
+					<Message message={item} isMe={user?._id === item.user._id} />
+				)}
 				inverted
 			/>
 			<MessageInput

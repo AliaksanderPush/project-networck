@@ -8,29 +8,24 @@ import { arrayCommon } from '../../helpers/helper';
 import { styles } from './CardPerson.style';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 
-export const CardPerson = ({ info, isMe }: ICardPerson): JSX.Element => {
-	const [friendsId, setFriendsId] = useState<string | undefined>(undefined);
-	const { name, avatar, _id } = info;
-	const Iam = isMe._id === _id;
-	const { loading } = useTypedSelector((state) => state.AppReducer);
-	const { createNewFriend, deleteFriend } = useActions();
-
+export const CardPerson = ({ info, myId, friends }: ICardPerson): JSX.Element => {
+	const [friendsId, setFriendsId] = useState<boolean>(false);
+	const { name, avatar } = info;
+	const Iam = myId === info?._id;
+	const { addFriend, deleteFriend } = useActions();
+	console.log(friendsId);
 	const handlerFriend = () => {
-		if (friendsId && info?._id) {
-			deleteFriend(friendsId, info._id);
+		if (info?._id) {
+			deleteFriend(info._id);
 		} else {
-			if (info._id) {
-				createNewFriend(info._id);
-			}
+			addFriend(info._id);
 		}
 	};
 
 	useEffect(() => {
-		if (info && isMe) {
-			const res = arrayCommon(isMe.contacts, info.contacts);
-			setFriendsId(res);
-		}
-	}, [info, isMe]);
+		const res = arrayCommon(info._id, friends);
+		console.log('res!>>>', res);
+	}, []);
 
 	return (
 		<>
@@ -45,7 +40,6 @@ export const CardPerson = ({ info, isMe }: ICardPerson): JSX.Element => {
 							<PrimaryButton
 								label={!friendsId ? 'Add to friends' : 'Delete from frends'}
 								setValue={handlerFriend}
-								loading={loading}
 							/>
 						</View>
 					</View>

@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/core';
 import { colors } from '../../config/Colors';
 import { IEditMenu } from './EditMenu.props';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AcccountStackParams, ButtomStackParams } from '../nav/RootScreensNav.props';
+import { AcccountStackParams } from '../nav/RootScreensNav.props';
 
 export const EditMenu = ({ path, postId }: IEditMenu) => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();

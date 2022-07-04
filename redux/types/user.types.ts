@@ -13,8 +13,6 @@ export enum UserActionTypes {
 	UPDATE_PASSWORD = 'UPDATE_PASSWORD',
 	UPDATE_AVATAR = 'UPDATE_AVATAR',
 	GET_ALL_USERS = 'GET_ALL_USERS',
-	ADD_FRIENDS = 'ADD_FRIENDS',
-	DELETE_FRIEND = 'DELETE_FRIEND',
 }
 
 interface ILoadSuccessUserAction {
@@ -46,23 +44,10 @@ interface IGetAllUsers {
 	users: IUser[];
 }
 
-interface IAddFriend {
-	type: UserActionTypes.ADD_FRIENDS;
-	upUser: IUser;
-}
-
-interface IRemoveFriend {
-	type: UserActionTypes.DELETE_FRIEND;
-	remUser: string;
-	frModel: string;
-}
-
 export type UserAction =
 	| ILoadSuccessUserAction
 	| IUserSingOut
 	| IUserUpdate
 	| IUserUpdatePassword
 	| IUserUpdateAvatar
-	| IGetAllUsers
-	| IAddFriend
-	| IRemoveFriend;
+	| IGetAllUsers;

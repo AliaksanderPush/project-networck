@@ -16,6 +16,7 @@ import { FormDataProps } from '../../screens/Account/Account.props';
 import { errorOn, loaderOff, loaderOn } from './acshions.app';
 import { AppAction } from '../types/app.types';
 import { addNewFriend, removeFriend } from '../../service/friends.service';
+import { FriendsAction, FriendsActionTypes } from '../types/friends.types';
 
 export const fetchUser = (user: IUserLogin) => {
 	return async (dispatch: Dispatch<UserAction | AppAction>) => {
@@ -134,42 +135,6 @@ export const fetchAllUsers = (): any => {
 			dispatch({
 				type: UserActionTypes.GET_ALL_USERS,
 				users: response.data,
-			});
-			dispatch(loaderOff());
-		} catch (err: any) {
-			console.log(err);
-			dispatch(errorOn(err.response.data));
-		}
-	};
-};
-
-export const createNewFriend = (id: string): any => {
-	return async (dispatch: Dispatch<UserAction | AppAction>) => {
-		try {
-			dispatch(loaderOn());
-			const response = await addNewFriend(id);
-			await dispatch(fetchAllUsers());
-
-			dispatch({
-				type: UserActionTypes.ADD_FRIENDS,
-				upUser: response.data,
-			});
-			dispatch(loaderOff());
-		} catch (err: any) {
-			console.log(err);
-			dispatch(errorOn(err.response.data));
-		}
-	};
-};
-export const deleteFriend = (friendsModelId: string, userId: string): any => {
-	return async (dispatch: Dispatch<UserAction | AppAction>) => {
-		try {
-			dispatch(loaderOn());
-			await removeFriend(friendsModelId);
-			dispatch({
-				type: UserActionTypes.DELETE_FRIEND,
-				remUser: userId,
-				frModel: friendsModelId,
 			});
 			dispatch(loaderOff());
 		} catch (err: any) {

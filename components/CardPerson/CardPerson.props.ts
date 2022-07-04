@@ -1,6 +1,7 @@
-import { IFriend, IUser } from '../../user/User.props';
+import { IUser, IFriend } from '../../user/User.props';
 
 export interface ICardPerson {
 	info: IUser;
-	isMe: IUser;
+	myId: string;
+	friends: IFriend[];
 }

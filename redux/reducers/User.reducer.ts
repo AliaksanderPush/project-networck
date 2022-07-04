@@ -1,4 +1,3 @@
-import { removeFriendId } from '../../helpers/helper';
 import { IUserState, UserActionTypes, UserAction } from '../types/user.types';
 
 const initialState: IUserState = {
@@ -38,37 +37,6 @@ export const UserReducer = (state = initialState, action: UserAction): IUserStat
 			return {
 				...state,
 				users,
-			};
-		}
-		case UserActionTypes.ADD_FRIENDS: {
-			const { upUser } = action;
-			return {
-				...state,
-				user: upUser,
-			};
-		}
-		case UserActionTypes.DELETE_FRIEND: {
-			const { frModel, remUser } = action;
-			const { user, users } = state;
-			const newUser = { ...user! };
-			const { contacts } = newUser;
-			const newContacts = removeFriendId(contacts, frModel);
-			newUser.contacts = newContacts;
-
-			const listUsers = [...users];
-			const index = listUsers.findIndex((item) => {
-				return item._id === remUser;
-			});
-
-			if (index !== -1) {
-				const friendContacts = removeFriendId(listUsers[index].contacts, frModel);
-				listUsers[index].contacts = friendContacts;
-			}
-
-			return {
-				...state,
-				user: newUser,
-				users: listUsers,
 			};
 		}
 

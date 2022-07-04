@@ -9,8 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { API_URL } from '../../service/auth-service';
 
-export const Message = ({ message, id }: IMessageProps) => {
-	const [isMe, setIsMe] = useState<boolean>(true);
+export const Message = ({ message, isMe }: IMessageProps) => {
 	const { deleteMessage } = useActions();
 	const time = formatDateHour(message.createdAt);
 	const { user } = message;
@@ -19,12 +18,6 @@ export const Message = ({ message, id }: IMessageProps) => {
 		deleteMessage(message._id, message.friendBy);
 	};
 
-	useEffect(() => {
-		if (message.user._id && id) {
-			const myMess = message.user._id === id;
-			setIsMe(myMess);
-		}
-	}, []);
 	return (
 		<View>
 			{isMe && (
