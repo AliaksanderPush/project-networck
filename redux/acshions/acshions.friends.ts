@@ -60,3 +60,9 @@ export const deleteFriend = (id: string): any => {
 		}
 	};
 };
+
+export const logoutFriend = () => {
+	return {
+		type: FriendsActionTypes.LOGOUT_USER,
+	};
+};

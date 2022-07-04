@@ -28,6 +28,12 @@ export const FriendsReducer = (state = initialState, action: FriendsAction): IFr
 				friends: newState,
 			};
 		}
+		case FriendsActionTypes.LOGOUT_USER: {
+			return {
+				...state,
+				friends: [],
+			};
+		}
 
 		default:
 			return state;

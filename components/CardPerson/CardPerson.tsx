@@ -1,31 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
-import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { Avatar } from '../Avatar/Avatar';
 import { PrimaryButton } from '../UI/Button/PrimaryButton';
 import { ICardPerson } from './CardPerson.props';
-import { arrayCommon } from '../../helpers/helper';
 import { styles } from './CardPerson.style';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 
-export const CardPerson = ({ info, myId, friends }: ICardPerson): JSX.Element => {
-	const [friendsId, setFriendsId] = useState<boolean>(false);
+export const CardPerson = ({ info, myId, isFriends }: ICardPerson): JSX.Element => {
 	const { name, avatar } = info;
 	const Iam = myId === info?._id;
 	const { addFriend, deleteFriend } = useActions();
-	console.log(friendsId);
+
 	const handlerFriend = () => {
-		if (info?._id) {
+		if (isFriends) {
 			deleteFriend(info._id);
 		} else {
 			addFriend(info._id);
 		}
 	};
-
-	useEffect(() => {
-		const res = arrayCommon(info._id, friends);
-		console.log('res!>>>', res);
-	}, []);
 
 	return (
 		<>
@@ -38,7 +30,7 @@ export const CardPerson = ({ info, myId, friends }: ICardPerson): JSX.Element =>
 						</View>
 						<View style={styles.person_btn}>
 							<PrimaryButton
-								label={!friendsId ? 'Add to friends' : 'Delete from frends'}
+								label={!isFriends ? 'Add to friends' : 'Delete from frends'}
 								setValue={handlerFriend}
 							/>
 						</View>

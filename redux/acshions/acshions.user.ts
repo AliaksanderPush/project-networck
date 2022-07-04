@@ -76,12 +76,15 @@ export const updateUser = (id: string | undefined, newUser: IUser) => {
 };
 
 export const logOut = () => {
-	return async (dispatch: Dispatch<UserAction | AppAction>) => {
+	return async (dispatch: Dispatch<UserAction | AppAction | FriendsAction>) => {
 		try {
 			dispatch(loaderOn());
 			await AsyncStorage.removeItem('@auth');
 			dispatch({
 				type: UserActionTypes.SINGOUT_USER,
+			});
+			dispatch({
+				type: FriendsActionTypes.LOGOUT_USER,
 			});
 			await logoutSite();
 			dispatch(loaderOff());

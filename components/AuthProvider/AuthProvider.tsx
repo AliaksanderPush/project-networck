@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import { AuthProps } from './AuthProvider.props';
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { api } from '../../service/auth-service';
+import { api, API_URL } from '../../service/auth-service';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { IUserTokens } from '../../user/User.props';
 import { fetchPosts } from '../../redux/acshions/acshions.post';
 import { useDispatch } from 'react-redux';
+import io from 'socket.io-client';
+import { fetchAllUsers } from '../../redux/acshions/acshions.user';
 
 const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 	const [auth, setAuth] = useState<string | null>('');
-	const { checkUser } = useActions();
+	const { checkUser, loadSocket } = useActions();
 	const dispatch = useDispatch();
 	const { tokens } = useTypedSelector((state) => state.user);
-	const { posts } = useTypedSelector((state) => state.posts);
 
 	api.defaults.headers.common['Authorization'] = auth ? `Bearer ${auth}` : '';
 	api.interceptors.request.use(
@@ -29,7 +30,6 @@ const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 				originalRequest._isRetry = true;
 				try {
 					const { data } = await api.get(`/auth/refresh`);
-					console.log('token>>', data);
 					AsyncStorage.setItem('@auth', JSON.stringify(data.token));
 					return api.request(originalRequest);
 				} catch (e) {
@@ -38,6 +38,14 @@ const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 			}
 		},
 	);
+	useEffect(() => {
+		const sockets = io(API_URL, {
+			transports: ['websocket'],
+		});
+
+		sockets.connect();
+		loadSocket(sockets);
+	}, []);
 
 	useEffect(() => {
 		const authControl = async () => {
@@ -58,7 +66,6 @@ const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 	useEffect(() => {
 		if (!tokens) {
 			setAuth('');
-			console.log('it wokck!');
 		} else {
 			setAuth(tokens.refreshToken);
 		}
@@ -66,7 +73,7 @@ const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 
 	useEffect(() => {
 		dispatch(fetchPosts());
-	}, [dispatch]);
+	}, []);
 
 	return <SafeAreaProvider>{children}</SafeAreaProvider>;
 };

@@ -8,13 +8,11 @@ import { styles } from './CardMessage.styles';
 import { ICartMessageProps } from './CartMessage.props';
 import { formatDateTime } from '../../helpers/helper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { IUser } from '../../user/User.props';
 
-export const CardMessage = ({ item, myId }: ICartMessageProps) => {
+export const CardMessage = ({ item, myId, users }: ICartMessageProps) => {
 	const { friends, messages } = item;
 	const [friend, setfriend] = useState<IUser | null>(null);
-	//const { user } = useTypedSelector((state) => state.user);
 	const data = formatDateTime(messages[messages.length - 1].createdAt);
 	const navigation = useNavigation<NativeStackNavigationProp<ChatRoomStackParams, 'ChatRoom'>>();
 
@@ -23,8 +21,14 @@ export const CardMessage = ({ item, myId }: ICartMessageProps) => {
 	};
 
 	useEffect(() => {
-		const friend = friends.filter((item) => item._id !== myId);
-		setfriend(friend[0]);
+		const friendId = friends.filter((item) => item !== myId);
+		console.log('id>>>', friendId);
+		console.log('users>>', users);
+		const myFriend = users.find((item) => item._id === friendId[0]);
+		console.log('seach>>', myFriend);
+		if (myFriend) {
+			setfriend(myFriend);
+		}
 	}, []);
 
 	return (

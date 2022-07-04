@@ -32,11 +32,9 @@ export const createMessage = (id: string, content: string, image?: string | Form
 
 			if (image) {
 				img = await upLoadFileImage(image as FormDataProps);
-				console.log('priletelo in img>>>', img);
 			}
 			const response = await addNewMessage(id, content, img);
 			const { data } = response;
-			console.log('priletelo in create>>>', data);
 			dispatch({
 				type: MessageActionTypes.ADD_MESSAGE,
 				content: data,

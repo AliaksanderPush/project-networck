@@ -3,6 +3,7 @@ import * as PostActionCreators from './acshions.post';
 import * as CommentsActionCreators from './acshions.comments';
 import * as FriendsActionCreators from './acshions.friends';
 import * as MessageActionCreators from './acshions.messages';
+import * as SocketActionCreators from './acshions.sockets';
 
 export const userActionCreators = {
 	...UserActionCreators,
@@ -10,4 +11,5 @@ export const userActionCreators = {
 	...CommentsActionCreators,
 	...FriendsActionCreators,
 	...MessageActionCreators,
+	...SocketActionCreators,
 };

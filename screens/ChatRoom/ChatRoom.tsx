@@ -9,7 +9,6 @@ import { fetchMessages } from '../../redux/acshions/acshions.messages';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
-import { API_URL } from '../../service/auth-service';
 import { createFormdata, createFoto } from '../../helpers/helper';
 
 export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
@@ -20,7 +19,6 @@ export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
 	const { createMessage } = useActions();
 	const { loading } = useTypedSelector((state) => state.AppReducer);
 	const { messages } = useTypedSelector((state) => state.messages);
-	const { friends } = useTypedSelector((state) => state.friends);
 	const { user } = useTypedSelector((state) => state.user);
 
 	const handleCreateFoto = async () => {
@@ -44,7 +42,7 @@ export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
 		if (id) {
 			dispatch(fetchMessages(id));
 		}
-	}, [dispatch]);
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.chatRoom}>

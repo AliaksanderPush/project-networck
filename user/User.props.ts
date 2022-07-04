@@ -81,7 +81,7 @@ export interface IMedia {
 
 export interface IFriend {
 	_id: string;
-	friends: IUser[];
+	friends: string[];
 	messages: IMessage[];
 }
 

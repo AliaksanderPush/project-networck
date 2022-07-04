@@ -94,9 +94,8 @@ export const searchByTitle = (row: IPost['title'], searchWords: string): boolean
 	return titleArr.some((item) => serchWordArr.includes(item));
 };
 
-export function arrayCommon(id: string, arrFriends: IFriend[]) {
-	const result = arrFriends.map((item) => checkId(id, item.friends));
-	return result;
+export function isFriends(id: string, arr: IFriend[]): boolean {
+	return arr.some((item) => item.friends.includes(id));
 }
 
 function checkId(id: string, arrFriend: IUser[]) {
