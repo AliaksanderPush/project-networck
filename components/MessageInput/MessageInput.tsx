@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
 	View,
 	TextInput,
@@ -24,7 +24,7 @@ export const MessageInput = ({
 	value,
 	handlePress,
 	handleCreateFoto,
-}: IMessageInput) => {
+}: IMessageInput): JSX.Element => {
 	const onPlusClicked = () => {
 		console.warn('On plus clicked');
 	};

@@ -11,11 +11,17 @@ const People = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const { users, user } = useTypedSelector((state) => state.user);
 	const { friends } = useTypedSelector((state) => state.friends);
+	const { socket } = useTypedSelector((state) => state.SocketReducer);
 
 	useEffect(() => {
 		dispatch(fetchAllUsers());
-		dispatch(fetchFriends());
+		if (socket) {
+			dispatch(fetchFriends(socket));
+		}
 	}, []);
+	if (!friends) {
+		return <View></View>;
+	}
 	return (
 		<View style={{ flex: 1 }}>
 			<FlatList

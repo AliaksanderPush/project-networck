@@ -1,19 +1,17 @@
-import 'react-native-gesture-handler';
+import React from 'react';
 import { Likes } from '../../screens/Likes/Likes';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { AntDesign } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { HeaderMenu } from '../HeaderTabs/HeaderTabs';
-import React from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { DrawerStackParams } from './RootScreensNav.props';
 import People from '../../screens/People/People';
 import { TabScreenStack } from './TabScreenStack';
-import { TopBackMenu } from '../TopBackMenu/TopBackMenu';
+import 'react-native-gesture-handler';
 
-const Drawer = createDrawerNavigator<DrawerStackParams>();
-
-export const DrawerScreenStack = () => {
+export const DrawerScreenStack = (): JSX.Element => {
+	const Drawer = createDrawerNavigator<DrawerStackParams>();
 	return (
 		<Drawer.Navigator
 			initialRouteName='TabScreenStack'

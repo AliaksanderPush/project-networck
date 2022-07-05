@@ -15,15 +15,14 @@ import { UpdateProfile } from '../../screens/UpdateProfile/UpdateProfile';
 import { ChatRoom } from '../../screens/ChatRoom/ChatRoom';
 import { FogotPassword } from '../../screens/FogotPassword/FogotPassword';
 import { UpdatePost } from '../../screens/UpdatePost/UpdatePost';
-import 'react-native-gesture-handler';
 import { AddComment } from '../../screens/AddComment/AddComment';
 import { Comments } from '../../screens/Comments/Comments';
 import { PostDetails } from '../../screens/PostDetails/PostDetails';
 import { Chat } from '../../screens/Chat/Chat';
+import 'react-native-gesture-handler';
 
-const Stack = createNativeStackNavigator<RootStackParams>();
-
-export const ProfileScreenStack = () => {
+export const ProfileScreenStack = (): JSX.Element => {
+	const Stack = createNativeStackNavigator<RootStackParams>();
 	return (
 		<Stack.Navigator
 			initialRouteName='SignIn'
@@ -38,9 +37,8 @@ export const ProfileScreenStack = () => {
 	);
 };
 
-const AccountStack = createNativeStackNavigator<AcccountStackParams>();
-
-export const AcountScreenStack = () => {
+export const AcountScreenStack = (): JSX.Element => {
+	const AccountStack = createNativeStackNavigator<AcccountStackParams>();
 	return (
 		<AccountStack.Navigator
 			initialRouteName='Account'
@@ -56,9 +54,8 @@ export const AcountScreenStack = () => {
 	);
 };
 
-const FeedStack = createNativeStackNavigator<FeedStackParams>();
-
-export const FeedScreenStack = () => {
+export const FeedScreenStack = (): JSX.Element => {
+	const FeedStack = createNativeStackNavigator<FeedStackParams>();
 	return (
 		<FeedStack.Navigator
 			initialRouteName='Feed'
@@ -74,9 +71,8 @@ export const FeedScreenStack = () => {
 	);
 };
 
-const ChatRoomStack = createNativeStackNavigator<ChatRoomStackParams>();
-
-export const ChatRoomScreenStack = () => {
+export const ChatRoomScreenStack = (): JSX.Element => {
+	const ChatRoomStack = createNativeStackNavigator<ChatRoomStackParams>();
 	return (
 		<ChatRoomStack.Navigator
 			initialRouteName='Friends'

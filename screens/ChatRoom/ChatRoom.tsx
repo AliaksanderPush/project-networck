@@ -11,7 +11,7 @@ import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
 import { createFormdata, createFoto } from '../../helpers/helper';
 
-export const ChatRoom = ({ navigation, route }: PropsChatRoom) => {
+export const ChatRoom = ({ route }: PropsChatRoom): JSX.Element => {
 	let { id } = route.params;
 	const [message, setMessage] = useState<string>('');
 	const [image, setImage] = useState<string>('');

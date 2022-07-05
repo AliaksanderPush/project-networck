@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-import { AuthProps } from './AuthProvider.props';
+import React, { ReactNode, useState } from 'react';
 import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api, API_URL } from '../../service/auth-service';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
-import { IUserTokens } from '../../user/User.props';
+import { IUserTokens } from '../../types/types';
 import { fetchPosts } from '../../redux/acshions/acshions.post';
 import { useDispatch } from 'react-redux';
 import io from 'socket.io-client';
-import { fetchAllUsers } from '../../redux/acshions/acshions.user';
 
-const AuthProvider = ({ children }: AuthProps): JSX.Element => {
+const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
 	const [auth, setAuth] = useState<string | null>('');
 	const { checkUser, loadSocket } = useActions();
 	const dispatch = useDispatch();

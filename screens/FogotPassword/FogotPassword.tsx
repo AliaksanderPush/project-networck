@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, ScrollView } from 'react-native';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { useForm, Controller } from 'react-hook-form';
-import { emailValidate } from '../../user/validate';
+import { emailValidate } from '../../validate/validate';
 import { PropsFogotPassword } from './FogotPassword.props';
 import { styles } from './FogotPassword.styles';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
@@ -27,19 +27,9 @@ export const FogotPassword = ({ navigation }: PropsFogotPassword): JSX.Element =
 		setLoading(true);
 		const { email } = info;
 		try {
-			const response = fogotPassword(email);
-			console.log('response>>>', response);
-			/*
-			if (data.error) {
-				alert(data.error);
-				
-			} else {
-				setLoading(false);
-				// setVisible(true);
-				console.log('RESET PASSWORD RES => ', data);
-				alert('Enter the password reset code we sent in your email');
-			}
-			*/
+			fogotPassword(email);
+			setLoading(false);
+			alert('Enter the password reset code we sent in your email');
 		} catch (err: any) {
 			alert(err.response.data);
 			setLoading(false);

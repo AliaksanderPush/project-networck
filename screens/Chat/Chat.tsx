@@ -1,34 +1,47 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { CardMessage } from '../../components/CardMessage/CardMessage';
+import CardMessage from '../../components/CardMessage/CardMessage';
 import { fetchFriends } from '../../redux/acshions/acshions.friends';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
-import { io, Socket } from 'socket.io-client';
-import { styles } from './Chat.styles';
 import { fetchAllUsers } from '../../redux/acshions/acshions.user';
+import EVENTS from '../../config/events';
+import { Menu } from '../../components/UI/Menu/Menu';
+import { styles } from './Chat.styles';
 
-export const Chat = () => {
+export const Chat = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const { friends } = useTypedSelector((state) => state.friends);
 	const { user, users } = useTypedSelector((state) => state.user);
 	const { socket } = useTypedSelector((state) => state.SocketReducer);
-	const { _id } = user!;
-	const { error, loading } = useTypedSelector((state) => state.AppReducer);
+	const [showModat, setShowModal] = useState<boolean>(false);
 
 	useEffect(() => {
-		dispatch(fetchFriends());
+		if (socket) {
+			dispatch(fetchFriends(socket));
+		}
+
 		dispatch(fetchAllUsers());
 	}, []);
 
 	useEffect(() => {
 		if (socket) {
-			//socket.emit('addUser', user?._id);
+			socket.on(EVENTS.SERVER.JOINED_ROOM, (myId: string) => {
+				setShowModal(true);
+			});
 		}
-	}, [user]);
+		setTimeout(() => {
+			setShowModal(false);
+		}, 3000);
+	}, []);
+
+	if (!friends) {
+		return <View></View>;
+	}
 
 	return (
 		<View style={styles.feed_page}>
+			{showModat && <Menu name={user?.name && user?.name} />}
 			<FlatList
 				data={friends}
 				renderItem={({ item }) => {

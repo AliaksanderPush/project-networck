@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { IUserLogin } from '../../user/User.props';
+import React from 'react';
+import { View, Text, Image, ScrollView } from 'react-native';
+import { IUserLogin } from '../../types/types';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { useForm, Controller } from 'react-hook-form';
-import { emailValidate, passwordValidate } from '../../user/validate';
+import { emailValidate, passwordValidate } from '../../validate/validate';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { Props } from './SingIn.props';
 import { styles } from './SingIn.styles';
@@ -11,7 +11,7 @@ import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector'
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 
 export const SignIn = ({ navigation }: Props): JSX.Element => {
-	const { loading, error } = useTypedSelector((state) => state.AppReducer);
+	const { loading } = useTypedSelector((state) => state.AppReducer);
 	const { fetchUser } = useActions();
 
 	const {

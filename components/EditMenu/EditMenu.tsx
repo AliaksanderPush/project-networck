@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
@@ -7,8 +7,9 @@ import { colors } from '../../config/Colors';
 import { IEditMenu } from './EditMenu.props';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AcccountStackParams } from '../nav/RootScreensNav.props';
+import { styles } from './EditMenu.styles';
 
-export const EditMenu = ({ path, postId }: IEditMenu) => {
+export const EditMenu = ({ path, postId }: IEditMenu): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
 
 	return (
@@ -25,16 +26,3 @@ export const EditMenu = ({ path, postId }: IEditMenu) => {
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: 'row',
-	},
-	backButton: {
-		borderRadius: 8,
-		width: 40,
-		height: 40,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-});

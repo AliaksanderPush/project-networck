@@ -1,12 +1,7 @@
 import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-interface Props {
-	color: string;
-	size: number;
-}
-
-export function IconBack(props: Props) {
+export function IconBack(props: { size: number; color: string }): JSX.Element {
 	return (
 		<Svg viewBox='0 0 512 512' width={props.size} height={props.size}>
 			<Path

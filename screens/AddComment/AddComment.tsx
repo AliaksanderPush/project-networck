@@ -8,7 +8,7 @@ import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector'
 import { IAddComment } from './AddComment.props';
 import { styles } from './AddComment.style';
 
-export const AddComment = ({ navigation, route }: IAddComment) => {
+export const AddComment = ({ navigation, route }: IAddComment): JSX.Element => {
 	const { id } = route.params;
 	const [text, setText] = useState<string>('');
 	const { loading } = useTypedSelector((state) => state.AppReducer);

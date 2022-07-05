@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import React from 'react';
+import { View, TextInput } from 'react-native';
 import { IInfoInput } from './InfoInput.props';
 
 export const InfoInput = ({

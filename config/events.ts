@@ -7,6 +7,7 @@ const EVENTS = {
 	},
 	SERVER: {
 		ROOMS: 'ROOMS',
+		ROOM: 'ROOM',
 		JOINED_ROOM: 'JOINED_ROOM',
 		ROOM_MESSAGE: 'ROOM_MESSAGE',
 	},

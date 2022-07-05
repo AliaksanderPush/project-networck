@@ -1,6 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 import { FormDataProps } from '../screens/Account/Account.props';
-import { IFriend, IMessage, IPost, IUser } from '../user/User.props';
+import { IFriend, IPost, IUser } from '../types/types';
 
 export function formatDateTime(currTime: Date | undefined): string | null {
 	if (!currTime) {
@@ -96,10 +96,6 @@ export const searchByTitle = (row: IPost['title'], searchWords: string): boolean
 
 export function isFriends(id: string, arr: IFriend[]): boolean {
 	return arr.some((item) => item.friends.includes(id));
-}
-
-function checkId(id: string, arrFriend: IUser[]) {
-	return arrFriend.find((item) => item._id === id);
 }
 
 export function removeFriendId(listUsers: string[], remUser: string): string[] {

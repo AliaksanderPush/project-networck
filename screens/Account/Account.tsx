@@ -6,19 +6,16 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { CircleLogo } from '../../components/UI/CircleLogo/CircleLogo';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../config/Colors';
-import { styles } from './Account.styles';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
-import { AcccountStackParams } from '../../components/nav/RootScreensNav.props';
 import { API_URL } from '../../service/auth-service';
 import { SmallCardPost } from '../../components/SmallCardPost/SmallCardPost';
 import { createFormdata, createFoto } from '../../helpers/helper';
 import { EditMenu } from '../../components/EditMenu/EditMenu';
+import { styles } from './Account.styles';
 
 const Account = (): JSX.Element => {
-	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
 	const { user } = useTypedSelector((state) => state.user);
+	const { friends } = useTypedSelector((state) => state.friends);
 	const { posts } = useTypedSelector((state) => state.posts);
 	const { upDateAvatar } = useActions();
 	const [image, setImage] = useState<string>('');
@@ -95,7 +92,7 @@ const Account = (): JSX.Element => {
 						<Text style={styles.info_text}>Posts</Text>
 					</View>
 					<View>
-						<Text style={styles.info_count}>{user?.contacts?.length}</Text>
+						<Text style={styles.info_count}>{friends.length}</Text>
 						<Text style={styles.info_text}>Friends</Text>
 					</View>
 					<View>

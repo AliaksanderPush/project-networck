@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -6,7 +6,6 @@ import { Avatar } from '../Avatar/Avatar';
 import { ICardPost } from './CardPost.props';
 import { API_URL } from '../../service/auth-service';
 import { DeleteMenu } from '../DeleteMenu/DeleteMenu';
-import { styles } from './CardPost.styles';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FeedStackParams } from '../nav/RootScreensNav.props';
@@ -16,8 +15,9 @@ import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { formatDateTime } from '../../helpers/helper';
 import VideoPlayer from '../Video/VideoPlayer';
+import { styles } from './CardPost.styles';
 
-export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
+const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	const [show, setShow] = useState<boolean>(false);
 	const navigation = useNavigation<NativeStackNavigationProp<FeedStackParams>>();
 	const { user } = useTypedSelector((state) => state.user);
@@ -133,3 +133,5 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 		</View>
 	);
 };
+
+export default memo(CardPost);

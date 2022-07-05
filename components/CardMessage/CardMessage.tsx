@@ -4,13 +4,13 @@ import { View, Text, Image } from 'react-native';
 import { API_URL } from '../../service/auth-service';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ChatRoomStackParams } from '../nav/RootScreensNav.props';
-import { styles } from './CardMessage.styles';
 import { ICartMessageProps } from './CartMessage.props';
 import { formatDateTime } from '../../helpers/helper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { IUser } from '../../user/User.props';
+import { IUser } from '../../types/types';
+import { styles } from './CardMessage.styles';
 
-export const CardMessage = ({ item, myId, users }: ICartMessageProps) => {
+const CardMessage = ({ item, myId, users }: ICartMessageProps) => {
 	const { friends, messages } = item;
 	const [friend, setfriend] = useState<IUser | null>(null);
 	const data = formatDateTime(messages[messages.length - 1].createdAt);
@@ -51,3 +51,5 @@ export const CardMessage = ({ item, myId, users }: ICartMessageProps) => {
 		</TouchableOpacity>
 	);
 };
+
+export default React.memo(CardMessage);

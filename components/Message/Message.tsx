@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { IMessageProps } from './Messge.props';
 import { formatDateHour } from '../../helpers/helper';
@@ -9,7 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { API_URL } from '../../service/auth-service';
 
-export const Message = ({ message, isMe }: IMessageProps) => {
+export const Message = ({ message, isMe }: IMessageProps): JSX.Element => {
 	const { deleteMessage } = useActions();
 	const time = formatDateHour(message.createdAt);
 	const { user } = message;
