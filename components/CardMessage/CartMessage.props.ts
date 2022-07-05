@@ -1,4 +1,4 @@
-import { IFriend, IUser } from '../../user/User.props';
+import { IFriend, IUser } from '../../types/types';
 
 export interface ICartMessageProps {
 	item: IFriend;

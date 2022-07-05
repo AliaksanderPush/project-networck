@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IComment } from '../user/User.props';
+import { IComment } from '../types/types';
 import { api, API_URL } from './auth-service';
 
 export async function getCommentsAll(): Promise<AxiosResponse<IComment[]>> {

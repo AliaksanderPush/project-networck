@@ -1,4 +1,4 @@
-import { IMessage } from '../../user/User.props';
+import { IMessage } from '../../types/types';
 
 export interface IMessageProps {
 	message: IMessage;

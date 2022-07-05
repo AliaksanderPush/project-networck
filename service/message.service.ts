@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { FormDataProps } from '../screens/Account/Account.props';
-import { IMessage } from '../user/User.props';
+import { IMessage } from '../types/types';
 import { api } from './auth-service';
 
 export async function getMessageAll(id: string): Promise<AxiosResponse<IMessage[]>> {

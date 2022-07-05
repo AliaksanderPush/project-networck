@@ -1,4 +1,4 @@
-import { IComment } from '../../user/User.props';
+import { IComment } from '../../types/types';
 
 export interface ICommentState {
 	comments: IComment[];

@@ -1,6 +1,6 @@
 import { UserAction, UserActionTypes } from '../types/user.types';
 import { Dispatch } from 'redux';
-import { IUserLogin, IUserRegistr, IUser } from '../../user/User.props';
+import { IUserLogin, IUserRegistr, IUser } from '../../types/types';
 import {
 	autorization,
 	registration,

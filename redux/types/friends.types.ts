@@ -1,4 +1,4 @@
-import { IFriend } from '../../user/User.props';
+import { IFriend } from '../../types/types';
 
 export interface IFriendsState {
 	friends: IFriend[];

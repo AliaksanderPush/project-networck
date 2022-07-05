@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { IFriend } from '../user/User.props';
+import { IFriend } from '../types/types';
 import { api } from './auth-service';
 
 export async function getFriendsAll(): Promise<AxiosResponse<IFriend[]>> {

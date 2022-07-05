@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IUserLogin, IUserRegistr, IUserDTO, IUser } from '../user/User.props';
+import { IUserLogin, IUserRegistr, IUserDTO, IUser } from '../types/types';
 import { api, API_URL } from './auth-service';
 import { FormDataProps } from '../screens/Account/Account.props';
 

@@ -1,4 +1,4 @@
-import { IUser, IUserDTO, IUserTokens } from '../../user/User.props';
+import { IUser, IUserDTO, IUserTokens } from '../../types/types';
 
 export interface IUserState {
 	user: IUser | null;

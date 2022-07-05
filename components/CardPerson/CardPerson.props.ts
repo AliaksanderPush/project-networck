@@ -1,4 +1,4 @@
-import { IUser } from '../../user/User.props';
+import { IUser } from '../../types/types';
 
 export interface ICardPerson {
 	info: IUser;
