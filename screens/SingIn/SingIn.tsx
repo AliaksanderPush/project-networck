@@ -11,7 +11,7 @@ import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector'
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 
 export const SignIn = ({ navigation }: Props): JSX.Element => {
-	const { loading } = useTypedSelector((state) => state.AppReducer);
+	const { loading, error } = useTypedSelector((state) => state.AppReducer);
 	const { fetchUser } = useActions();
 
 	const {

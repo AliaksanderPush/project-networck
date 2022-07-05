@@ -5,17 +5,21 @@ import { PrimaryButton } from '../UI/Button/PrimaryButton';
 import { ICardPerson } from './CardPerson.props';
 import { styles } from './CardPerson.style';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
+import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
+import EVENTS from '../../config/events';
 
 export const CardPerson = ({ info, myId, isFriends }: ICardPerson): JSX.Element => {
 	const { name, avatar } = info;
 	const Iam = myId === info?._id;
 	const { addFriend, deleteFriend } = useActions();
-
+	const { socket } = useTypedSelector((state) => state.SocketReducer);
 	const handlerFriend = () => {
 		if (isFriends) {
 			deleteFriend(info._id);
 		} else {
-			addFriend(info._id);
+			if (socket) {
+				addFriend(info._id, myId, socket);
+			}
 		}
 	};
 

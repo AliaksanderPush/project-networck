@@ -42,7 +42,6 @@ const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 		const sockets = io(API_URL, {
 			transports: ['websocket'],
 		});
-
 		sockets.connect();
 		loadSocket(sockets);
 	}, []);

@@ -22,10 +22,7 @@ export const CardMessage = ({ item, myId, users }: ICartMessageProps) => {
 
 	useEffect(() => {
 		const friendId = friends.filter((item) => item !== myId);
-		console.log('id>>>', friendId);
-		console.log('users>>', users);
 		const myFriend = users.find((item) => item._id === friendId[0]);
-		console.log('seach>>', myFriend);
 		if (myFriend) {
 			setfriend(myFriend);
 		}
