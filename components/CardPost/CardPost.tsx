@@ -17,7 +17,7 @@ import { formatDateTime } from '../../helpers/helper';
 import VideoPlayer from '../Video/VideoPlayer';
 import { styles } from './CardPost.styles';
 
-const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
+export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	const [show, setShow] = useState<boolean>(false);
 	const navigation = useNavigation<NativeStackNavigationProp<FeedStackParams>>();
 	const { user } = useTypedSelector((state) => state.user);
@@ -45,6 +45,7 @@ const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 
 	const handleLikes = () => {
 		if (post) {
+			console.log('worck', post._id);
 			like(post._id);
 		}
 	};
@@ -58,6 +59,8 @@ const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	useEffect(() => {
 		setShow(hide);
 	}, []);
+
+	console.log('');
 
 	return (
 		<View style={styles.card_container}>
@@ -133,5 +136,3 @@ const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 		</View>
 	);
 };
-
-export default memo(CardPost);

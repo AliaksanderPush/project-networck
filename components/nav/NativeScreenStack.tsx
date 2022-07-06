@@ -1,7 +1,7 @@
 import React from 'react';
 import { SignUp } from '../../screens/SingUp/SingUp';
 import { SignIn } from '../../screens/SingIn/SingIn';
-import Feed from '../../screens/Feed/Feed';
+import { Feed } from '../../screens/Feed/Feed';
 import { MyPost } from '../../screens/MyPosts/MyPost';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Account from '../../screens/Account/Account';

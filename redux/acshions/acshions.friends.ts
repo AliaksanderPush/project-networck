@@ -7,20 +7,16 @@ import { IFriend } from '../../types/types';
 import EVENTS from '../../config/events';
 import { Socket } from 'socket.io-client';
 
-export const fetchFriends = (socket: Socket): any => {
+export const fetchFriends = (): any => {
 	return async (dispatch: Dispatch<FriendsAction | AppAction>) => {
 		try {
 			dispatch(loaderOn());
-			await getFriendsAll();
-			console.log('запрос отправлен');
-			socket.on(EVENTS.SERVER.ROOMS, (frendschats: IFriend[]) => {
-				if (frendschats) {
-					dispatch({
-						type: FriendsActionTypes.LOAD_FRIENDS_SUCCESS,
-						payload: frendschats,
-					});
-				}
+			const { data } = await getFriendsAll();
+			dispatch({
+				type: FriendsActionTypes.LOAD_FRIENDS_SUCCESS,
+				payload: data,
 			});
+
 			dispatch(loaderOff());
 		} catch (err: any) {
 			dispatch(errorOn(err.response.data));
@@ -34,15 +30,12 @@ export const addFriend = (id: string, myId: string, socket: Socket): any => {
 	return async (dispatch: Dispatch<FriendsAction | AppAction>) => {
 		try {
 			dispatch(loaderOn());
-			await addNewFriend(id);
-			socket.on(EVENTS.SERVER.ROOM, (frendsObj: IFriend) => {
-				if (frendsObj) {
-					dispatch({
-						type: FriendsActionTypes.ADD_FRIENDS,
-						friend: frendsObj,
-					});
-				}
+			const { data } = await addNewFriend(id);
+			dispatch({
+				type: FriendsActionTypes.ADD_FRIENDS,
+				friend: data,
 			});
+
 			dispatch(loaderOff());
 		} catch (err: any) {
 			dispatch(errorOn(err.response.data));

@@ -5,13 +5,13 @@ import { MessageActionTypes, MessagesAction } from '../types/messages.types';
 import { addNewMessage, getMessageAll, removeMessage } from '../../service/message.service';
 import { upLoadFileImage } from '../../service/service';
 import { FormDataProps } from '../../screens/Account/Account.props';
+import { Socket } from 'socket.io-client';
 
 export const fetchMessages = (friendRoomId: string): any => {
 	return async (dispatch: Dispatch<MessagesAction | AppAction>) => {
 		try {
 			dispatch(loaderOn());
-			const response = await getMessageAll(friendRoomId);
-			const { data } = response;
+			const { data } = await getMessageAll(friendRoomId);
 			dispatch({
 				type: MessageActionTypes.LOAD_MESSAGES_SUCCESS,
 				payload: data,

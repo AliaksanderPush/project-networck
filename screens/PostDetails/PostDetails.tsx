@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
-import CardPost from '../../components/CardPost/CardPost';
+import { CardPost } from '../../components/CardPost/CardPost';
 import { DeleteMenu } from '../../components/DeleteMenu/DeleteMenu';
 import { EditMenu } from '../../components/EditMenu/EditMenu';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';

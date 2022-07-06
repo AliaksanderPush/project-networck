@@ -35,11 +35,30 @@ export const Chat = (): JSX.Element => {
 	}, []);
 
 	useEffect(() => {
-		dispatch(fetchFriends(socket!));
+		dispatch(fetchFriends());
 		dispatch(fetchAllUsers());
-	}, [dispatch]);
+	}, []);
 
-	console.log('stateid>>', currentUser);
+	//console.log('stateid>>', friends);
+	/*
+	socket.on(EVENTS.SERVER.ROOMS, (frendschats: IFriend[]) => {
+		if (frendschats) {
+			dispatch({
+				type: FriendsActionTypes.LOAD_FRIENDS_SUCCESS,
+				payload: frendschats,
+			});
+		}
+    socket.on(EVENTS.SERVER.ROOM_MESSAGES, (messages: IMessage[]) => {
+				console.log('messages>>>', messages);
+				if (messages) {
+					dispatch({
+						type: MessageActionTypes.LOAD_MESSAGES_SUCCESS,
+						payload: messages,
+					});
+				}
+
+
+     */
 
 	return (
 		<View style={styles.feed_page}>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import CardPost from '../../components/CardPost/CardPost';
+import { View, ScrollView } from 'react-native';
+import { CardPost } from '../../components/CardPost/CardPost';
 import { EditMenu } from '../../components/EditMenu/EditMenu';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
