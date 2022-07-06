@@ -20,8 +20,10 @@ const People = (): JSX.Element => {
 		}
 	}, []);
 	if (!friends) {
+		console.log('not friends');
 		return <View></View>;
 	}
+	console.log('not friends', socket);
 	return (
 		<View style={{ flex: 1 }}>
 			<FlatList
@@ -29,9 +31,10 @@ const People = (): JSX.Element => {
 				renderItem={({ item }) => {
 					return (
 						<CardPerson
-							isFriends={isFriends(item._id, friends)}
+							isFriends={isFriends(item._id!, friends)}
 							info={item}
 							myId={user!._id}
+							socket={socket}
 						/>
 					);
 				}}

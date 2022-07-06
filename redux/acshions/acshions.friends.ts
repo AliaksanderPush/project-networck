@@ -12,6 +12,7 @@ export const fetchFriends = (socket: Socket): any => {
 		try {
 			dispatch(loaderOn());
 			await getFriendsAll();
+			console.log('запрос отправлен');
 			socket.on(EVENTS.SERVER.ROOMS, (frendschats: IFriend[]) => {
 				if (frendschats) {
 					dispatch({

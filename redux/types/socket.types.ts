@@ -10,11 +10,15 @@ export interface ISocketsState {
 
 export enum LoadSocketsActionTypes {
 	LOAD_SOCKET = 'LOAD_SOCKET',
+	CLEAR_SOCKET = 'CLEAR_SOCKET',
 }
 
 interface ILoadSocketAction {
-	type: LoadSocketsActionTypes;
+	type: LoadSocketsActionTypes.LOAD_SOCKET;
 	data: Socket;
 }
+interface IClearSocketAction {
+	type: LoadSocketsActionTypes.CLEAR_SOCKET;
+}
 
-export type SocketsAction = ILoadSocketAction;
+export type SocketsAction = ILoadSocketAction | IClearSocketAction;

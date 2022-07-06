@@ -26,7 +26,7 @@ const CardMessage = ({ item, myId, users }: ICartMessageProps) => {
 		if (myFriend) {
 			setfriend(myFriend);
 		}
-	}, []);
+	}, [item, users]);
 
 	return (
 		<TouchableOpacity onPress={handleNavigateToUser} style={styles.card_container}>

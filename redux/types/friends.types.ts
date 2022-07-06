@@ -23,7 +23,7 @@ interface IReadMessagerAction {
 
 interface IAddNewFriendAction {
 	type: FriendsActionTypes.ADD_FRIENDS;
-	friend: IFriend | undefined;
+	friend: IFriend;
 }
 interface IDeleteFriendAction {
 	type: FriendsActionTypes.DELETE_FRIEND;

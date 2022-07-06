@@ -17,6 +17,7 @@ import { errorOn, loaderOff, loaderOn } from './acshions.app';
 import { AppAction } from '../types/app.types';
 import { addNewFriend, removeFriend } from '../../service/friends.service';
 import { FriendsAction, FriendsActionTypes } from '../types/friends.types';
+import { LoadSocketsActionTypes, SocketsAction } from '../types/socket.types';
 
 export const fetchUser = (user: IUserLogin) => {
 	return async (dispatch: Dispatch<UserAction | AppAction>) => {
@@ -76,7 +77,7 @@ export const updateUser = (id: string | undefined, newUser: IUser) => {
 };
 
 export const logOut = () => {
-	return async (dispatch: Dispatch<UserAction | AppAction | FriendsAction>) => {
+	return async (dispatch: Dispatch<UserAction | AppAction | FriendsAction | SocketsAction>) => {
 		try {
 			dispatch(loaderOn());
 			await AsyncStorage.removeItem('@auth');
@@ -86,6 +87,10 @@ export const logOut = () => {
 			dispatch({
 				type: FriendsActionTypes.LOGOUT_USER,
 			});
+			dispatch({
+				type: LoadSocketsActionTypes.CLEAR_SOCKET,
+			});
+
 			await logoutSite();
 			dispatch(loaderOff());
 		} catch (err: any) {
@@ -135,6 +140,7 @@ export const fetchAllUsers = (): any => {
 		try {
 			dispatch(loaderOn());
 			const response = await getUsers();
+			console.log('usersAlll', response.data);
 			dispatch({
 				type: UserActionTypes.GET_ALL_USERS,
 				users: response.data,

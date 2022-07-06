@@ -9,6 +9,7 @@ import { IUserTokens } from '../../types/types';
 import { fetchPosts } from '../../redux/acshions/acshions.post';
 import { useDispatch } from 'react-redux';
 import io from 'socket.io-client';
+import { fetchFriends } from '../../redux/acshions/acshions.friends';
 
 const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
 	const [auth, setAuth] = useState<string | null>('');
@@ -42,6 +43,7 @@ const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
 		});
 		sockets.connect();
 		loadSocket(sockets);
+		console.log('socket is Load!!!!!!!!!!');
 	}, []);
 
 	useEffect(() => {

@@ -15,39 +15,43 @@ export const Chat = (): JSX.Element => {
 	const { user, users } = useTypedSelector((state) => state.user);
 	const { socket } = useTypedSelector((state) => state.SocketReducer);
 	const [showModat, setShowModal] = useState<boolean>(false);
+	const [currentUser, setCurrentUser] = useState<string>('');
 
-	useEffect(() => {
-		if (socket) {
-			dispatch(fetchFriends(socket));
-		}
-
-		dispatch(fetchAllUsers());
-	}, []);
-
-	useEffect(() => {
-		if (socket) {
-			socket.on(EVENTS.SERVER.JOINED_ROOM, (myId: string) => {
+	if (socket) {
+		socket.on(EVENTS.SERVER.JOINED_ROOM, (currName: string) => {
+			if (currName) {
+				setCurrentUser(currName);
 				setShowModal(true);
-			});
-		}
-		setTimeout(() => {
-			setShowModal(false);
-		}, 3000);
+				setTimeout(() => {
+					setShowModal(false);
+					setCurrentUser('');
+				}, 3000);
+			}
+		});
+	}
+
+	useEffect(() => {
+		socket!.emit(EVENTS.CLIENT.JOIN_ROOM, user?.name);
 	}, []);
 
-	if (!friends) {
-		return <View></View>;
-	}
+	useEffect(() => {
+		dispatch(fetchFriends(socket!));
+		dispatch(fetchAllUsers());
+	}, [dispatch]);
+
+	console.log('stateid>>', currentUser);
 
 	return (
 		<View style={styles.feed_page}>
-			{showModat && <Menu name={user?.name && user?.name} />}
-			<FlatList
-				data={friends}
-				renderItem={({ item }) => {
-					return <CardMessage users={users} item={item} myId={user && user._id} />;
-				}}
-			/>
+			{showModat && <Menu name={currentUser} />}
+			{friends && (
+				<FlatList
+					data={friends}
+					renderItem={({ item }) => {
+						return <CardMessage users={users} item={item} myId={user?._id!} />;
+					}}
+				/>
+			)}
 		</View>
 	);
 };

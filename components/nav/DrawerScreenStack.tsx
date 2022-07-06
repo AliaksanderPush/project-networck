@@ -1,5 +1,5 @@
 import React from 'react';
-import { Likes } from '../../screens/Likes/Likes';
+import Likes from '../../screens/Likes/Likes';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { AntDesign } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';

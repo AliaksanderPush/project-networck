@@ -17,6 +17,12 @@ export const SocketReducer = (state = initialState, action: SocketsAction): ISoc
 				socket: action.data,
 			};
 
+		case LoadSocketsActionTypes.CLEAR_SOCKET:
+			return {
+				...state,
+				socket: null,
+			};
+
 		default:
 			return state;
 	}

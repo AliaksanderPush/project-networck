@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { ICreatePost, ICreatePostDTO, IPost } from '../types/types';
+import { ICreatePostDTO, IPost } from '../types/types';
 import { api, API_URL } from './auth-service';
 
 export async function getPostsAll(): Promise<AxiosResponse<IPost[]>> {
