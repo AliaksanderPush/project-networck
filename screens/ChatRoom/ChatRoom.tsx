@@ -53,15 +53,18 @@ export const ChatRoom = ({ route }: PropsChatRoom): JSX.Element => {
 	useEffect(() => {
 		if (socket) {
 			socket.on(EVENTS.SERVER.SEND_MESSAGE, (msg: IMessage) => {
-				console.log('prilet>>>', msg);
+				console.log('_____________________________________________________________');
+				console.log('mess>>', msg);
+				console.log('state after>>', currentMessages);
 				setCurrentMessages([msg, ...currentMessages]);
+				console.log('state before>>', currentMessages);
 			});
 		}
 	}, [socket]);
 
 	useEffect(() => {
 		if (socket) {
-			socket.on(EVENTS.SERVER.ROOM_MESSAGES, (allMessages) => {
+			socket.on(EVENTS.SERVER.ROOM_MESSAGES, (allMessages: IMessage[]) => {
 				setCurrentMessages(allMessages);
 			});
 		}

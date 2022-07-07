@@ -10,7 +10,7 @@ import { fetchPosts } from '../../redux/acshions/acshions.post';
 import { useDispatch } from 'react-redux';
 import io from 'socket.io-client';
 
-const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+export const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
 	const [auth, setAuth] = useState<string | null>('');
 	const { checkUser, loadSocket } = useActions();
 	const dispatch = useDispatch();
@@ -75,5 +75,3 @@ const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
 
 	return <SafeAreaProvider>{children}</SafeAreaProvider>;
 };
-
-export default React.memo(AuthProvider);

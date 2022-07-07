@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { useDispatch } from 'react-redux';
-import CardMessage from '../../components/CardMessage/CardMessage';
+import { CardMessage } from '../../components/CardMessage/CardMessage';
 import { fetchFriends } from '../../redux/acshions/acshions.friends';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { fetchAllUsers } from '../../redux/acshions/acshions.user';
@@ -38,27 +38,6 @@ export const Chat = (): JSX.Element => {
 		dispatch(fetchFriends());
 		dispatch(fetchAllUsers());
 	}, []);
-
-	//console.log('stateid>>', friends);
-	/*
-	socket.on(EVENTS.SERVER.ROOMS, (frendschats: IFriend[]) => {
-		if (frendschats) {
-			dispatch({
-				type: FriendsActionTypes.LOAD_FRIENDS_SUCCESS,
-				payload: frendschats,
-			});
-		}
-    socket.on(EVENTS.SERVER.ROOM_MESSAGES, (messages: IMessage[]) => {
-				console.log('messages>>>', messages);
-				if (messages) {
-					dispatch({
-						type: MessageActionTypes.LOAD_MESSAGES_SUCCESS,
-						payload: messages,
-					});
-				}
-
-
-     */
 
 	return (
 		<View style={styles.feed_page}>

@@ -10,7 +10,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { IUser } from '../../types/types';
 import { styles } from './CardMessage.styles';
 
-const CardMessage = ({ item, myId, users }: ICartMessageProps) => {
+export const CardMessage = ({ item, myId, users }: ICartMessageProps) => {
 	const { friends, messages } = item;
 	const [friend, setfriend] = useState<IUser | null>(null);
 	const data = formatDateTime(messages[messages.length - 1].createdAt);
@@ -51,5 +51,3 @@ const CardMessage = ({ item, myId, users }: ICartMessageProps) => {
 		</TouchableOpacity>
 	);
 };
-
-export default React.memo(CardMessage);
