@@ -5,7 +5,6 @@ import { MessageActionTypes, MessagesAction } from '../types/messages.types';
 import { addNewMessage, getMessageAll, removeMessage } from '../../service/message.service';
 import { upLoadFileImage } from '../../service/service';
 import { FormDataProps } from '../../screens/Account/Account.props';
-import { Socket } from 'socket.io-client';
 
 export const fetchMessages = (friendRoomId: string): any => {
 	return async (dispatch: Dispatch<MessagesAction | AppAction>) => {
@@ -33,8 +32,7 @@ export const createMessage = (id: string, content: string, image?: string | Form
 			if (image) {
 				img = await upLoadFileImage(image as FormDataProps);
 			}
-			const response = await addNewMessage(id, content, img);
-			const { data } = response;
+			const { data } = await addNewMessage(id, content, img);
 			dispatch({
 				type: MessageActionTypes.ADD_MESSAGE,
 				content: data,

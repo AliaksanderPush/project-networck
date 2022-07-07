@@ -6,24 +6,18 @@ import { styles } from './Message.styles';
 import { Avatar } from '../Avatar/Avatar';
 import { EvilIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { API_URL } from '../../service/auth-service';
 
-export const Message = ({ message, isMe }: IMessageProps): JSX.Element => {
-	const { deleteMessage } = useActions();
+export const Message = ({ message, isMe, handleDeleteMessage }: IMessageProps): JSX.Element => {
 	const time = formatDateHour(message.createdAt);
-	const { user } = message;
-
-	const handleDeleteMessage = () => {
-		deleteMessage(message._id, message.friendBy);
-	};
+	const { user, _id, friendBy } = message;
 
 	return (
 		<View>
 			{isMe && (
 				<TouchableOpacity
 					style={{ marginLeft: 'auto', marginRight: 25 }}
-					onPress={handleDeleteMessage}
+					onPress={() => handleDeleteMessage(_id, friendBy)}
 				>
 					<EvilIcons name='close-o' size={24} color='black' />
 				</TouchableOpacity>
