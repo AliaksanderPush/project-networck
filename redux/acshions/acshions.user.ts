@@ -15,7 +15,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FormDataProps } from '../../screens/Account/Account.props';
 import { errorOn, loaderOff, loaderOn } from './acshions.app';
 import { AppAction } from '../types/app.types';
-import { addNewFriend, removeFriend } from '../../service/friends.service';
 import { FriendsAction, FriendsActionTypes } from '../types/friends.types';
 import { LoadSocketsActionTypes, SocketsAction } from '../types/socket.types';
 

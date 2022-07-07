@@ -7,11 +7,13 @@ import { PropsFogotPassword } from './FogotPassword.props';
 import { styles } from './FogotPassword.styles';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { IPropsEmail } from './FogotPassword.props';
-import { fogotPassword } from '../../service/service';
+import { fogotPassword, resetPassword } from '../../service/service';
 
 export const FogotPassword = ({ navigation }: PropsFogotPassword): JSX.Element => {
 	const [loading, setLoading] = useState<boolean>(false);
-	const [password, setPassword] = useState<string>('');
+	const [vizible, setVizible] = useState<boolean>(false);
+	const [newPassword, setNewPassword] = useState<string>('');
+	const [resetCode, setResetCode] = useState<string>('');
 
 	const {
 		control,
@@ -23,13 +25,33 @@ export const FogotPassword = ({ navigation }: PropsFogotPassword): JSX.Element =
 		},
 	});
 
-	const onSubmit = (info: IPropsEmail) => {
+	const onSubmit = async (info: IPropsEmail) => {
 		setLoading(true);
 		const { email } = info;
 		try {
-			fogotPassword(email);
+			const { data } = await fogotPassword(email);
 			setLoading(false);
-			alert('Enter the password reset code we sent in your email');
+			alert(`Enter the password reset code we sent in your email =>${data}`);
+			setVizible(true);
+		} catch (err: any) {
+			alert(err.response.data);
+			setLoading(false);
+		}
+	};
+
+	const handleRsetPassword = async () => {
+		console.log('dannie>', newPassword, resetCode);
+		if (!newPassword || !resetCode) {
+			alert('NewPassword or ResetCode is require!');
+			return;
+		}
+		try {
+			await resetPassword(newPassword, resetCode);
+			setLoading(false);
+			setNewPassword('');
+			setResetCode('');
+			setVizible(false);
+			navigation.navigate('SignIn');
 		} catch (err: any) {
 			alert(err.response.data);
 			setLoading(false);
@@ -65,22 +87,31 @@ export const FogotPassword = ({ navigation }: PropsFogotPassword): JSX.Element =
 						)}
 						name='email'
 					/>
-
-					<UserInput
-						title={'PASSWORD'}
-						secureTextEntry={true}
-						setValue={setPassword}
-						value={password}
-					/>
+					{vizible && (
+						<>
+							<UserInput
+								title={'RESET CODE'}
+								secureTextEntry={true}
+								setValue={setResetCode}
+								value={resetCode}
+							/>
+							<UserInput
+								title={'NEW PASSWORD'}
+								secureTextEntry={true}
+								setValue={setNewPassword}
+								value={newPassword}
+							/>
+						</>
+					)}
 
 					{errors.email && alert(errors.email.message as string)}
 
 					<View style={styles.btn_container}>
 						<PrimaryButton
-							label='Request reset code'
+							label={!vizible ? 'Request reset code' : 'Reset code'}
 							size={10}
 							loading={loading}
-							setValue={handleSubmit(onSubmit)}
+							setValue={!vizible ? handleSubmit(onSubmit) : handleRsetPassword}
 						/>
 					</View>
 					<View>

@@ -10,7 +10,6 @@ import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { colors } from '../../config/Colors';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
-import { IFriend } from '../../types/types';
 
 export const UpdateProfile = ({ navigation }: PropsUdatePass): JSX.Element => {
 	const [value, setValue] = useState<string>('');
@@ -21,7 +20,7 @@ export const UpdateProfile = ({ navigation }: PropsUdatePass): JSX.Element => {
 	const [age, setAge] = useState<string>('');
 	const [gender, setGender] = useState<string>('');
 	const [city, setCity] = useState<string>('');
-	const [status, setStatus] = useState<string>('I am working!');
+	const [status, setStatus] = useState<string>('Open to work');
 	const { user } = useTypedSelector((state) => state.user);
 	const { loading } = useTypedSelector((state) => state.AppReducer);
 	const { updateUser } = useActions();

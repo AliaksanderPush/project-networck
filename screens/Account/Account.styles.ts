@@ -52,17 +52,17 @@ export const styles = StyleSheet.create({
 		width: '100%',
 		height: 40,
 		backgroundColor: '#b7def7',
-		flexDirection: 'row',
+		flexDirection: 'column',
 		marginTop: 20,
 	},
 	status_text: {
-		textAlign: 'center',
-		lineHeight: 40,
+		textAlign: 'left',
+		lineHeight: 20,
 		fontSize: 20,
+		marginLeft: 5,
 	},
 	status_text_item: {
-		marginLeft: 30,
-		color: colors.blue,
+		marginLeft: 5,
 	},
 	post_container: {
 		flexDirection: 'row',

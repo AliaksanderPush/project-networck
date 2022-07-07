@@ -55,3 +55,7 @@ export async function upLoadFileImage(formData: FormDataProps): Promise<string> 
 export async function putAvatar(path: string): Promise<AxiosResponse<string>> {
 	return await api.post<string>(`/avatar`, { path });
 }
+
+export async function resetPassword(password: string, resetCode: string) {
+	return await axios.post<string>(`${API_URL}/auth/reset-password`, { password, resetCode });
+}

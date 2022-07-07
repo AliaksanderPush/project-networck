@@ -53,11 +53,7 @@ export const ChatRoom = ({ route }: PropsChatRoom): JSX.Element => {
 	useEffect(() => {
 		if (socket) {
 			socket.on(EVENTS.SERVER.SEND_MESSAGE, (msg: IMessage) => {
-				console.log('_____________________________________________________________');
-				console.log('mess>>', msg);
-				console.log('state after>>', currentMessages);
-				setCurrentMessages([msg, ...currentMessages]);
-				console.log('state before>>', currentMessages);
+				setCurrentMessages((currentMessages) => [msg, ...currentMessages]);
 			});
 		}
 	}, [socket]);
