@@ -8,11 +8,10 @@ import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { IUserTokens } from '../../types/types';
 import { fetchPosts } from '../../redux/acshions/acshions.post';
 import { useDispatch } from 'react-redux';
-import io from 'socket.io-client';
 
 export const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
 	const [auth, setAuth] = useState<string | null>('');
-	const { checkUser, loadSocket } = useActions();
+	const { checkUser } = useActions();
 	const dispatch = useDispatch();
 	const { tokens } = useTypedSelector((state) => state.user);
 
@@ -37,17 +36,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element
 		},
 	);
 	useEffect(() => {
-		const sockets = io(API_URL, {
-			transports: ['websocket'],
-		});
-		sockets.connect();
-		loadSocket(sockets);
-		console.log('socket is Load!!!!!!!!!!');
-	}, []);
+		if (!tokens) {
+			setAuth('');
+			AsyncStorage.removeItem('@auth');
+		} else {
+			setAuth(tokens.refreshToken);
+		}
+	}, [tokens]);
 
+	console.log('auth>>', auth);
+	console.log('token>>>', tokens);
 	useEffect(() => {
 		const authControl = async () => {
 			let data = await AsyncStorage.getItem('@auth');
+			console.log('stora>>>', data);
 			if (data) {
 				const token = JSON.parse(data) as IUserTokens;
 				if (token.accesToken) {
@@ -60,14 +62,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element
 		};
 		authControl();
 	}, []);
-
-	useEffect(() => {
-		if (!tokens) {
-			setAuth('');
-		} else {
-			setAuth(tokens.refreshToken);
-		}
-	}, [tokens]);
 
 	useEffect(() => {
 		dispatch(fetchPosts());

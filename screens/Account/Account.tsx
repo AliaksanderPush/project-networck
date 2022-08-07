@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { CircleLogo } from '../../components/UI/CircleLogo/CircleLogo';
@@ -19,6 +18,7 @@ const Account = (): JSX.Element => {
 	const { posts } = useTypedSelector((state) => state.posts);
 	const { upDateAvatar } = useActions();
 	const [image, setImage] = useState<string>('');
+	const [postCount, setPostCount] = useState<number>(0);
 
 	const handleCreateFoto = async () => {
 		const uri = await createFoto();
@@ -33,7 +33,8 @@ const Account = (): JSX.Element => {
 
 	useEffect(() => {
 		if (posts) {
-			filterPostById();
+			const count = filterPostById();
+			setPostCount(count.length);
 		}
 	}, [posts]);
 
@@ -88,7 +89,7 @@ const Account = (): JSX.Element => {
 				</View>
 				<View style={styles.info}>
 					<View>
-						<Text style={styles.info_count}>{user?.posts?.length}</Text>
+						<Text style={styles.info_count}>{postCount}</Text>
 						<Text style={styles.info_text}>Posts</Text>
 					</View>
 					<View>
@@ -117,4 +118,4 @@ const Account = (): JSX.Element => {
 	);
 };
 
-export default React.memo(Account);
+export default Account;

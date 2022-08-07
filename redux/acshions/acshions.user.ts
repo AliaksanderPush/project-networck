@@ -104,7 +104,6 @@ export const checkUser = () => {
 		try {
 			const response = await getRefreshToken();
 			const { data } = response;
-			console.log('checkUser>>', data);
 			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
@@ -139,7 +138,6 @@ export const fetchAllUsers = (): any => {
 		try {
 			dispatch(loaderOn());
 			const response = await getUsers();
-			console.log('usersAlll', response.data);
 			dispatch({
 				type: UserActionTypes.GET_ALL_USERS,
 				users: response.data,

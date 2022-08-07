@@ -177,7 +177,7 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 					</View>
 					<View style={styles.btn_container}>
 						<PrimaryButton
-							label='Sing In'
+							label='Sing Up'
 							size={10}
 							loading={loading}
 							setValue={handleSubmit(onSubmit)}

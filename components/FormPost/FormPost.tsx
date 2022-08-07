@@ -39,7 +39,7 @@ export const FormPost = ({
 						/>
 					) : (
 						<TouchableOpacity onPress={handleCreateFoto}>
-							<Entypo name='camera' size={60} color={colors.gray1} />
+							<Entypo name='camera' size={60} color={colors.black} />
 						</TouchableOpacity>
 					)}
 				</View>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -19,8 +19,10 @@ import { styles } from './CardPost.styles';
 
 export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	const [show, setShow] = useState<boolean>(false);
+	const [countComm, setCountComm] = useState<number>(0);
 	const navigation = useNavigation<NativeStackNavigationProp<FeedStackParams>>();
 	const { user } = useTypedSelector((state) => state.user);
+	const { comments } = useTypedSelector((state) => state.comments);
 	const { countViews, like, unLike } = useActions();
 	const date = formatDateTime(post?.createdAt);
 	const isMe = id === post?.postedBy._id;
@@ -45,7 +47,6 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 
 	const handleLikes = () => {
 		if (post) {
-			console.log('worck', post._id);
 			like(post._id);
 		}
 	};
@@ -57,10 +58,15 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	};
 
 	useEffect(() => {
+		const countComm = comments.filter((item) => {
+			return item.postId === post?._id;
+		});
+		setCountComm(countComm.length);
+	}, [comments]);
+
+	useEffect(() => {
 		setShow(hide);
 	}, []);
-
-	console.log('');
 
 	return (
 		<View style={styles.card_container}>
@@ -128,9 +134,7 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 					<Text style={{ color: 'blue' }}>More...</Text>
 				</Pressable>
 				<Pressable onPress={redirectToComments}>
-					<Text style={styles.card_footer_comment}>
-						Comments ({post?.comments.length})
-					</Text>
+					<Text style={styles.card_footer_comment}>Comments ({countComm})</Text>
 				</Pressable>
 			</View>
 		</View>
