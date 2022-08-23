@@ -1,13 +1,13 @@
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList, Text, Pressable } from 'react-native';
-import { CardPost } from '../../components/CardPost/CardPost';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { MessageInput } from '../../components/MessageInput/MessageInput';
-import { IPost } from '../../user/User.props';
+import { IPost } from '../../types/types';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { searchByTitle } from '../../helpers/helper';
+import { CardPost } from '../../components/CardPost/CardPost';
 
-const Feed = (): JSX.Element => {
+export const Feed = (): JSX.Element => {
 	const { posts } = useTypedSelector((state) => state.posts);
 	const { user } = useTypedSelector((state) => state.user);
 	const [allPosts, setAllPosts] = useState<IPost[]>([]);
@@ -74,5 +74,3 @@ const Feed = (): JSX.Element => {
 		</>
 	);
 };
-
-export default React.memo(Feed);

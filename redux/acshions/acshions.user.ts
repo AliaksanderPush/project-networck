@@ -1,6 +1,6 @@
 import { UserAction, UserActionTypes } from '../types/user.types';
 import { Dispatch } from 'redux';
-import { IUserLogin, IUserRegistr, IUser } from '../../user/User.props';
+import { IUserLogin, IUserRegistr, IUser } from '../../types/types';
 import {
 	autorization,
 	registration,
@@ -15,7 +15,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FormDataProps } from '../../screens/Account/Account.props';
 import { errorOn, loaderOff, loaderOn } from './acshions.app';
 import { AppAction } from '../types/app.types';
-import { addNewFriend, removeFriend } from '../../service/friends.service';
+import { FriendsAction, FriendsActionTypes } from '../types/friends.types';
+import { LoadSocketsActionTypes, SocketsAction } from '../types/socket.types';
 
 export const fetchUser = (user: IUserLogin) => {
 	return async (dispatch: Dispatch<UserAction | AppAction>) => {
@@ -75,13 +76,20 @@ export const updateUser = (id: string | undefined, newUser: IUser) => {
 };
 
 export const logOut = () => {
-	return async (dispatch: Dispatch<UserAction | AppAction>) => {
+	return async (dispatch: Dispatch<UserAction | AppAction | FriendsAction | SocketsAction>) => {
 		try {
 			dispatch(loaderOn());
 			await AsyncStorage.removeItem('@auth');
 			dispatch({
 				type: UserActionTypes.SINGOUT_USER,
 			});
+			dispatch({
+				type: FriendsActionTypes.LOGOUT_USER,
+			});
+			dispatch({
+				type: LoadSocketsActionTypes.CLEAR_SOCKET,
+			});
+
 			await logoutSite();
 			dispatch(loaderOff());
 		} catch (err: any) {
@@ -96,7 +104,6 @@ export const checkUser = () => {
 		try {
 			const response = await getRefreshToken();
 			const { data } = response;
-			console.log('checkUser>>', data);
 			await AsyncStorage.setItem('@auth', JSON.stringify(data.token));
 			dispatch({
 				type: UserActionTypes.LOAD_USER_SUCCESS,
@@ -134,42 +141,6 @@ export const fetchAllUsers = (): any => {
 			dispatch({
 				type: UserActionTypes.GET_ALL_USERS,
 				users: response.data,
-			});
-			dispatch(loaderOff());
-		} catch (err: any) {
-			console.log(err);
-			dispatch(errorOn(err.response.data));
-		}
-	};
-};
-
-export const createNewFriend = (id: string): any => {
-	return async (dispatch: Dispatch<UserAction | AppAction>) => {
-		try {
-			dispatch(loaderOn());
-			const response = await addNewFriend(id);
-			await dispatch(fetchAllUsers());
-
-			dispatch({
-				type: UserActionTypes.ADD_FRIENDS,
-				upUser: response.data,
-			});
-			dispatch(loaderOff());
-		} catch (err: any) {
-			console.log(err);
-			dispatch(errorOn(err.response.data));
-		}
-	};
-};
-export const deleteFriend = (friendsModelId: string, userId: string): any => {
-	return async (dispatch: Dispatch<UserAction | AppAction>) => {
-		try {
-			dispatch(loaderOn());
-			await removeFriend(friendsModelId);
-			dispatch({
-				type: UserActionTypes.DELETE_FRIEND,
-				remUser: userId,
-				frModel: friendsModelId,
 			});
 			dispatch(loaderOff());
 		} catch (err: any) {

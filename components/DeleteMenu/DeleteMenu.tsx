@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { colors } from '../../config/Colors';
 import { AntDesign } from '@expo/vector-icons';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
-import { IDeleteMenu } from './DeleteMenu.props';
 import { useNavigation } from '@react-navigation/native';
+import { styles } from './DeleteMenu.props';
 
-export const DeleteMenu = ({ id }: IDeleteMenu) => {
+export const DeleteMenu = ({ id }: { id: string | undefined }): JSX.Element => {
 	const { deletePosts } = useActions();
 	const navigation = useNavigation();
 	const removePost = () => {
@@ -29,16 +29,3 @@ export const DeleteMenu = ({ id }: IDeleteMenu) => {
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: 'row',
-	},
-	backButton: {
-		borderRadius: 8,
-		width: 40,
-		height: 40,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-});

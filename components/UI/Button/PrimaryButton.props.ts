@@ -4,5 +4,5 @@ export interface IPrimaryButton {
 	label: string;
 	loading?: boolean;
 	size?: number;
-	setValue: () => void;
+	setValue: () => Promise<void> | void;
 }

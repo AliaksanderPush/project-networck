@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { ICreatePostDTO, IPost } from '../user/User.props';
+import { ICreatePostDTO, IPost } from '../types/types';
 import { api, API_URL } from './auth-service';
 
 export async function getPostsAll(): Promise<AxiosResponse<IPost[]>> {
@@ -8,6 +8,10 @@ export async function getPostsAll(): Promise<AxiosResponse<IPost[]>> {
 
 export async function createPost(data: ICreatePostDTO): Promise<AxiosResponse<IPost>> {
 	return await api.post<IPost>(`/posts/message`, data);
+}
+
+export async function editPost(data: ICreatePostDTO, id: string): Promise<AxiosResponse<IPost>> {
+	return await api.put<IPost>(`/posts/update/${id}`, data);
 }
 
 export async function viewPost(id: string): Promise<AxiosResponse<IPost>> {

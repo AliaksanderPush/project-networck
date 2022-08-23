@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { IUserLogin } from '../../user/User.props';
+import React, { useEffect } from 'react';
+import { View, Text, Image, ScrollView } from 'react-native';
+import { IUserLogin } from '../../types/types';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { useForm, Controller } from 'react-hook-form';
-import { emailValidate, passwordValidate } from '../../user/validate';
+import { emailValidate, passwordValidate } from '../../validate/validate';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { Props } from './SingIn.props';
 import { styles } from './SingIn.styles';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
+import { io } from 'socket.io-client';
+import { API_URL } from '../../service/auth-service';
 
 export const SignIn = ({ navigation }: Props): JSX.Element => {
 	const { loading } = useTypedSelector((state) => state.AppReducer);
-	const { fetchUser } = useActions();
+	const { fetchUser, loadSocket } = useActions();
 
 	const {
 		control,
@@ -28,6 +30,15 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 	const onSubmit = (info: IUserLogin) => {
 		fetchUser(info);
 	};
+
+	useEffect(() => {
+		const sockets = io(API_URL, {
+			transports: ['websocket'],
+		});
+		sockets.connect();
+		loadSocket(sockets);
+		console.log('socket is Load!!!!!!!!!!');
+	}, []);
 
 	return (
 		<>

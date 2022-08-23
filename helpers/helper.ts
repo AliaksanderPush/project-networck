@@ -1,6 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 import { FormDataProps } from '../screens/Account/Account.props';
-import { IPost, IUser } from '../user/User.props';
+import { IFriend, IPost, IUser } from '../types/types';
 
 export function formatDateTime(currTime: Date | undefined): string | null {
 	if (!currTime) {
@@ -59,8 +59,7 @@ export function formatDateHour(currTime: Date): string {
 function formatDataHour(dt: Date): string {
 	const hours = dt.getHours();
 	const minutes = dt.getMinutes();
-	const seconds = dt.getSeconds();
-	return str0l(hours, 2) + ':' + str0l(minutes, 2) + ':' + str0l(seconds, 2);
+	return str0l(hours, 2) + ':' + str0l(minutes, 2);
 }
 
 export async function createFoto(): Promise<ImagePicker.ImageInfo | void | string> {
@@ -95,9 +94,8 @@ export const searchByTitle = (row: IPost['title'], searchWords: string): boolean
 	return titleArr.some((item) => serchWordArr.includes(item));
 };
 
-export function arrayCommon(arr1: string[], arr2: string[]): string {
-	const result = arr1.filter((item) => arr2.includes(item));
-	return result[0];
+export function isFriends(id: string, arr: IFriend[]): boolean {
+	return arr.some((item) => item.friends.includes(id));
 }
 
 export function removeFriendId(listUsers: string[], remUser: string): string[] {

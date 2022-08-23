@@ -5,4 +5,5 @@ export interface IMessageInput {
 	onChange: (text: SetStateAction<string>) => void;
 	value: string;
 	handlePress: () => void;
+	handleCreateFoto?: () => void;
 }

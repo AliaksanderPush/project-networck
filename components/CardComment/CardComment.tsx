@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { formatDateDay, formatDateHour } from '../../helpers/helper';
 import { Avatar } from '../Avatar/Avatar';
@@ -39,7 +39,7 @@ export const CardComments = ({
 				<View style={styles.comment_item}>
 					<View style={styles.comment_box}>
 						<View>
-							<Avatar url={postedBy.avatar} size={40} />
+							<Avatar border={false} path={postedBy.avatar} size={40} />
 						</View>
 
 						<View>

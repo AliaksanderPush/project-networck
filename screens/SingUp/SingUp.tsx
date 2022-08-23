@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import { IUserValidate } from '../../user/User.props';
+import { View, Text, Alert, ScrollView } from 'react-native';
+import { IUserValidate } from '../../types/types';
 import { UserCheckBox } from '../../components/UI/CheckBox/UserCheckBox';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { useForm, Controller } from 'react-hook-form';
@@ -10,22 +10,17 @@ import {
 	loginValidate,
 	cityValidate,
 	ageValidate,
-} from '../../user/validate';
-import { registration } from '../../service/service';
+} from '../../validate/validate';
 import { PropsSingUp } from './SingUp.props';
-import { styles } from './SingUp.styles';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
+import { styles } from './SingUp.styles';
 
 export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 	const [checkedMale, setCheckedMale] = useState<boolean>(false);
-
 	const [checkedFemale, setCheckedFemale] = useState<boolean>(false);
-
 	const [gender, setGender] = useState<string>('');
-
 	const [loading, setLoading] = useState<boolean>(false);
-
 	const { addUserState } = useActions();
 
 	const {
@@ -182,7 +177,7 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 					</View>
 					<View style={styles.btn_container}>
 						<PrimaryButton
-							label='Sing In'
+							label='Sing Up'
 							size={10}
 							loading={loading}
 							setValue={handleSubmit(onSubmit)}

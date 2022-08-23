@@ -1,11 +1,12 @@
 import { Dispatch } from 'redux';
-import { ICreatePost, IPost } from '../../user/User.props';
+import { ICreatePost } from '../../types/types';
 import {
 	createPost,
 	getPostsAll,
 	likePost,
 	removePost,
 	unlikePost,
+	editPost,
 	viewPost,
 } from '../../service/posts.service';
 import { PostsAction, PostsActionTypes } from '../types/posts.types';
@@ -57,7 +58,34 @@ export const createPosts = (post: ICreatePost) => {
 	};
 };
 
-const upPost = (data: PostsAction | AppAction, type: PostsActionTypes) => {
+export const updatePosts = (post: ICreatePost, id: string, imgFormData: boolean) => {
+	return async (dispatch: Dispatch<PostsAction | AppAction>) => {
+		const { title, content, image } = post;
+		try {
+			dispatch(loaderOn());
+			let response;
+			if (imgFormData) {
+				const img = await upLoadFileImage(image as FormDataProps);
+				response = await editPost({ imgFormData, title, content, featuredImage: img }, id);
+			} else {
+				response = await editPost(
+					{ imgFormData, title, content, featuredImage: image as string },
+					id,
+				);
+			}
+			dispatch({
+				type: PostsActionTypes.UPDATE_POST,
+				updatePost: response.data,
+			});
+			dispatch(loaderOff());
+		} catch (err: any) {
+			console.log(err);
+			dispatch(errorOn(err.response.data));
+		}
+	};
+};
+
+export const upPost = (data: PostsAction | AppAction, type: PostsActionTypes) => {
 	return {
 		type: PostsActionTypes.UPDATE_POST,
 		updatePost: data,
@@ -107,7 +135,6 @@ export const like = (id: string) => {
 			dispatch(loaderOn());
 			const response = await likePost(id);
 			const { data } = response;
-			console.log('priletelo>>', data.likes);
 			dispatch({
 				type: PostsActionTypes.LIKE_POST,
 				like: data,

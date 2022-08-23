@@ -1,10 +1,8 @@
-import 'react-native-gesture-handler';
-import Feed from '../../screens/Feed/Feed';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { HeaderMenu } from '../HeaderTabs/HeaderTabs';
-import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ButtomStackParams } from './RootScreensNav.props';
 import { AddPost } from '../../screens/AddPost/AddPost';
@@ -15,10 +13,10 @@ import {
 	ProfileScreenStack,
 } from './NativeScreenStack';
 import { colors } from '../../config/Colors';
+import 'react-native-gesture-handler';
 
-const ButtomStack = createBottomTabNavigator<ButtomStackParams>();
-
-export const TabScreenStack = () => {
+export const TabScreenStack = (): JSX.Element => {
+	const ButtomStack = createBottomTabNavigator<ButtomStackParams>();
 	return (
 		<ButtomStack.Navigator
 			initialRouteName='AcountScreenStack'
@@ -32,7 +30,6 @@ export const TabScreenStack = () => {
 				name='AcountScreenStack'
 				component={AcountScreenStack}
 				options={{
-					title: 'Profile',
 					tabBarIcon: ({ focused, color }) => (
 						<Octicons name='feed-person' focused={focused} size={32} color={color} />
 					),

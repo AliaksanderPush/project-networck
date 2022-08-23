@@ -31,7 +31,7 @@ export const UpdatePost = ({ navigation, route }: PropsUpdatePost) => {
 				content,
 				image: imgFormData ? formData : image,
 			};
-			updatePosts(data, id, imgFormData);
+			updatePosts(data, id!, imgFormData);
 			setImage('');
 			setTitle('');
 			setContent('');

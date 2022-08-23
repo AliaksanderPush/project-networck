@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { IPrimaryButton } from './PrimaryButton.props';
 import { colors } from '../../../config/Colors';
+import { styles } from './PrimaryButton.styles';
 
 export const PrimaryButton = ({
 	buttonBg,
@@ -29,16 +30,3 @@ export const PrimaryButton = ({
 		</View>
 	);
 };
-
-export const styles = StyleSheet.create({
-	container: {
-		width: '100%',
-	},
-	button: {
-		borderRadius: 7,
-	},
-	text: {
-		textAlign: 'center',
-		fontSize: 20,
-	},
-});

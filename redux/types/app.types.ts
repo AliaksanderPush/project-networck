@@ -1,4 +1,4 @@
-import { IPost } from '../../user/User.props';
+import { IPost } from '../../types/types';
 
 export interface IAppState {
 	loading: boolean;

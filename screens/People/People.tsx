@@ -1,27 +1,45 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { CardPerson } from '../../components/CardPerson/CardPerson';
 import { useDispatch } from 'react-redux';
 import { fetchAllUsers } from '../../redux/acshions/acshions.user';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
+import { isFriends } from '../../helpers/helper';
+import { fetchFriends } from '../../redux/acshions/acshions.friends';
 
-export const People = () => {
+const People = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const { users, user } = useTypedSelector((state) => state.user);
-	const { loading } = useTypedSelector((state) => state.AppReducer);
+	const { friends } = useTypedSelector((state) => state.friends);
+	const { socket } = useTypedSelector((state) => state.SocketReducer);
 
 	useEffect(() => {
 		dispatch(fetchAllUsers());
-	}, [dispatch]);
+		if (socket) {
+			dispatch(fetchFriends(socket));
+		}
+	}, []);
+	if (!friends) {
+		console.log('not friends');
+		return <View></View>;
+	}
+	console.log('not friends', socket);
 	return (
 		<View style={{ flex: 1 }}>
-			{loading && <Text style={{ textAlign: 'center' }}>Loading...</Text>}
 			<FlatList
 				data={users}
 				renderItem={({ item }) => {
-					return <CardPerson info={item} isMe={user!} />;
+					return (
+						<CardPerson
+							isFriends={isFriends(item._id!, friends)}
+							info={item}
+							myId={user!._id}
+							socket={socket}
+						/>
+					);
 				}}
 			/>
 		</View>
 	);
 };
+export default React.memo(People);

@@ -5,7 +5,7 @@ import { IconBack } from '../UI/icons/IconBack';
 import { useNavigation } from '@react-navigation/core';
 import { colors } from '../../config/Colors';
 
-export const TopBackMenu = () => {
+export const TopBackMenu = (): JSX.Element => {
 	const navigation = useNavigation();
 
 	return (

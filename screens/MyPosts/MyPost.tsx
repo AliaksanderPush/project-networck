@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { CardPost } from '../../components/CardPost/CardPost';
 import { EditMenu } from '../../components/EditMenu/EditMenu';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
-import { IPost } from '../../user/User.props';
+import { IPost } from '../../types/types';
 import { MyPostProps } from './MyPost.props';
 
-export const MyPost = ({ route }: MyPostProps) => {
+export const MyPost = ({ route }: MyPostProps): JSX.Element => {
 	const { posts } = useTypedSelector((state) => state.posts);
 	const { id } = route.params;
 	const [myPost, setMyPost] = useState<IPost | null>(null);

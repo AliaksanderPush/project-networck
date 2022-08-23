@@ -6,7 +6,6 @@ import { Avatar } from '../Avatar/Avatar';
 import { ICardPost } from './CardPost.props';
 import { API_URL } from '../../service/auth-service';
 import { DeleteMenu } from '../DeleteMenu/DeleteMenu';
-import { styles } from './CardPost.styles';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FeedStackParams } from '../nav/RootScreensNav.props';
@@ -16,11 +15,14 @@ import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { formatDateTime } from '../../helpers/helper';
 import VideoPlayer from '../Video/VideoPlayer';
+import { styles } from './CardPost.styles';
 
 export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	const [show, setShow] = useState<boolean>(false);
+	const [countComm, setCountComm] = useState<number>(0);
 	const navigation = useNavigation<NativeStackNavigationProp<FeedStackParams>>();
 	const { user } = useTypedSelector((state) => state.user);
+	const { comments } = useTypedSelector((state) => state.comments);
 	const { countViews, like, unLike } = useActions();
 	const date = formatDateTime(post?.createdAt);
 	const isMe = id === post?.postedBy._id;
@@ -56,13 +58,20 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 	};
 
 	useEffect(() => {
+		const countComm = comments.filter((item) => {
+			return item.postId === post?._id;
+		});
+		setCountComm(countComm.length);
+	}, [comments]);
+
+	useEffect(() => {
 		setShow(hide);
 	}, []);
 
 	return (
 		<View style={styles.card_container}>
 			<View style={styles.card_header}>
-				<Avatar url={post?.postedBy?.avatar} size={70} />
+				<Avatar path={post?.postedBy?.avatar} size={70} border={true} />
 				<View>
 					<Text style={{ fontSize: 24, marginRight: isMe ? '50%' : '60%' }}>
 						{post?.postedBy.name}
@@ -125,9 +134,7 @@ export const CardPost = ({ post, id, hide }: ICardPost): JSX.Element => {
 					<Text style={{ color: 'blue' }}>More...</Text>
 				</Pressable>
 				<Pressable onPress={redirectToComments}>
-					<Text style={styles.card_footer_comment}>
-						Comments ({post?.comments.length})
-					</Text>
+					<Text style={styles.card_footer_comment}>Comments ({countComm})</Text>
 				</Pressable>
 			</View>
 		</View>

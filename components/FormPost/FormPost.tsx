@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 import { colors } from '../../config/Colors';
 import { Entypo } from '@expo/vector-icons';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { styles } from './FormPost.styles';
 import { IFormProps } from './FormPost.props';
 import { API_URL } from '../../service/auth-service';
 import { InfoInput } from '../UI/InfoInput/InfoInput';
+import { styles } from './FormPost.styles';
 
 export const FormPost = ({
 	image,
@@ -39,7 +39,7 @@ export const FormPost = ({
 						/>
 					) : (
 						<TouchableOpacity onPress={handleCreateFoto}>
-							<Entypo name='camera' size={60} color={colors.gray1} />
+							<Entypo name='camera' size={60} color={colors.black} />
 						</TouchableOpacity>
 					)}
 				</View>
