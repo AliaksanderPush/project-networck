@@ -198,18 +198,14 @@ export const Account = (): JSX.Element => {
 				</Text>
 				<View style={styles.container_btn}>
 					<View style={styles.btn}>
-						<PrimaryButton
-							buttonBg={colors.primary}
-							text={colors.secondary}
-							label={'Edit Account'}
-							setValue={() => setIsEdit(!isEdit)}
-						/>
+						<PrimaryButton label={'Edit Account'} setValue={() => setIsEdit(!isEdit)} />
 					</View>
 					<View style={styles.btn}>
 						<PrimaryButton
 							buttonBg={colors.green}
 							label='SAVE'
 							setValue={handlerUser}
+							loading={loading}
 						/>
 					</View>
 				</View>

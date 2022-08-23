@@ -39,6 +39,10 @@ export async function upDatepass(pass: string): Promise<AxiosResponse<IUserDTO>>
 	return await api.post<IUserDTO>(`/auth/update-password`, { pass: pass });
 }
 
+export async function fogotPassword(email: string) {
+	return await axios.post<string>(`${API_URL}/auth/fogot-password`, { email });
+}
+
 export async function upLoadFileImage(formData: FormDataProps): Promise<string> {
 	const { data } = await api.post(`/upload`, formData, {
 		headers: {

@@ -15,6 +15,7 @@ import { registration } from '../../service/service';
 import { PropsSingUp } from './SingUp.props';
 import { styles } from './SingUp.styles';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
+import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 
 export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 	const [checkedMale, setCheckedMale] = useState<boolean>(false);
@@ -179,11 +180,12 @@ export const SignUp = ({ navigation }: PropsSingUp): JSX.Element => {
 						/>
 					</View>
 					<View style={styles.btn_container}>
-						<TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn_btnnn}>
-							<Text style={{ color: 'white', fontSize: 20 }}>
-								{!loading ? 'Sing Up' : 'Please waite...'}
-							</Text>
-						</TouchableOpacity>
+						<PrimaryButton
+							label='Sing In'
+							size={10}
+							loading={loading}
+							setValue={handleSubmit(onSubmit)}
+						/>
 					</View>
 					<View>
 						<Text style={{ textAlign: 'center' }}>

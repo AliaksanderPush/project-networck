@@ -2,9 +2,9 @@ import 'react-native-gesture-handler';
 import { SignUp } from '../../screens/SingUp/SingUp';
 import { SignIn } from '../../screens/SingIn/SingIn';
 import { Chat } from '../../screens/Chat/Chat';
-import { Feed } from '../../screens/Feed/Feed';
-import { Likes } from '../../screens/Likes/Likes';
 import { Friends } from '../../screens/Friends/Friends';
+import { Likes } from '../../screens/Likes/Likes';
+import { MyPosts } from '../../screens/MyPosts/MyPosts';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,12 +19,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 import {
 	AcccountStackParams,
 	ButtomStackParams,
+	ChatRoomStackParams,
 	DrawerStackParams,
 	RootStackParams,
 } from './RootScreensNav.props';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { UpdatePassword } from '../../screens/UpdatePassword/UpdatePassword';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ChatRoom } from '../../screens/ChatRoom/ChatRoom';
+import { FogotPassword } from '../../screens/FogotPassword/FogotPassword';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -38,6 +41,7 @@ const ProfileScreenStack = () => {
 		>
 			<Stack.Screen name='SignIn' component={SignIn} />
 			<Stack.Screen name='SignUp' component={SignUp} />
+			<Stack.Screen name='FogotPassword' component={FogotPassword} />
 		</Stack.Navigator>
 	);
 };
@@ -55,6 +59,22 @@ const AcountScreenStack = () => {
 			<AccountStack.Screen name='Account' component={Account} />
 			<AccountStack.Screen name='UpdatePassword' component={UpdatePassword} />
 		</AccountStack.Navigator>
+	);
+};
+
+const ChatRoomStack = createNativeStackNavigator<ChatRoomStackParams>();
+
+const ChatRoomScreenStack = () => {
+	return (
+		<ChatRoomStack.Navigator
+			initialRouteName='Friends'
+			screenOptions={{
+				headerShown: false,
+			}}
+		>
+			<ChatRoomStack.Screen name='Friends' component={Friends} />
+			<ChatRoomStack.Screen name='ChatRoom' component={ChatRoom} />
+		</ChatRoomStack.Navigator>
 	);
 };
 
@@ -90,11 +110,12 @@ const TabScreenStack = () => {
 				}}
 			/>
 			<ButtomStack.Screen
-				name='Feed'
-				component={Feed}
+				name='ChatRoomScreenStack'
+				component={ChatRoomScreenStack}
 				options={{
+					title: 'Friends',
 					tabBarIcon: ({ color }) => (
-						<Octicons name='feed-heart' size={32} color={color} />
+						<FontAwesome5 name='user-friends' size={32} color={color} />
 					),
 					headerRight: () => <HeaderMenu />,
 				}}
@@ -134,8 +155,8 @@ const DrawerScreenStack = () => {
 				}}
 			/>
 			<Drawer.Screen
-				name='Friends'
-				component={Friends}
+				name='Posts'
+				component={MyPosts}
 				options={{
 					drawerIcon: ({ color }) => (
 						<FontAwesome5 name='user-friends' size={32} color={color} />

@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { IUserLogin } from '../../user/User.props';
+import { View, Text, Image, ScrollView } from 'react-native';
 import { UserInput } from '../../components/UI/TextInput/UserTextInput';
 import { useForm, Controller } from 'react-hook-form';
-import { emailValidate, passwordValidate } from '../../user/validate';
-import { useActions } from '../../redux/customReduxHooks/useAcshion';
-import { Props } from './SingIn.props';
-import { styles } from './SingIn.styles';
-import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
+import { emailValidate } from '../../user/validate';
+import { PropsFogotPassword } from './FogotPassword.props';
+import { styles } from './FogotPassword.styles';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
+import { IPropsEmail } from './FogotPassword.props';
+import { fogotPassword } from '../../service/service';
 
-export const SignIn = ({ navigation }: Props): JSX.Element => {
-	const { user, error, loading } = useTypedSelector((state) => state.user);
-	const { fetchUser } = useActions();
+export const FogotPassword = ({ navigation }: PropsFogotPassword): JSX.Element => {
+	const [loading, setLoading] = useState<boolean>(false);
+	const [password, setPassword] = useState<string>('');
 
 	const {
 		control,
@@ -21,12 +20,30 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 	} = useForm({
 		defaultValues: {
 			email: '',
-			password: '',
 		},
 	});
 
-	const onSubmit = (info: IUserLogin) => {
-		fetchUser(info);
+	const onSubmit = (info: IPropsEmail) => {
+		setLoading(true);
+		const { email } = info;
+		try {
+			const response = fogotPassword(email);
+			console.log('response>>>', response);
+			/*
+			if (data.error) {
+				alert(data.error);
+				
+			} else {
+				setLoading(false);
+				// setVisible(true);
+				console.log('RESET PASSWORD RES => ', data);
+				alert('Enter the password reset code we sent in your email');
+			}
+			*/
+		} catch (err: any) {
+			alert(err.response.data);
+			setLoading(false);
+		}
 	};
 
 	return (
@@ -34,7 +51,7 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 			<ScrollView>
 				<View style={styles.container}>
 					<Text style={{ textAlign: 'center', fontSize: 25, color: '#333' }}>
-						Sign In
+						Fogot Password
 					</Text>
 					<View style={styles.iconContainer}>
 						<Image
@@ -59,27 +76,18 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 						name='email'
 					/>
 
-					<Controller
-						control={control}
-						rules={passwordValidate}
-						render={({ field: { onChange, onBlur, value } }) => (
-							<UserInput
-								title={'PASSWORD'}
-								secureTextEntry={true}
-								setValue={onChange}
-								onBlur={onBlur}
-								value={value}
-								err={errors.password && true}
-							/>
-						)}
-						name='password'
+					<UserInput
+						title={'PASSWORD'}
+						secureTextEntry={true}
+						setValue={setPassword}
+						value={password}
 					/>
+
 					{errors.email && alert(errors.email.message as string)}
-					{errors.password && alert(errors.password.message as string)}
 
 					<View style={styles.btn_container}>
 						<PrimaryButton
-							label='Sing In'
+							label='Request reset code'
 							size={10}
 							loading={loading}
 							setValue={handleSubmit(onSubmit)}
@@ -87,19 +95,13 @@ export const SignIn = ({ navigation }: Props): JSX.Element => {
 					</View>
 					<View>
 						<Text style={{ textAlign: 'center' }}>
-							Already Joined?{' '}
+							Return{' '}
 							<Text
-								onPress={() => navigation.navigate('SignUp')}
+								onPress={() => navigation.navigate('SignIn')}
 								style={{ color: 'red' }}
 							>
-								Sign Up
+								Sign In
 							</Text>
-						</Text>
-						<Text
-							onPress={() => navigation.navigate('FogotPassword')}
-							style={{ textAlign: 'center', marginTop: 15, color: 'orange' }}
-						>
-							Fogot Password
 						</Text>
 					</View>
 				</View>

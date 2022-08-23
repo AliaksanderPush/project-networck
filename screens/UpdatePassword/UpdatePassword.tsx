@@ -46,9 +46,9 @@ export const UpdatePassword = ({ navigation }: PropsUdatePass): JSX.Element => {
 			/>
 			<View style={styles.pass_button}>
 				<PrimaryButton
-					buttonBg={colors.primary}
-					text={colors.white}
-					label={loading ? 'Please wait...' : 'Change password'}
+					label='Change Password'
+					size={10}
+					loading={loading}
 					setValue={handleSubmit}
 				/>
 			</View>

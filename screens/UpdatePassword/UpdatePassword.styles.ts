@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 	},
 	title_pass_input: {
+		width: '100%',
 		textAlign: 'center',
 		fontSize: 20,
 		color: 'blue',
@@ -13,10 +14,10 @@ export const styles = StyleSheet.create({
 	},
 
 	pass_button: {
-		height: 50,
+		width: '80%',
 		alignItems: 'center',
 		justifyContent: 'center',
-		marginHorizontal: 20,
+		marginHorizontal: '10%',
 		borderRadius: 10,
 	},
 });
