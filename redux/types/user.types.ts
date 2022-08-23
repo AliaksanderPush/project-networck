@@ -3,6 +3,7 @@ import { IUser, IUserDTO, IUserTokens } from '../../user/User.props';
 export interface IUserState {
 	user: IUser | null;
 	tokens: IUserTokens | null;
+	users: IUser[];
 }
 
 export enum UserActionTypes {
@@ -11,6 +12,9 @@ export enum UserActionTypes {
 	UPDATE_USER = 'UPDATE_USER',
 	UPDATE_PASSWORD = 'UPDATE_PASSWORD',
 	UPDATE_AVATAR = 'UPDATE_AVATAR',
+	GET_ALL_USERS = 'GET_ALL_USERS',
+	ADD_FRIENDS = 'ADD_FRIENDS',
+	DELETE_FRIEND = 'DELETE_FRIEND',
 }
 
 interface ILoadSuccessUserAction {
@@ -37,9 +41,28 @@ interface IUserUpdateAvatar {
 	img: string;
 }
 
+interface IGetAllUsers {
+	type: UserActionTypes.GET_ALL_USERS;
+	users: IUser[];
+}
+
+interface IAddFriend {
+	type: UserActionTypes.ADD_FRIENDS;
+	upUser: IUser;
+}
+
+interface IRemoveFriend {
+	type: UserActionTypes.DELETE_FRIEND;
+	remUser: string;
+	frModel: string;
+}
+
 export type UserAction =
 	| ILoadSuccessUserAction
 	| IUserSingOut
 	| IUserUpdate
 	| IUserUpdatePassword
-	| IUserUpdateAvatar;
+	| IUserUpdateAvatar
+	| IGetAllUsers
+	| IAddFriend
+	| IRemoveFriend;

@@ -1,34 +1,78 @@
-import React, { useEffect } from 'react';
-import { Text, View, StyleSheet, FlatList, SafeAreaView } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useEvent } from 'react-native-reanimated';
+import React, { SetStateAction, useEffect, useState } from 'react';
+import { View, FlatList, Text, Pressable } from 'react-native';
 import { CardPost } from '../../components/CardPost/CardPost';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
+import { MessageInput } from '../../components/MessageInput/MessageInput';
+import { IPost } from '../../user/User.props';
+import { useActions } from '../../redux/customReduxHooks/useAcshion';
+import { searchByTitle } from '../../helpers/helper';
 
-import { styles } from './Feed.styles';
-import { useDispatch } from 'react-redux';
-import { fetchPosts } from '../../redux/acshions/acshions.post';
-
-export const Feed = () => {
+const Feed = (): JSX.Element => {
 	const { posts } = useTypedSelector((state) => state.posts);
-	const dispatch = useDispatch();
-	const getHeader = () => {
-		return <Text>{'Feed'}</Text>;
+	const { user } = useTypedSelector((state) => state.user);
+	const [allPosts, setAllPosts] = useState<IPost[]>([]);
+	const [showAllPosts, setShowAllPosts] = useState<boolean>(false);
+	const [text, setText] = useState<string>('');
+
+	const { fetchPosts } = useActions();
+
+	const handleSearchPost = () => {
+		const searchPost = posts.filter((row) => searchByTitle(row.title, text as string));
+		if (!searchPost.length) {
+			alert('Not found');
+			return;
+		} else {
+			setAllPosts(searchPost);
+			setShowAllPosts(true);
+			setText('');
+		}
+	};
+
+	const handleShowPost = () => {
+		fetchPosts();
+		setShowAllPosts(false);
+		setText('');
 	};
 
 	useEffect(() => {
-		dispatch(fetchPosts());
-	}, [dispatch]);
+		if (posts) {
+			setAllPosts(posts);
+		}
+	}, [posts]);
 
 	return (
-		<View style={styles.friends_page}>
-			<FlatList
-				data={posts}
-				renderItem={({ item }) => {
-					return <CardPost post={item} />;
-				}}
-				ListHeaderComponent={getHeader}
-			/>
-		</View>
+		<>
+			<View>
+				<MessageInput
+					value={text}
+					onChange={setText}
+					handlePress={handleSearchPost}
+					chat={false}
+				/>
+			</View>
+			{showAllPosts && (
+				<Pressable onPress={handleShowPost}>
+					<Text style={{ textAlign: 'center', color: 'blue' }}>Show all posts</Text>
+				</Pressable>
+			)}
+			{!posts.length ? (
+				<View style={{ flex: 1 }}>
+					<Text style={{ textAlign: 'center', marginTop: '40%', fontSize: 22 }}>
+						No Found
+					</Text>
+				</View>
+			) : (
+				<View style={{ flex: 1 }}>
+					<FlatList
+						data={allPosts}
+						renderItem={({ item }) => {
+							return <CardPost post={item} id={user?._id} hide={true} />;
+						}}
+					/>
+				</View>
+			)}
+		</>
 	);
 };
+
+export default React.memo(Feed);

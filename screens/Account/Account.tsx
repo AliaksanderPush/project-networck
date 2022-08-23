@@ -5,19 +5,18 @@ import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { CircleLogo } from '../../components/UI/CircleLogo/CircleLogo';
 import { Entypo } from '@expo/vector-icons';
-import { FormDataProps } from './Account.props';
 import { colors } from '../../config/Colors';
 import { styles } from './Account.styles';
-import * as ImagePicker from 'expo-image-picker';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { AcccountStackParams } from '../../components/nav/RootScreensNav.props';
 import { API_URL } from '../../service/auth-service';
 import { SmallCardPost } from '../../components/SmallCardPost/SmallCardPost';
-import { createFoto } from '../../helpers/helper';
+import { createFormdata, createFoto } from '../../helpers/helper';
+import { EditMenu } from '../../components/EditMenu/EditMenu';
 
-export const Account = (): JSX.Element => {
+const Account = (): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
 	const { user } = useTypedSelector((state) => state.user);
 	const { posts } = useTypedSelector((state) => state.posts);
@@ -27,14 +26,7 @@ export const Account = (): JSX.Element => {
 	const handleCreateFoto = async () => {
 		const uri = await createFoto();
 		setImage(uri as string);
-
-		const formData: FormDataProps = new FormData();
-		formData.append('filedata', {
-			name: 'filedata',
-			uri: image,
-			type: 'image/jpg',
-		});
-
+		const formData = createFormdata(uri as string);
 		upDateAvatar(formData);
 	};
 
@@ -93,35 +85,32 @@ export const Account = (): JSX.Element => {
 							<Entypo name='camera' size={32} color='black' />
 						</TouchableOpacity>
 					) : null}
-
-					<TouchableOpacity
-						style={{ alignItems: 'center', marginTop: 20 }}
-						onPress={() => navigation.navigate('UpdateProfile')}
-					>
-						<FontAwesome name='edit' size={32} color='black' />
-					</TouchableOpacity>
+					<View style={{ alignItems: 'center', marginTop: 20 }}>
+						<EditMenu path='UpdateProfile' />
+					</View>
 				</View>
 				<View style={styles.info}>
 					<View>
+						<Text style={styles.info_count}>{user?.posts?.length}</Text>
 						<Text style={styles.info_text}>Posts</Text>
-						<Text style={styles.info_count}>23</Text>
 					</View>
 					<View>
+						<Text style={styles.info_count}>{user?.contacts?.length}</Text>
 						<Text style={styles.info_text}>Friends</Text>
-						<Text style={styles.info_count}>12</Text>
 					</View>
 					<View>
-						<Text style={styles.info_text}>Comments</Text>
-						<Text style={styles.info_count}>4</Text>
+						<Text style={styles.info_text}>City</Text>
+						<Text style={styles.info_count}>{user?.city}</Text>
 					</View>
 				</View>
 			</View>
 			<View style={styles.status}>
+				<Text style={styles.status_text_item}>My status</Text>
 				<Text style={styles.status_text}>Open to work</Text>
 			</View>
-			<Text style={styles.status_text_item}>My status</Text>
+
 			<View style={styles.post_container}>
-				{myPost?.map((item, index) => (
+				{myPost?.map((item) => (
 					<React.Fragment key={item.slug}>
 						<SmallCardPost img={item.featuredImage} cardId={item._id} />
 					</React.Fragment>
@@ -130,3 +119,5 @@ export const Account = (): JSX.Element => {
 		</KeyboardAwareScrollView>
 	);
 };
+
+export default React.memo(Account);

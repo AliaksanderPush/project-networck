@@ -10,6 +10,7 @@ import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { colors } from '../../config/Colors';
 import { TopBackMenu } from '../../components/TopBackMenu/TopBackMenu';
+import { IFriend } from '../../user/User.props';
 
 export const UpdateProfile = ({ navigation }: PropsUdatePass): JSX.Element => {
 	const [value, setValue] = useState<string>('');
@@ -20,6 +21,7 @@ export const UpdateProfile = ({ navigation }: PropsUdatePass): JSX.Element => {
 	const [age, setAge] = useState<string>('');
 	const [gender, setGender] = useState<string>('');
 	const [city, setCity] = useState<string>('');
+	const [contacts, setContacts] = useState<IFriend[] | string[]>([]);
 	const [status, setStatus] = useState<string>('I am working!');
 	const { user } = useTypedSelector((state) => state.user);
 	const { loading } = useTypedSelector((state) => state.AppReducer);
@@ -50,6 +52,8 @@ export const UpdateProfile = ({ navigation }: PropsUdatePass): JSX.Element => {
 			city,
 			avatar: '',
 			gender,
+			roles: [],
+			contacts,
 			password: user?.password,
 		};
 		updateUser(user?._id, newUser);
@@ -62,6 +66,7 @@ export const UpdateProfile = ({ navigation }: PropsUdatePass): JSX.Element => {
 			setAge(user.age + '');
 			setCity(user.city);
 			setGender(user.gender);
+			setContacts(user.contacts);
 		}
 	}, [user]);
 

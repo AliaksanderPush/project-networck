@@ -12,11 +12,10 @@ export const styles = StyleSheet.create({
 	card_header: {
 		flexDirection: 'row',
 		alignItems: 'center',
+		justifyContent: 'space-between',
+		marginRight: 10,
 	},
-	card_header_text: {
-		fontSize: 24,
-		marginLeft: 10,
-	},
+
 	card_footer: {
 		borderBottomWidth: 1,
 		borderColor: colors.gray1,
@@ -37,5 +36,10 @@ export const styles = StyleSheet.create({
 	},
 	footer_content: {
 		textAlign: 'justify',
+	},
+	card_options: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
 	},
 });

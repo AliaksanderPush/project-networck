@@ -30,8 +30,8 @@ export interface IUser {
 	name: string;
 	password: string | undefined;
 	avatar: string;
-	roles?: string[];
-	contacts?: IFriend[];
+	roles: string[];
+	contacts: string[];
 	created_at?: Date;
 	posts?: IPost[];
 }
@@ -51,8 +51,11 @@ export interface IPost {
 	title: string;
 	slug: string;
 	content: string;
+	comments: string[];
 	featuredImage: string;
 	published?: boolean;
+	likes: string[];
+	views: number;
 	postedBy: IUser;
 	createdAt: Date;
 	updatedAt: Date;
@@ -61,12 +64,13 @@ export interface IPost {
 export interface ICreatePost {
 	title: string;
 	content: string;
-	formData: FormDataProps;
+	image: FormDataProps | string;
 }
 export interface ICreatePostDTO {
 	title: string;
 	content: string;
 	featuredImage: string;
+	imgFormData?: boolean;
 }
 
 export interface IMedia {
@@ -77,17 +81,28 @@ export interface IMedia {
 }
 
 export interface IFriend {
-	userName: string;
+	dialog: IDialog;
 	userId: IUser;
 }
 
-export interface MulterProps {
-	fildname: string;
-	originalname: string;
-	encoding: string;
-	mimetype: string;
-	destination: string;
-	filename: string;
-	path: string;
-	size: number;
+export interface IDialog {
+	partner: IUser | string;
+	author: IUser | string;
+	messages: IMessage[];
+	lastMessage: IMessage | string;
+}
+
+export interface IMessage {
+	text: string;
+	dialog: IDialog | string;
+	read: boolean;
+}
+
+export interface IComment {
+	_id: string;
+	content: string;
+	postedBy: IUser;
+	postId: string;
+	createdAt: Date;
+	updatedAt: Date;
 }

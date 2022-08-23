@@ -1,7 +1,11 @@
 import * as ImagePicker from 'expo-image-picker';
 import { FormDataProps } from '../screens/Account/Account.props';
+import { IPost, IUser } from '../user/User.props';
 
-export function formatDateTime(currTime: Date): string {
+export function formatDateTime(currTime: Date | undefined): string | null {
+	if (!currTime) {
+		return null;
+	}
 	const dt = new Date(currTime);
 	return formatDate(dt);
 }
@@ -34,6 +38,31 @@ function str0l(val: number, len: number): string {
 	return strVal;
 }
 
+export function formatDateDay(currTime: Date): string {
+	const dt = new Date(currTime);
+	return formatDataDay(dt);
+}
+
+function formatDataDay(dt: Date): string {
+	const year = dt.getFullYear();
+	const month = dt.getMonth() + 1;
+	const day = dt.getDate();
+
+	return str0l(day, 2) + '.' + str0l(month, 2) + '.' + year;
+}
+
+export function formatDateHour(currTime: Date): string {
+	const dt = new Date(currTime);
+	return formatDataHour(dt);
+}
+
+function formatDataHour(dt: Date): string {
+	const hours = dt.getHours();
+	const minutes = dt.getMinutes();
+	const seconds = dt.getSeconds();
+	return str0l(hours, 2) + ':' + str0l(minutes, 2) + ':' + str0l(seconds, 2);
+}
+
 export async function createFoto(): Promise<ImagePicker.ImageInfo | void | string> {
 	const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 	if (permissionResult.granted === false) {
@@ -58,4 +87,26 @@ export function createFormdata(image: string): FormDataProps {
 		type: 'image/jpg',
 	});
 	return formData;
+}
+
+export const searchByTitle = (row: IPost['title'], searchWords: string): boolean => {
+	const titleArr = row.split(' ');
+	const serchWordArr = searchWords.split(' ');
+	return titleArr.some((item) => serchWordArr.includes(item));
+};
+
+export function arrayCommon(arr1: string[], arr2: string[]): string {
+	const result = arr1.filter((item) => arr2.includes(item));
+	return result[0];
+}
+
+export function removeFriendId(listUsers: string[], remUser: string): string[] {
+	const friend = listUsers.filter((item) => {
+		item !== remUser;
+	});
+	if (friend) {
+		return friend;
+	} else {
+		return [];
+	}
 }

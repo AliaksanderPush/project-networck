@@ -2,11 +2,13 @@ import { SetStateAction } from 'react';
 
 export interface IFormProps {
 	loading: boolean;
-	content: string | undefined;
-	title: string | undefined;
-	image: string | undefined;
-	setTitl: (text: SetStateAction<string | undefined>) => void;
-	setConten: (text: SetStateAction<string | undefined>) => void;
+	lable: 'Update Post' | 'Add Post';
+	content: string;
+	title: string;
+	image: string;
+	imgFormData: boolean;
+	setTitl: (text: SetStateAction<string>) => void;
+	setConten: (text: SetStateAction<string>) => void;
 	handleSubmit: () => void;
 	handleCreateFoto: () => void;
 }

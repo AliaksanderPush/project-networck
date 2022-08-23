@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Image } from 'react-native';
 import { colors } from '../../config/Colors';
 import { Entypo } from '@expo/vector-icons';
 import { PrimaryButton } from '../../components/UI/Button/PrimaryButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as ImagePicker from 'expo-image-picker';
-import { useActions } from '../../redux/customReduxHooks/useAcshion';
-import { FormDataProps } from '../../screens/Account/Account.props';
-import { createFoto } from '../../helpers/helper';
 import { styles } from './FormPost.styles';
-import { useNavigation } from '@react-navigation/core';
-import { AddPostProps } from '../../screens/AddPost/AddPost.props';
 import { IFormProps } from './FormPost.props';
+import { API_URL } from '../../service/auth-service';
+import { InfoInput } from '../UI/InfoInput/InfoInput';
 
 export const FormPost = ({
 	image,
@@ -19,16 +15,28 @@ export const FormPost = ({
 	setTitl,
 	setConten,
 	handleSubmit,
+	imgFormData,
 	title,
+	lable,
 	content,
 	loading,
 }: IFormProps): JSX.Element => {
+	const [img, setImg] = useState<string>();
+
+	useEffect(() => {
+		if (image) {
+			setImg(image);
+		}
+	}, [image]);
 	return (
 		<KeyboardAwareScrollView>
 			<View style={styles.container}>
 				<View style={styles.post_image}>
 					{image ? (
-						<Image style={{ width: 250, height: 250 }} source={{ uri: image }} />
+						<Image
+							style={{ width: 340, height: 340, borderRadius: 14 }}
+							source={{ uri: !imgFormData ? `${API_URL}/${img}` : img }}
+						/>
 					) : (
 						<TouchableOpacity onPress={handleCreateFoto}>
 							<Entypo name='camera' size={60} color={colors.gray1} />
@@ -41,23 +49,25 @@ export const FormPost = ({
 					</TouchableOpacity>
 				) : null}
 				<View style={styles.text_container}>
-					<Text style={{ marginLeft: '10%' }}>Title</Text>
-					<TextInput
-						style={styles.input_title}
-						onChangeText={(text) => setTitl(text)}
+					<InfoInput
+						position='center'
 						value={title}
+						setValue={setTitl}
+						size={40}
+						placehold='Title'
 					/>
-					<Text style={{ marginLeft: '10%' }}>Content</Text>
-					<TextInput
-						style={styles.input}
-						multiline={true}
-						numberOfLines={4}
-						onChangeText={(text) => setConten(text)}
+
+					<InfoInput
+						position='top'
 						value={content}
+						setValue={setConten}
+						size={150}
+						placehold='Content'
 					/>
+
 					<View style={styles.post_button}>
 						<PrimaryButton
-							label='Add Post'
+							label={lable}
 							size={10}
 							loading={loading}
 							setValue={handleSubmit}
