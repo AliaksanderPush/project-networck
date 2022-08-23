@@ -7,12 +7,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { useActions } from '../../redux/customReduxHooks/useAcshion';
 import { IUserTokens } from '../../user/User.props';
+import { fetchPosts } from '../../redux/acshions/acshions.post';
+import { useDispatch } from 'react-redux';
 
 export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 	const [auth, setAuth] = useState<string | null>('');
-	const { logOut, checkUser } = useActions();
-	const { user, error, loading } = useTypedSelector((state) => state.user);
-
+	const { checkUser } = useActions();
+	const dispatch = useDispatch();
+	const { tokens } = useTypedSelector((state) => state.user);
 	api.defaults.headers.common['Authorization'] = auth ? `Bearer ${auth}` : '';
 	api.interceptors.request.use(
 		(config) => {
@@ -49,6 +51,18 @@ export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
 		};
 		authControl();
 	}, []);
+
+	useEffect(() => {
+		if (!tokens) {
+			setAuth('');
+			console.log('it wokck!');
+		} else {
+			setAuth(tokens.refreshToken);
+		}
+	}, [tokens]);
+	useEffect(() => {
+		dispatch(fetchPosts());
+	}, [dispatch]);
 
 	return <SafeAreaProvider>{children}</SafeAreaProvider>;
 };

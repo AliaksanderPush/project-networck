@@ -21,7 +21,8 @@ export const UpdateProfile = ({ navigation }: PropsUdatePass): JSX.Element => {
 	const [gender, setGender] = useState<string>('');
 	const [city, setCity] = useState<string>('');
 	const [status, setStatus] = useState<string>('I am working!');
-	const { user, error, loading } = useTypedSelector((state) => state.user);
+	const { user } = useTypedSelector((state) => state.user);
+	const { loading } = useTypedSelector((state) => state.AppReducer);
 	const { updateUser } = useActions();
 
 	const handleSubmit = async () => {
@@ -47,6 +48,7 @@ export const UpdateProfile = ({ navigation }: PropsUdatePass): JSX.Element => {
 			email,
 			age: +age,
 			city,
+			avatar: '',
 			gender,
 			password: user?.password,
 		};

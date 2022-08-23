@@ -2,9 +2,9 @@ import 'react-native-gesture-handler';
 import { SignUp } from '../../screens/SingUp/SingUp';
 import { SignIn } from '../../screens/SingIn/SingIn';
 import { Chat } from '../../screens/Chat/Chat';
-import { Friends } from '../../screens/Friends/Friends';
+import { Feed } from '../../screens/Feed/Feed';
 import { Likes } from '../../screens/Likes/Likes';
-import { MyPosts } from '../../screens/MyPosts/MyPosts';
+import { MyPost } from '../../screens/MyPosts/MyPost';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -28,6 +28,9 @@ import { UpdateProfile } from '../../screens/UpdatePassword/UpdateProfile';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChatRoom } from '../../screens/ChatRoom/ChatRoom';
 import { FogotPassword } from '../../screens/FogotPassword/FogotPassword';
+import { AddPost } from '../../screens/AddPost/AddPost';
+import { People } from '../../screens/People/People';
+import { UpdatePost } from '../../screens/UpdatePost/UpdatePost';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -58,6 +61,8 @@ const AcountScreenStack = () => {
 		>
 			<AccountStack.Screen name='Account' component={Account} />
 			<AccountStack.Screen name='UpdateProfile' component={UpdateProfile} />
+			<AccountStack.Screen name='MyPost' component={MyPost} />
+			<AccountStack.Screen name='UpdatePost' component={UpdatePost} />
 		</AccountStack.Navigator>
 	);
 };
@@ -72,7 +77,7 @@ const ChatRoomScreenStack = () => {
 				headerShown: false,
 			}}
 		>
-			<ChatRoomStack.Screen name='Friends' component={Friends} />
+			<ChatRoomStack.Screen name='Friends' component={Feed} />
 			<ChatRoomStack.Screen name='ChatRoom' component={ChatRoom} />
 		</ChatRoomStack.Navigator>
 	);
@@ -102,20 +107,31 @@ const TabScreenStack = () => {
 				}}
 			/>
 			<ButtomStack.Screen
-				name='Chat'
-				component={Chat}
+				name='ChatRoomScreenStack'
+				component={ChatRoomScreenStack}
 				options={{
+					title: 'Chat',
 					tabBarIcon: ({ color }) => <AntDesign name='wechat' size={32} color={color} />,
 					headerRight: () => <HeaderMenu />,
 				}}
 			/>
 			<ButtomStack.Screen
-				name='ChatRoomScreenStack'
-				component={ChatRoomScreenStack}
+				name='Post'
+				component={AddPost}
 				options={{
-					title: 'Friends',
 					tabBarIcon: ({ color }) => (
-						<FontAwesome5 name='user-friends' size={32} color={color} />
+						<MaterialIcons name='add-circle' size={32} color={color} />
+					),
+					headerRight: () => <HeaderMenu />,
+				}}
+			/>
+			<ButtomStack.Screen
+				name='Feed'
+				component={Feed}
+				options={{
+					title: 'Feed',
+					tabBarIcon: ({ color }) => (
+						<Octicons name='feed-discussion' size={32} color={color} />
 					),
 					headerRight: () => <HeaderMenu />,
 				}}
@@ -155,8 +171,8 @@ const DrawerScreenStack = () => {
 				}}
 			/>
 			<Drawer.Screen
-				name='Posts'
-				component={MyPosts}
+				name='People'
+				component={People}
 				options={{
 					drawerIcon: ({ color }) => (
 						<FontAwesome5 name='user-friends' size={32} color={color} />

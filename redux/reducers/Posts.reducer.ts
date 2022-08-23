@@ -11,6 +11,13 @@ export const PostsReducer = (state = initialState, action: PostsAction): IPostSt
 				...state,
 				posts: action.payload,
 			};
+		case PostsActionTypes.CREATE_POST: {
+			const { myPost } = action;
+			return {
+				...state,
+				posts: [...state.posts, myPost],
+			};
+		}
 		default:
 			return state;
 	}

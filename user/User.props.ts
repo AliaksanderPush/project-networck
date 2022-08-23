@@ -1,3 +1,4 @@
+import { FormDataProps } from '../screens/Account/Account.props';
 export interface IUserRegistr {
 	name: string;
 	email: string;
@@ -28,7 +29,7 @@ export interface IUser {
 	gender: string;
 	name: string;
 	password: string | undefined;
-	avatar?: string | undefined;
+	avatar: string;
 	roles?: string[];
 	contacts?: IFriend[];
 	created_at?: Date;
@@ -46,14 +47,26 @@ export interface IUserDTO {
 }
 
 export interface IPost {
+	_id: string;
 	title: string;
 	slug: string;
 	content: string;
-	featuredImage?: IMedia;
+	featuredImage: string;
 	published?: boolean;
 	postedBy: IUser;
 	createdAt: Date;
 	updatedAt: Date;
+}
+
+export interface ICreatePost {
+	title: string;
+	content: string;
+	formData: FormDataProps;
+}
+export interface ICreatePostDTO {
+	title: string;
+	content: string;
+	featuredImage: string;
 }
 
 export interface IMedia {

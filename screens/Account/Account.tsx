@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useTypedSelector } from '../../redux/customReduxHooks/useTypedSelector';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -15,38 +15,40 @@ import { useNavigation } from '@react-navigation/native';
 import { AcccountStackParams } from '../../components/nav/RootScreensNav.props';
 import { API_URL } from '../../service/auth-service';
 import { SmallCardPost } from '../../components/SmallCardPost/SmallCardPost';
+import { createFoto } from '../../helpers/helper';
 
 export const Account = (): JSX.Element => {
 	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
-	const { user, error, loading } = useTypedSelector((state) => state.user);
+	const { user } = useTypedSelector((state) => state.user);
+	const { posts } = useTypedSelector((state) => state.posts);
 	const { upDateAvatar } = useActions();
 	const [image, setImage] = useState<string>('');
 
 	const handleCreateFoto = async () => {
-		const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-		if (permissionResult.granted === false) {
-			return alert('camera access is required');
-		}
-		const pickerResult = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.Images,
-			allowsEditing: true,
-			width: 100,
-		});
-		if (!!pickerResult.cancelled) {
-			return;
-		}
-
-		setImage(pickerResult.uri);
+		const uri = await createFoto();
+		setImage(uri as string);
 
 		const formData: FormDataProps = new FormData();
 		formData.append('filedata', {
 			name: 'filedata',
-			uri: pickerResult.uri,
+			uri: image,
 			type: 'image/jpg',
 		});
 
 		upDateAvatar(formData);
 	};
+
+	const filterPostById = () => {
+		return posts.filter((item) => item.postedBy._id === user?._id);
+	};
+
+	useEffect(() => {
+		if (posts) {
+			filterPostById();
+		}
+	}, [posts]);
+
+	const myPost = filterPostById();
 
 	return (
 		<KeyboardAwareScrollView>
@@ -100,15 +102,15 @@ export const Account = (): JSX.Element => {
 					</TouchableOpacity>
 				</View>
 				<View style={styles.info}>
-					<View style={styles.info_item}>
+					<View>
 						<Text style={styles.info_text}>Posts</Text>
 						<Text style={styles.info_count}>23</Text>
 					</View>
-					<View style={styles.info_item}>
+					<View>
 						<Text style={styles.info_text}>Friends</Text>
 						<Text style={styles.info_count}>12</Text>
 					</View>
-					<View style={styles.info_item}>
+					<View>
 						<Text style={styles.info_text}>Comments</Text>
 						<Text style={styles.info_count}>4</Text>
 					</View>
@@ -119,10 +121,11 @@ export const Account = (): JSX.Element => {
 			</View>
 			<Text style={styles.status_text_item}>My status</Text>
 			<View style={styles.post_container}>
-				<SmallCardPost />
-				<SmallCardPost />
-				<SmallCardPost />
-				<SmallCardPost />
+				{myPost?.map((item, index) => (
+					<React.Fragment key={item.slug}>
+						<SmallCardPost img={item.featuredImage} cardId={item._id} />
+					</React.Fragment>
+				))}
 			</View>
 		</KeyboardAwareScrollView>
 	);

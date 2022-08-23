@@ -22,6 +22,10 @@ export const styles = StyleSheet.create({
 		borderColor: colors.gray1,
 		paddingHorizontal: 10,
 	},
+	footer_title: {
+		fontWeight: 'bold',
+		fontSize: 18,
+	},
 	card_footer_comment: {
 		textAlign: 'center',
 		color: colors.grayDarck,

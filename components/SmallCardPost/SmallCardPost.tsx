@@ -1,20 +1,27 @@
 import React from 'react';
-import { View, Text, Image, Pressable, TouchableHighlight } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
+import { ISmallCard } from './SmallCardPosts.props';
+import { API_URL } from '../../service/auth-service';
 import { styles } from './SmallCardPost.styles';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AcccountStackParams } from '../nav/RootScreensNav.props';
 
-export const SmallCardPost = () => {
+export const SmallCardPost = ({ img, cardId }: ISmallCard): JSX.Element => {
+	const navigation = useNavigation<NativeStackNavigationProp<AcccountStackParams>>();
+
 	const handlePress = () => {
-		alert('press');
+		navigation.navigate('MyPost', { id: cardId });
 	};
 
 	return (
-		<TouchableHighlight onPress={handlePress}>
+		<TouchableOpacity onPress={handlePress}>
 			<Image
 				style={styles.image}
 				source={{
-					uri: 'https://cdn.pixabay.com/photo/2022/04/30/15/56/dandelion-7165893__340.jpg',
+					uri: `${API_URL}/${img}`,
 				}}
 			/>
-		</TouchableHighlight>
+		</TouchableOpacity>
 	);
 };
