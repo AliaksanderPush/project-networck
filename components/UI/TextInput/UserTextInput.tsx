@@ -13,14 +13,14 @@ export const UserInput: FC<ITextInput> = ({
 }: ITextInput) => {
 	return (
 		<View style={{ marginHorizontal: 20 }}>
-			<Text style={{ color: err ? 'red' : 'black' }}>{title}</Text>
+			<Text style={{ color: err ? 'red' : 'gray' }}>{title}</Text>
 			<TextInput
 				secureTextEntry={secureTextEntry}
 				keyboardType={keyboardType}
 				style={{
 					borderColor: err ? 'red' : '#8e93a1',
 					borderBottomWidth: 1,
-					height: 48,
+					height: 43,
 					borderBottomColor: '#8e93a1',
 					marginBottom: 30,
 				}}

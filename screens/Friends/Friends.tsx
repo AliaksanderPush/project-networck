@@ -1,18 +1,18 @@
 import React from 'react';
 import { Text, View, StyleSheet, FlatList, SafeAreaView } from 'react-native';
-import chatsRoomsData from '../../assets/damy-data/chatRoom';
-import { CardMessage } from '../../components/CardMessage/CardMessage';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useEvent } from 'react-native-reanimated';
+import { CardPost } from '../../components/CardPost/CardPost';
+
 import { styles } from './Friends.styles';
 
 export const Friends = () => {
 	return (
-		<>
+		<KeyboardAwareScrollView>
 			<View style={styles.friends_page}>
-				<FlatList
-					data={chatsRoomsData}
-					renderItem={({ item }) => <CardMessage chatRoom={item} />}
-				/>
+				<CardPost />
+				<CardPost />
 			</View>
-		</>
+		</KeyboardAwareScrollView>
 	);
 };
